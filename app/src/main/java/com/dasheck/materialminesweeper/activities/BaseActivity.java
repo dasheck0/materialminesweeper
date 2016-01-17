@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dasheck.materialminesweeper.Application;
 import com.dasheck.materialminesweeper.annotations.Layout;
+import com.dasheck.materialminesweeper.di.AcitivityModule;
+import com.dasheck.materialminesweeper.di.ActivityComponent;
+import com.dasheck.materialminesweeper.di.DaggerActivityComponent;
 
 import java.lang.annotation.Annotation;
 
@@ -16,11 +20,22 @@ import timber.log.Timber;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    private ActivityComponent activityComponent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
+
+        setupInjector();
+    }
+
+    private void setupInjector() {
+        activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(((Application) getApplication()).getApplicationComponent())
+                .acitivityModule(new AcitivityModule(this))
+                .build();
     }
 
     @Override
