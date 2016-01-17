@@ -35,6 +35,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
   @Override public void onResume() {
     super.onResume();
+    intializeViews();
     if (presenter != null) {
       presenter.onResume();
     }
