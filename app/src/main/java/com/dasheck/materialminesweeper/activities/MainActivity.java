@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
+import com.dasheck.model.models.Test;
 
 import butterknife.Bind;
 import timber.log.Timber;
@@ -22,6 +23,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
 
+        Test test = new Test(10);
+        Timber.d("Test: " + test.getId());
 
     }
 }
