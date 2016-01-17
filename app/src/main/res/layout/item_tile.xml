@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dasheck.materialminesweeper.views.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:id="@+id/rootLayout"
+    >
+</com.dasheck.materialminesweeper.views.SquareRelativeLayout>

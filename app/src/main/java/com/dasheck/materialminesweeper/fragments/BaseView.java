@@ -7,5 +7,5 @@ public interface BaseView {
 
     void setupToolbar();
 
-    void intializeViews();
+    void initializeViews();
 }

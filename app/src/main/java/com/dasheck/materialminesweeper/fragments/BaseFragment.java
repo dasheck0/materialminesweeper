@@ -8,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
-import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import java.lang.annotation.Annotation;
-import javax.inject.Inject;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -35,7 +33,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
   @Override public void onResume() {
     super.onResume();
-    intializeViews();
+    initializeViews();
     if (presenter != null) {
       presenter.onResume();
     }
