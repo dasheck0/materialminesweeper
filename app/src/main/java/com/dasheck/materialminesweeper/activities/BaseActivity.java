@@ -5,6 +5,7 @@ import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dasheck.materialminesweeper.Application;
+import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.di.AcitivityModule;
 import com.dasheck.materialminesweeper.di.ActivityComponent;
@@ -20,7 +21,7 @@ import timber.log.Timber;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private ActivityComponent activityComponent;
+    protected ActivityComponent activityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .applicationComponent(((Application) getApplication()).getApplicationComponent())
                 .acitivityModule(new AcitivityModule(this))
                 .build();
+    }
+
+    public ActivityComponent getActivityComponent() {
+        return activityComponent;
+    }
+
+    public int getFragmentContainerId() {
+        return R.id.fragmentContainer;
     }
 
     @Override

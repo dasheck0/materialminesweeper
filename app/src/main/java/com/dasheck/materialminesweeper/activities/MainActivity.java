@@ -12,19 +12,11 @@ import com.dasheck.model.models.Test;
 import butterknife.Bind;
 import timber.log.Timber;
 
-@Layout(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+@Layout(R.layout.activity_main) public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.textView)
-    TextView textView;
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        Test test = new Test(10);
-        Timber.d("Test: " + test.getId());
-
-    }
+    getActivityComponent().navigator().showTest();
+  }
 }
