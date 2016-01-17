@@ -8,6 +8,7 @@ import com.dasheck.materialminesweeper.annotations.Layout;
 
 import java.lang.annotation.Annotation;
 
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -19,6 +20,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     private int getLayoutResId() {
