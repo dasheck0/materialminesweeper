@@ -9,25 +9,25 @@ import java.util.Map;
  */
 public class Field {
 
-  private Map<Pair<Integer, Integer>, Tile> bombs;
+  private Map<Position, Tile> tiles;
   private int width;
   private int height;
 
   public Field() {
   }
 
-  public Field(int width, int height, Map<Pair<Integer, Integer>, Tile> bombs) {
+  public Field(int width, int height, Map<Position, Tile> tiles) {
     this.width = width;
     this.height = height;
-    this.bombs = bombs;
+    this.tiles = tiles;
   }
 
-  public Map<Pair<Integer, Integer>, Tile> getBombs() {
-    return bombs;
+  public Map<Position, Tile> getTiles() {
+    return tiles;
   }
 
-  public void setBombs(Map<Pair<Integer, Integer>, Tile> bombs) {
-    this.bombs = bombs;
+  public void setTiles(Map<Position, Tile> tiles) {
+    this.tiles = tiles;
   }
 
   public int getWidth() {
@@ -50,7 +50,7 @@ public class Field {
     return "Field{" +
         ", width=" + width +
         ", height=" + height +
-        "bombs=" + bombs +
+        "tiles=" + tiles +
         '}';
   }
 }

@@ -1,14 +1,9 @@
 package com.dasheck.materialminesweeper.di;
 
 import android.content.Context;
-
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
-
-import com.dasheck.model.transformators.TestTransformer;
-import javax.inject.Singleton;
-
 import dagger.Component;
 
 /**
@@ -25,5 +20,4 @@ public interface ActivityComponent {
 
   /* Transformer */
 
-  TestTransformer testTransformer();
 }

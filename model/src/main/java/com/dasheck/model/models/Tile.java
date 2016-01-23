@@ -5,35 +5,30 @@ package com.dasheck.model.models;
  */
 public class Tile {
 
-  private int x;
-  private int y;
+  private Position position;
+  private int numberOfAdjacentBombs;
   private boolean isBomb;
   private boolean isMarked;
+  private boolean isRevealed;
 
   public Tile() {
   }
 
-  public Tile(int x, int y, boolean isBomb, boolean isMarked) {
-    this.x = x;
-    this.y = y;
+  public Tile(Position position, int numberOfAdjacentBombs, boolean isBomb, boolean isMarked,
+      boolean isRevealed) {
+    this.position = position;
+    this.numberOfAdjacentBombs = numberOfAdjacentBombs;
     this.isBomb = isBomb;
     this.isMarked = isMarked;
+    this.isRevealed = isRevealed;
   }
 
-  public int getX() {
-    return x;
+  public Position getPosition() {
+    return position;
   }
 
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  public int getY() {
-    return y;
-  }
-
-  public void setY(int y) {
-    this.y = y;
+  public void setPosition(Position position) {
+    this.position = position;
   }
 
   public boolean isBomb() {
@@ -52,12 +47,29 @@ public class Tile {
     this.isMarked = isMarked;
   }
 
+  public int getNumberOfAdjacentBombs() {
+    return numberOfAdjacentBombs;
+  }
+
+  public void setNumberOfAdjacentBombs(int numberOfAdjacentBombs) {
+    this.numberOfAdjacentBombs = numberOfAdjacentBombs;
+  }
+
+  public boolean isRevealed() {
+    return isRevealed;
+  }
+
+  public void setIsRevealed(boolean isRevealed) {
+    this.isRevealed = isRevealed;
+  }
+
   @Override public String toString() {
     return "Tile{" +
-        "x=" + x +
-        ", y=" + y +
+        "position=" + position +
+        ", numberOfAdjacentBombs=" + numberOfAdjacentBombs +
         ", isBomb=" + isBomb +
         ", isMarked=" + isMarked +
+        ", isRevealed=" + isRevealed +
         '}';
   }
 }

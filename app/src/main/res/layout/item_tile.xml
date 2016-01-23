@@ -5,4 +5,12 @@
     android:layout_height="48dp"
     android:id="@+id/rootLayout"
     >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/numberTextView"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        />
 </com.dasheck.materialminesweeper.views.SquareRelativeLayout>

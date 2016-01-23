@@ -1,11 +1,10 @@
 package com.dasheck.materialminesweeper.activities;
 
-import com.dasheck.materialminesweeper.fragments.test.DaggerTestComponent;
-import com.dasheck.materialminesweeper.fragments.test.TestComponent;
-import com.dasheck.materialminesweeper.fragments.test.TestFragment;
-import com.dasheck.materialminesweeper.fragments.test.TestModule;
-import com.dasheck.materialminesweeper.fragments.test.TestPresenterImpl;
-import javax.inject.Inject;
+import com.dasheck.materialminesweeper.fragments.game.DaggerGameComponent;
+import com.dasheck.materialminesweeper.fragments.game.GameFragment;
+import com.dasheck.materialminesweeper.fragments.game.GameModule;
+import com.dasheck.materialminesweeper.fragments.game.GameComponent;
+import com.dasheck.materialminesweeper.fragments.game.GamePresenterImpl;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -19,12 +18,12 @@ public class Navigator {
   }
 
   public void showTest() {
-    TestFragment fragment = new TestFragment();
-    TestPresenterImpl presenter = new TestPresenterImpl();
+    GameFragment fragment = new GameFragment();
+    GamePresenterImpl presenter = new GamePresenterImpl();
 
-    TestComponent component = DaggerTestComponent.builder()
+    GameComponent component = DaggerGameComponent.builder()
         .activityComponent(baseActivity.getActivityComponent())
-        .testModule(new TestModule(fragment, presenter))
+        .gameModule(new GameModule(fragment, presenter))
         .build();
 
     component.inject(fragment);

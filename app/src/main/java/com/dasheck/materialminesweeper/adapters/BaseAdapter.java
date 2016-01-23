@@ -13,6 +13,8 @@ public abstract class BaseAdapter<T, V extends BaseViewHolder> extends RecyclerV
 
   protected Context context;
   private List<T> items;
+  protected OnItemClickedListener onItemClickedListener;
+  protected OnItemLongClickedListener onItemLongClickedListener;
 
   public BaseAdapter(Context context) {
     this.context = context;
@@ -42,7 +44,23 @@ public abstract class BaseAdapter<T, V extends BaseViewHolder> extends RecyclerV
     return items;
   }
 
+  public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+    this.onItemClickedListener = onItemClickedListener;
+  }
+
+  public void setOnItemLongClickedListener(OnItemLongClickedListener onItemLongClickedListener) {
+    this.onItemLongClickedListener = onItemLongClickedListener;
+  }
+
   @Override public int getItemCount() {
     return items.size();
+  }
+
+  public interface OnItemClickedListener {
+    void onItemClicked(int position);
+  }
+
+  public interface OnItemLongClickedListener {
+    void onItemLongClicked(int position);
   }
 }
