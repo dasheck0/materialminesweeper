@@ -16,20 +16,28 @@ import timber.log.Timber;
  */
 public class Utilities {
 
+  // TODO: 23/01/16 Not every effective. Refactor it
   public static Field createField(int width, int height, int numberOfBombs) {
     Field field = new Field(width, height, new HashMap<>());
 
     Map<Position, Tile> tiles = new HashMap<>();
 
+    List<Position> available = new ArrayList<>();
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        available.add(new Position(x, y));
+      }
+    }
+
     List<Position> bombs = new ArrayList<>();
 
-    while (bombs.size() < numberOfBombs) {
-      Position newPosition =
-          new Position(new Random().nextInt(width), new Random().nextInt(height));
+    for (int i = 0; i < numberOfBombs; i++) {
+      int index = new Random().nextInt(available.size());
+      Position position = available.get(index);
 
-      if (!bombs.contains(newPosition)) {
-        bombs.add(newPosition);
-      }
+      bombs.add(position);
+      available.remove(index);
     }
 
     for (int x = 0; x < width; x++) {
@@ -47,7 +55,7 @@ public class Utilities {
     return field;
   }
 
-  private static List<Position> getAdjacentTiles(int width, int height, Position position) {
+  public static List<Position> getAdjacentTiles(int width, int height, Position position) {
     List<Position> result = new ArrayList<>();
 
     for (int x = -1; x < 2; x++) {
