@@ -41,8 +41,6 @@ import timber.log.Timber;
   @Override public void setTiles(List<Tile> tiles) {
     adapter.clear();
     adapter.addAll(tiles);
-
-    Timber.d("Setting tiles");
   }
 
   @Override public void setDimension(int width, int height) {
@@ -50,7 +48,6 @@ import timber.log.Timber;
   }
 
   @Override public void onItemClicked(int position) {
-    Timber.d("Click");
     presenter.revealTile(adapter.get(position));
   }
 

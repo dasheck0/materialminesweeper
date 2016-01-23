@@ -36,6 +36,8 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
 
     if(item.isBomb()) {
       holder.rootLayout.setBackgroundColor(Color.RED);
+    } else {
+      holder.rootLayout.setBackground(context.getResources().getDrawable(R.drawable.tile_background));
     }
 
     //if item.isMarked -> marked
@@ -47,8 +49,6 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
     @Bind(R.id.numberTextView) TextView numberTextView;
 
     @OnClick(R.id.rootLayout) public void onRootLayoutClicked(View view) {
-      Timber.d("Click in layout");
-
       if (onItemClickedListener != null) {
         int position = (int) view.getTag();
         onItemClickedListener.onItemClicked(position);
