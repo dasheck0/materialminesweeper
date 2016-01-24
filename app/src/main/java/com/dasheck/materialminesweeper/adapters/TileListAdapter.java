@@ -10,6 +10,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.dasheck.materialminesweeper.R;
+import com.dasheck.materialminesweeper.utilities.Utilities;
 import com.dasheck.model.models.Tile;
 import timber.log.Timber;
 
@@ -31,16 +32,28 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
 
     holder.rootLayout.setTag(position);
     holder.rootLayout.setActivated(item.isRevealed()); //just for testing
-    holder.numberTextView.setVisibility(item.isRevealed() ? View.VISIBLE : View.GONE); // for testing
+    holder.numberTextView.setVisibility(
+        item.isRevealed() && item.getNumberOfAdjacentBombs() > 0 ? View.VISIBLE
+            : View.GONE); // for testing
     holder.numberTextView.setText(String.valueOf(item.getNumberOfAdjacentBombs()));
 
-    if(item.isBomb()) {
-      holder.rootLayout.setBackgroundColor(Color.RED);
+    if (item.isRevealed()) {
+      if (item.isBomb()) {
+        holder.rootLayout.setBackgroundColor(Color.RED);
+      } else {
+        holder.rootLayout.setBackground(
+            context.getResources().getDrawable(R.drawable.tile_background));
+      }
     } else {
-      holder.rootLayout.setBackground(context.getResources().getDrawable(R.drawable.tile_background));
+      if (item.isMarked()) {
+        holder.rootLayout.setBackground(Utilities.colorDrawable(context,
+            context.getResources().getDrawable(R.drawable.ic_flag_variant_grey600_24dp),
+            context.getResources().getColor(R.color.colorAccent)));
+      } else {
+        holder.rootLayout.setBackground(
+            context.getResources().getDrawable(R.drawable.tile_background));
+      }
     }
-
-    //if item.isMarked -> marked
   }
 
   public class ViewHolder extends BaseViewHolder {
@@ -49,6 +62,8 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
     @Bind(R.id.numberTextView) TextView numberTextView;
 
     @OnClick(R.id.rootLayout) public void onRootLayoutClicked(View view) {
+      Timber.d("Click");
+
       if (onItemClickedListener != null) {
         int position = (int) view.getTag();
         onItemClickedListener.onItemClicked(position);

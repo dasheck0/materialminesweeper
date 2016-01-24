@@ -8,4 +8,6 @@ import com.dasheck.model.models.Tile;
  */
 public interface GamePresenter extends BasePresenter {
   void revealTile(Tile tile);
+
+  void markTile(Tile tile);
 }

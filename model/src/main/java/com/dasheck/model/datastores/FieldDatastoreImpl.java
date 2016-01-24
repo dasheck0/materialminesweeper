@@ -33,7 +33,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
 
   @Override public Observable<Field> get() {
     if (field == null) {
-      throw new IllegalStateException("You cannot retrive a field without creating it");
+      throw new IllegalStateException("You cannot use a field without creating it");
     } else {
       return Observable.just(field);
     }
@@ -41,24 +41,34 @@ public class FieldDatastoreImpl implements FieldDatastore {
 
   @Override public Observable<Void> revealTile(Position position) {
     if (field == null) {
-      throw new IllegalStateException("You cannot retrieve a field without creating it");
+      throw new IllegalStateException("You cannot use a field without creating it");
     } else {
       return Observable.create(new Observable.OnSubscribe<Position>() {
         @Override public void call(Subscriber<? super Position> subscriber) {
           revealTileRecursive(position);
-/*          Tile tile = field.getTiles().get(position);
-          if (!tile.isRevealed()) {
-            field.getTiles().get(position).setIsRevealed(true);
-          }
 
-          if(tile.getNumberOfAdjacentBombs() == 0) {
-            List
-          }
-*/
           subscriber.onNext(position);
           subscriber.onCompleted();
         }
       }).map(x -> null);
+    }
+  }
+
+  @Override public Observable<Void> markTile(Position position) {
+    if (field == null) {
+      throw new IllegalStateException("You cannot use a field without creating it");
+    } else {
+      return Observable.create(new Observable.OnSubscribe<Void>() {
+        @Override public void call(Subscriber<? super Void> subscriber) {
+          Tile tile = field.getTiles().get(position);
+          if (!tile.isRevealed()) {
+            tile.setIsMarked(!tile.isMarked());
+          }
+
+          subscriber.onNext(null);
+          subscriber.onCompleted();
+        }
+      });
     }
   }
 
@@ -81,7 +91,17 @@ public class FieldDatastoreImpl implements FieldDatastore {
   }
 
   @Override public Observable<Boolean> isTileABomb(Position position) {
-    return null;
+    if(field == null) {
+      throw new IllegalStateException("You cannot use a field without creating it");
+    } else {
+      return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        @Override public void call(Subscriber<? super Boolean> subscriber) {
+          Tile tile = field.getTiles().get(position);
+          subscriber.onNext(tile.isBomb());
+          subscriber.onCompleted();
+        }
+      });
+    }
   }
 
   private int getNumberOfBombsForDiffculty(int difficulty, int size) {

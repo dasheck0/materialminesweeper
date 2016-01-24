@@ -12,4 +12,6 @@ public interface GameView extends BaseView {
   void setTiles(List<Tile> tiles);
 
   void setDimension(int width, int height);
+
+  void repositionGrid(int columns, int rows);
 }

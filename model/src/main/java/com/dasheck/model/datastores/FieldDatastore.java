@@ -23,6 +23,8 @@ public interface FieldDatastore {
 
   Observable<Void> revealTile(Position position);
 
+  Observable<Void> markTile(Position position);
+
   Observable<Boolean> isTileABomb(Position position);
 
 }

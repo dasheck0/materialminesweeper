@@ -18,7 +18,7 @@ public class CreateFieldInteractorImpl implements CreateFieldInteractor {
   }
 
   @Override public Observable<Pair<Integer, Integer>> execute() {
-    return fieldDatastore.create(20, 20, FieldDatastore.DIFFICULTY_EASY)
-        .map(field -> new Pair<Integer, Integer>(field.getWidth(), field.getHeight()));
+    return fieldDatastore.create(5, 5, FieldDatastore.DIFFICULTY_EASY)
+        .map(field -> new Pair<>(field.getWidth(), field.getHeight()));
   }
 }

@@ -7,6 +7,10 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInt
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractorImpl;
 import dagger.Module;
@@ -50,5 +54,15 @@ import dagger.Provides;
   @Provides @PerFragment RevealTileInteractor provideRevealTileInteractor(
       RevealTileInteractorImpl revealTileInteractorImpl) {
     return revealTileInteractorImpl;
+  }
+
+  @Provides @PerFragment MarkTileInteractor provideMarkTileInteractor(
+      MarkTileInteractorImpl markTileInteractorImpl) {
+    return markTileInteractorImpl;
+  }
+
+  @Provides @PerFragment IsTileABombInteractor provideIsTileABombInteractor(
+      IsTileABombInteractorImpl isTileABombInteractorImpl) {
+    return isTileABombInteractorImpl;
   }
 }

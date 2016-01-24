@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         android:id="@+id/numberTextView"
         android:gravity="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:text="1"
+        style="@style/TextAppearance.AppCompat.Title"
         />
 </com.dasheck.materialminesweeper.views.SquareRelativeLayout>
