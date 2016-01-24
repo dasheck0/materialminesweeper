@@ -8,5 +8,5 @@ import rx.Observable;
  */
 public interface CreateFieldInteractor {
 
-  Observable<Pair<Integer, Integer>> execute();
+  Observable<Pair<Integer, Integer>> execute(int columnCount, int rowCount, int difficulty);
 }

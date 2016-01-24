@@ -27,4 +27,6 @@ public interface FieldDatastore {
 
   Observable<Boolean> isTileABomb(Position position);
 
+  Observable<Integer> getNumberOfRemainingBombs();
+
 }

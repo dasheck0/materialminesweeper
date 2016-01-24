@@ -2,8 +2,11 @@ package com.dasheck.materialminesweeper.fragments.game;
 
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.Bind;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.BaseAdapter;
 import com.dasheck.materialminesweeper.adapters.TileListAdapter;
@@ -11,10 +14,11 @@ import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.layoutmanagers.FixedGridLayoutManager;
 import com.dasheck.materialminesweeper.utilities.Utilities;
+import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.Tile;
 import java.util.List;
 import javax.inject.Inject;
-import timber.log.Timber;
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -22,8 +26,9 @@ import timber.log.Timber;
 @Layout(R.layout.fragment_test) public class GameFragment extends BaseFragment
     implements GameView, BaseAdapter.OnItemClickedListener, BaseAdapter.OnItemLongClickedListener {
 
-  @Bind(R.id.tileMapContainer) LinearLayout tileMapContainer;
+  @Bind(R.id.tileMapContainer) View tileMapContainer;
   @Bind(R.id.tileMap) RecyclerView tileMap;
+  @Bind(R.id.bombTextView) TextView bombTextView;
 
   @Inject GamePresenter presenter;
   @Inject TileListAdapter adapter;
@@ -62,6 +67,8 @@ import timber.log.Timber;
     int top = (int) Utilities.convertDpToPixel(16, getContext());
     int bottom = (int) Utilities.convertDpToPixel(16, getContext());
 
+    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tileMap.getLayoutParams();
+
     if (width < displaySize.first - (left + right)) {
       int difference = (int) (displaySize.first - width);
       left = difference / 2;
@@ -74,10 +81,40 @@ import timber.log.Timber;
       bottom = difference / 2;
     }
 
-    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tileMap.getLayoutParams();
-
     params.setMargins(left, top, right, bottom);
     tileMap.setLayoutParams(params);
+  }
+
+  @Override public void showGameLostDialog() {
+    new MaterialDialog.Builder(getContext()).title("You lost")
+        .content("What a pity")
+        .positiveText("OK")
+        .onPositive((dialog, which) -> dialog.dismiss())
+        .show();
+  }
+
+  @Override public void startNewGame() {
+    new MaterialDialog.Builder(getContext()).title("New Game")
+        .customView(R.layout.dialog_new_game, true)
+        .positiveText("Start")
+        .negativeText("Cancel")
+        .onPositive((dialog, which) -> {
+          View root = dialog.getCustomView();
+
+          if (root != null) {
+            DiscreteSeekBar colSeekbar = (DiscreteSeekBar) root.findViewById(R.id.columnSeekbar);
+            DiscreteSeekBar rowSeekbar = (DiscreteSeekBar) root.findViewById(R.id.rowSeekbar);
+
+            presenter.startGame(colSeekbar.getProgress(), rowSeekbar.getProgress(),
+                FieldDatastore.DIFFICULTY_EASY);
+          }
+        })
+        .onNegative((dialog, which) -> dialog.dismiss())
+        .show();
+  }
+
+  @Override public void setNumberOfRemainingBombs(int remainingBombs) {
+    bombTextView.setText(String.valueOf(remainingBombs));
   }
 
   @Override public void onItemClicked(int position) {

@@ -5,6 +5,8 @@ import com.dasheck.materialminesweeper.adapters.TileListAdapter;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
@@ -64,5 +66,10 @@ import dagger.Provides;
   @Provides @PerFragment IsTileABombInteractor provideIsTileABombInteractor(
       IsTileABombInteractorImpl isTileABombInteractorImpl) {
     return isTileABombInteractorImpl;
+  }
+
+  @Provides @PerFragment GetRemainingBombsInteractor provideGetRemainingBombsInteractor(
+      GetRemainingBombsInteractorImpl getRemainingBombsInteractorImpl) {
+    return getRemainingBombsInteractorImpl;
   }
 }

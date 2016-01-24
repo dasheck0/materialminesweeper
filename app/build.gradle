@@ -39,4 +39,8 @@ dependencies {
   compile 'io.reactivex:rxandroid:1.1.0'
   compile 'io.reactivex:rxjava:1.1.0'
   compile 'com.android.support:recyclerview-v7:23.1.1'
+  compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+    transitive = true
+  }
+  compile 'org.adw.library:discrete-seekbar:1.0.0'
 }

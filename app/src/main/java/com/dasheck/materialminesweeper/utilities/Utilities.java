@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.util.Pair;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.dasheck.materialminesweeper.R;
 import timber.log.Timber;
@@ -21,6 +23,11 @@ public class Utilities {
     //lets see
     drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     return drawable;
+  }
+
+  public static Pair<Integer, Integer> getViewDimension(View view) {
+    ViewGroup.LayoutParams params = view.getLayoutParams();
+    return new Pair<>(params.width, params.height);
   }
 
   public static Pair<Integer, Integer> getWindowDimensions(Context context) {

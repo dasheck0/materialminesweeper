@@ -1,5 +1,6 @@
 package com.dasheck.model.datastores;
 
+import android.util.Pair;
 import com.dasheck.model.models.Field;
 import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
@@ -63,6 +64,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
           Tile tile = field.getTiles().get(position);
           if (!tile.isRevealed()) {
             tile.setIsMarked(!tile.isMarked());
+            Timber.d("Marking tile: " + tile.isMarked());
           }
 
           subscriber.onNext(null);
@@ -76,6 +78,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
     Tile tile = field.getTiles().get(position);
     if (!tile.isRevealed()) {
       tile.setIsRevealed(true);
+      tile.setIsMarked(false);
 
       if (tile.getNumberOfAdjacentBombs() == 0) {
         List<Position> neighbours =
@@ -91,7 +94,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
   }
 
   @Override public Observable<Boolean> isTileABomb(Position position) {
-    if(field == null) {
+    if (field == null) {
       throw new IllegalStateException("You cannot use a field without creating it");
     } else {
       return Observable.create(new Observable.OnSubscribe<Boolean>() {
@@ -101,6 +104,27 @@ public class FieldDatastoreImpl implements FieldDatastore {
           subscriber.onCompleted();
         }
       });
+    }
+  }
+
+  @Override public Observable<Integer> getNumberOfRemainingBombs() {
+    if (field == null) {
+      throw new IllegalStateException("You cannot use a field without creating it");
+    } else {
+      return Observable.just(field.getTiles().values())
+          .flatMap(Observable::from)
+          .map(tile -> new Pair<Integer, Integer>(tile.isBomb() ? 1 : 0, tile.isMarked() ? 1 : 0))
+          .toList()
+          .map(list -> {
+            int result = 0;
+
+            for (Pair<Integer, Integer> integerIntegerPair : list) {
+              result += integerIntegerPair.first;
+              result -= integerIntegerPair.second;
+            }
+
+            return result;
+          });
     }
   }
 

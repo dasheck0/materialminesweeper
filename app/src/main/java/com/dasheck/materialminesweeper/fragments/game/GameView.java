@@ -14,4 +14,10 @@ public interface GameView extends BaseView {
   void setDimension(int width, int height);
 
   void repositionGrid(int columns, int rows);
+
+  void showGameLostDialog();
+
+  void startNewGame();
+
+  void setNumberOfRemainingBombs(int remainingBombs);
 }

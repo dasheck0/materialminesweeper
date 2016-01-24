@@ -10,4 +10,6 @@ public interface GamePresenter extends BasePresenter {
   void revealTile(Tile tile);
 
   void markTile(Tile tile);
+
+  void startGame(int columnCount, int rowCount, int difficulty);
 }
