@@ -47,7 +47,7 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
     } else {
       if (item.isMarked()) {
         holder.rootLayout.setBackground(Utilities.colorDrawable(context,
-            context.getResources().getDrawable(R.drawable.ic_flag_variant_grey600_24dp),
+            context.getResources().getDrawable(R.drawable.ic_flag_variant_grey600_48dp),
             context.getResources().getColor(R.color.colorAccent)));
       } else {
         holder.rootLayout.setBackground(
