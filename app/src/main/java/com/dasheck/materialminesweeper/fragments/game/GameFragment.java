@@ -29,6 +29,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
   @Bind(R.id.tileMapContainer) View tileMapContainer;
   @Bind(R.id.tileMap) RecyclerView tileMap;
   @Bind(R.id.bombTextView) TextView bombTextView;
+  @Bind(R.id.timeTextView) TextView timeTextView;
 
   @Inject GamePresenter presenter;
   @Inject TileListAdapter adapter;
@@ -62,6 +63,9 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
     float height = rows * sizeOfTile;
     Pair<Integer, Integer> displaySize = Utilities.getWindowDimensions(getContext());
 
+    int screenWidth = displaySize.first;
+    int screenHeight = (int) (displaySize.second - Utilities.convertDpToPixel(48, getContext()));
+
     int left = (int) Utilities.convertDpToPixel(16, getContext());
     int right = (int) Utilities.convertDpToPixel(16, getContext());
     int top = (int) Utilities.convertDpToPixel(16, getContext());
@@ -69,14 +73,14 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tileMap.getLayoutParams();
 
-    if (width < displaySize.first - (left + right)) {
-      int difference = (int) (displaySize.first - width);
+    if (width < screenWidth - (left + right)) {
+      int difference = (int) (screenWidth - width);
       left = difference / 2;
       right = difference / 2;
     }
 
-    if (height < displaySize.second - (top + bottom)) {
-      int difference = (int) (displaySize.second - height);
+    if (height < screenHeight - (top + bottom)) {
+      int difference = (int) (screenHeight - height);
       top = difference / 2;
       bottom = difference / 2;
     }
@@ -115,6 +119,10 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
   @Override public void setNumberOfRemainingBombs(int remainingBombs) {
     bombTextView.setText(String.valueOf(remainingBombs));
+  }
+
+  @Override public void setElapsedTime(long elapsedTimeInSeconds) {
+    timeTextView.setText(String.format("%03d", elapsedTimeInSeconds));
   }
 
   @Override public void onItemClicked(int position) {

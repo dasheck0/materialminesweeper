@@ -5,6 +5,8 @@ import com.dasheck.materialminesweeper.adapters.TileListAdapter;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
@@ -15,6 +17,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileIntera
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -71,5 +75,15 @@ import dagger.Provides;
   @Provides @PerFragment GetRemainingBombsInteractor provideGetRemainingBombsInteractor(
       GetRemainingBombsInteractorImpl getRemainingBombsInteractorImpl) {
     return getRemainingBombsInteractorImpl;
+  }
+
+  @Provides @PerFragment GetElapsedTimeInteractor provideGetElapsedTimeInteractor(
+      GetElapsedTimeInteractorImpl getElapsedTimeInteractorImpl) {
+    return getElapsedTimeInteractorImpl;
+  }
+
+  @Provides @PerFragment StartGameTimeInteractor provideStartGameTimeInteractor(
+      StartGameTimeInteractorImpl startGameTimeInteractorImpl) {
+    return startGameTimeInteractorImpl;
   }
 }

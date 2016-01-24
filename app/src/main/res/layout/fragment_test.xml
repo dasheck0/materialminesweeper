@@ -39,6 +39,32 @@
             style="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:id="@+id/timeTextView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:id="@+id/textView5"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/timeTextView"
+            android:layout_toStartOf="@+id/timeTextView"
+            android:layout_marginRight="16dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
