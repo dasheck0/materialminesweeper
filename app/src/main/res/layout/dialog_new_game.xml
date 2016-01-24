@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Columns"
+      />
+
+  <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+      android:id="@+id/columnSeekbar"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:indeterminate="false"
+      app:dsb_indicatorColor="@color/colorAccent"
+      app:dsb_max="25"
+      app:dsb_min="5"
+      app:dsb_progressColor="@color/colorAccent"
+      app:dsb_value="10"
+      />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Rows"
+      />
+
+  <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+      android:id="@+id/rowSeekbar"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:indeterminate="false"
+      app:dsb_indicatorColor="@color/colorAccent"
+      app:dsb_max="25"
+      app:dsb_min="5"
+      app:dsb_progressColor="@color/colorAccent"
+      app:dsb_value="10"
+      />
+
+</LinearLayout>
