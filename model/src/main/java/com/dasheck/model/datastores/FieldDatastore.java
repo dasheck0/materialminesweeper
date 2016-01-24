@@ -1,6 +1,7 @@
 package com.dasheck.model.datastores;
 
 import com.dasheck.model.models.Field;
+import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.Position;
 import rx.Observable;
 
@@ -28,5 +29,7 @@ public interface FieldDatastore {
   Observable<Boolean> isTileABomb(Position position);
 
   Observable<Integer> getNumberOfRemainingBombs();
+
+  Observable<GameInformation> getGameInformation();
 
 }

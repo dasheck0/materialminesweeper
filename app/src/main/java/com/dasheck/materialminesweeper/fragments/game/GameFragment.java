@@ -15,6 +15,7 @@ import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.layoutmanagers.FixedGridLayoutManager;
 import com.dasheck.materialminesweeper.utilities.Utilities;
 import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.Tile;
 import java.util.List;
 import javax.inject.Inject;
@@ -89,12 +90,26 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
     tileMap.setLayoutParams(params);
   }
 
-  @Override public void showGameLostDialog() {
-    new MaterialDialog.Builder(getContext()).title("You lost")
-        .content("What a pity")
+  @Override public void showGameLostDialog(GameInformation gameInformation) {
+    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).title("You lost")
+        .customView(R.layout.dialog_game_lost, true)
         .positiveText("OK")
         .onPositive((dialog, which) -> dialog.dismiss())
-        .show();
+        .build();
+
+    View root = lostDialog.getCustomView();
+
+    if (root != null) {
+      TextView markedTilesTextView = (TextView) root.findViewById(R.id.markedTilesTextView);
+      TextView revealedTilesTextView = (TextView) root.findViewById(R.id.revealedTilesTextView);
+      TextView elapsedTimeTextView = (TextView) root.findViewById(R.id.elapsedTimeTextView);
+
+      markedTilesTextView.setText(String.valueOf(gameInformation.getMarkedTilesCount()));
+      revealedTilesTextView.setText(String.valueOf(gameInformation.getRevealedTilesCount()));
+      elapsedTimeTextView.setText(String.format("%d sec", gameInformation.getElapsedTime()));
+    }
+
+    lostDialog.show();
   }
 
   @Override public void startNewGame() {

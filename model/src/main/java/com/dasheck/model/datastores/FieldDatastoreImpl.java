@@ -1,7 +1,9 @@
 package com.dasheck.model.datastores;
 
 import android.util.Pair;
+import com.dasheck.model.controllers.GameTimeController;
 import com.dasheck.model.models.Field;
+import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
 import com.dasheck.model.utilities.Utilities;
@@ -17,6 +19,8 @@ import timber.log.Timber;
 public class FieldDatastoreImpl implements FieldDatastore {
 
   private Field field;
+
+  @Inject GameTimeController gameTimeController;
 
   @Inject public FieldDatastoreImpl() {
   }
@@ -124,6 +128,28 @@ public class FieldDatastoreImpl implements FieldDatastore {
             }
 
             return result;
+          });
+    }
+  }
+
+  @Override public Observable<GameInformation> getGameInformation() {
+    if (field == null) {
+      throw new IllegalStateException("You cannot use a filed without creating it");
+    } else {
+      return Observable.zip(Observable.just(field.getTiles().values())
+              .flatMap(Observable::from)
+              .map(tile -> new Pair<Integer, Integer>(tile.isMarked() ? 1 : 0,
+                  tile.isRevealed() ? 1 : 0))
+              .toList(), gameTimeController.getElapsed(), (list, elapsed) -> {
+            int marked = 0;
+            int revealed = 0;
+
+            for (Pair<Integer, Integer> integerIntegerPair : list) {
+              marked += integerIntegerPair.first;
+              revealed += integerIntegerPair.second;
+            }
+
+            return new GameInformation(marked, revealed, elapsed);
           });
     }
   }

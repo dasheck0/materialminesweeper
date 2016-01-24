@@ -7,6 +7,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInt
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetGameInformationInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetGameInformationInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
@@ -85,5 +87,10 @@ import dagger.Provides;
   @Provides @PerFragment StartGameTimeInteractor provideStartGameTimeInteractor(
       StartGameTimeInteractorImpl startGameTimeInteractorImpl) {
     return startGameTimeInteractorImpl;
+  }
+
+  @Provides @PerFragment GetGameInformationInteractor provideGetGameInformationInteractor(
+      GetGameInformationInteractorImpl getGameInformationInteractorImpl) {
+    return getGameInformationInteractorImpl;
   }
 }

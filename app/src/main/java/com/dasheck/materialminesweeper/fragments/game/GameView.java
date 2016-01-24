@@ -1,6 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.game;
 
 import com.dasheck.materialminesweeper.fragments.BaseView;
+import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.Tile;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface GameView extends BaseView {
 
   void repositionGrid(int columns, int rows);
 
-  void showGameLostDialog();
+  void showGameLostDialog(GameInformation gameInformation);
 
   void startNewGame();
 

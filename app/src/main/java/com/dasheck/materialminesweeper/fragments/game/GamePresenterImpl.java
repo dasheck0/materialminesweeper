@@ -3,6 +3,7 @@ package com.dasheck.materialminesweeper.fragments.game;
 import com.dasheck.materialminesweeper.fragments.BasePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.GetGameInformationInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
@@ -33,6 +34,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject GetRemainingBombsInteractor getRemainingBombsInteractor;
   @Inject GetElapsedTimeInteractor getElapsedTimeInteractor;
   @Inject StartGameTimeInteractor startGameTimeInteractor;
+  @Inject GetGameInformationInteractor getGameInformationInteractor;
 
   private Observable<Long> timer;
   private Subscriber<Long> timerSubscription;
@@ -65,10 +67,10 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void revealTile(Tile tile) {
-    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile),
-        (isTileABomb, second) -> {
+    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile), getGameInformationInteractor.execute(),
+        (isTileABomb, second, gameInformation) -> {
           if (isTileABomb) {
-            view.showGameLostDialog();
+            view.showGameLostDialog(gameInformation);
             timerSubscription.unsubscribe();
           }
           return tile;
