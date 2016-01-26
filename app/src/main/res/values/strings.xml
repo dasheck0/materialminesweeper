@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MaterialMinesweeper</string>
+    <string name="title_menu">Menu</string>
+    <string name="game_title">Gane</string>
 </resources>
