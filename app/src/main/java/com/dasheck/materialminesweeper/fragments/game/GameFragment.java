@@ -11,6 +11,7 @@ import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.BaseAdapter;
 import com.dasheck.materialminesweeper.adapters.TileListAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
+import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.layoutmanagers.FixedGridLayoutManager;
 import com.dasheck.materialminesweeper.utilities.Utilities;
@@ -24,7 +25,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 /**
  * Created by s.neidig on 17/01/16.
  */
-@Layout(R.layout.fragment_test) public class GameFragment extends BaseFragment
+@Layout(R.layout.fragment_test) @Title(R.string.game_title) public class GameFragment extends BaseFragment
     implements GameView, BaseAdapter.OnItemClickedListener, BaseAdapter.OnItemLongClickedListener {
 
   @Bind(R.id.tileMapContainer) View tileMapContainer;
@@ -124,8 +125,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
             DiscreteSeekBar colSeekbar = (DiscreteSeekBar) root.findViewById(R.id.columnSeekbar);
             DiscreteSeekBar rowSeekbar = (DiscreteSeekBar) root.findViewById(R.id.rowSeekbar);
 
-            presenter.startGame(colSeekbar.getProgress(), rowSeekbar.getProgress(),
-                FieldDatastore.DIFFICULTY_EASY);
+            presenter.startGame(colSeekbar.getProgress(), rowSeekbar.getProgress(), FieldDatastore.DIFFICULTY_EASY);
           }
         })
         .onNegative((dialog, which) -> dialog.dismiss())

@@ -10,6 +10,6 @@ import com.dasheck.materialminesweeper.annotations.Layout;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    getActivityComponent().navigator().showTest();
+    getActivityComponent().navigator().showMenu();
   }
 }
