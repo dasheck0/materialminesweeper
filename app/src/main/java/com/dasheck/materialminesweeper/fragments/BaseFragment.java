@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
+import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.annotations.Layout;
+import com.dasheck.materialminesweeper.annotations.Title;
 import java.lang.annotation.Annotation;
 
 /**
@@ -37,6 +40,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     if (presenter != null) {
       presenter.onResume();
     }
+
+    ActionBar toolbar = getBaseActivity().getSupportActionBar();
+    if(toolbar != null) {
+      toolbar.setTitle(getTitle());
+    }
   }
 
   @Override public void setupToolbar() {
@@ -56,5 +64,19 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     } else {
       throw new IllegalStateException("You must provide a layout via the @Layout annotation");
     }
+  }
+
+  private String getTitle() {
+    Annotation annotation = this.getClass().getAnnotation(Title.class);
+    if(annotation != null) {
+      int stringResId = ((Title) annotation).value();
+      return getContext().getString(stringResId);
+    }
+
+    return "";
+  }
+
+  private BaseActivity getBaseActivity() {
+    return (BaseActivity) getActivity();
   }
 }
