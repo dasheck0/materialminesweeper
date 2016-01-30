@@ -64,7 +64,7 @@
               android:layout_height="match_parent"
               >
               <TextView
-                  android:layout_width="56dp"
+                  android:layout_width="72dp"
                   android:layout_height="wrap_content"
                   android:text="Width"
                   android:id="@+id/textView12"
@@ -77,21 +77,39 @@
                   />
           </LinearLayout>
           <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              >
+              <TextView
+                  android:layout_width="72dp"
+                  android:layout_height="wrap_content"
+                  android:text="Height"
+                  android:id="@+id/textView11"
+                  />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="10"
+                  android:id="@+id/heightTextView"
+                  />
+          </LinearLayout>
+          <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
           <TextView
-              android:layout_width="56dp"
+              android:layout_width="72dp"
               android:layout_height="wrap_content"
-              android:text="Height"
+              android:text="Difficulty"
               android:id="@+id/textView9"
               />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
-                android:id="@+id/heightTextView"
+                android:text="Hard (45% Bombs)"
+                android:id="@+id/difficultyTextView"
                 />
         </LinearLayout>
       </LinearLayout>

@@ -28,8 +28,8 @@ public class FieldDatastoreImpl implements FieldDatastore {
   @Override public Observable<Field> create(int width, int height, int difficulty) {
     return Observable.create(new Observable.OnSubscribe<Field>() {
       @Override public void call(Subscriber<? super Field> subscriber) {
-        field = Utilities.createField(width, height,
-            getNumberOfBombsForDiffculty(difficulty, width * height));
+        field =
+            Utilities.createField(width, height, Utilities.getNumberOfBombsForDiffculty(difficulty, width * height));
         subscriber.onNext(field);
         subscriber.onCompleted();
       }
@@ -85,8 +85,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
       tile.setIsMarked(false);
 
       if (tile.getNumberOfAdjacentBombs() == 0) {
-        List<Position> neighbours =
-            Utilities.getAdjacentTiles(field.getWidth(), field.getHeight(), position);
+        List<Position> neighbours = Utilities.getAdjacentTiles(field.getWidth(), field.getHeight(), position);
         for (Position neighbour : neighbours) {
           Tile neighbourTile = field.getTiles().get(neighbour);
           if (!neighbourTile.isRevealed()) {
@@ -137,25 +136,19 @@ public class FieldDatastoreImpl implements FieldDatastore {
       throw new IllegalStateException("You cannot use a filed without creating it");
     } else {
       return Observable.zip(Observable.just(field.getTiles().values())
-              .flatMap(Observable::from)
-              .map(tile -> new Pair<Integer, Integer>(tile.isMarked() ? 1 : 0,
-                  tile.isRevealed() ? 1 : 0))
-              .toList(), gameTimeController.getElapsed(), (list, elapsed) -> {
-            int marked = 0;
-            int revealed = 0;
+          .flatMap(Observable::from)
+          .map(tile -> new Pair<Integer, Integer>(tile.isMarked() ? 1 : 0, tile.isRevealed() ? 1 : 0))
+          .toList(), gameTimeController.getElapsed(), (list, elapsed) -> {
+        int marked = 0;
+        int revealed = 0;
 
-            for (Pair<Integer, Integer> integerIntegerPair : list) {
-              marked += integerIntegerPair.first;
-              revealed += integerIntegerPair.second;
-            }
+        for (Pair<Integer, Integer> integerIntegerPair : list) {
+          marked += integerIntegerPair.first;
+          revealed += integerIntegerPair.second;
+        }
 
-            return new GameInformation(marked, revealed, elapsed);
-          });
+        return new GameInformation(marked, revealed, elapsed);
+      });
     }
-  }
-
-  private int getNumberOfBombsForDiffculty(int difficulty, int size) {
-    float percentage = (difficulty + 1) * 15.0f / 100.0f;
-    return (int) (percentage * size);
   }
 }

@@ -76,4 +76,5 @@ public class Utilities {
     DisplayMetrics metrics = resources.getDisplayMetrics();
     return px / (metrics.densityDpi / 160f);
   }
+
 }

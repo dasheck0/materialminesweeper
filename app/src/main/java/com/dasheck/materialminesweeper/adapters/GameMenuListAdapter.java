@@ -1,25 +1,19 @@
 package com.dasheck.materialminesweeper.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import com.dasheck.materialminesweeper.R;
-import com.dasheck.materialminesweeper.utilities.Utilities;
 import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameMode;
-import com.dasheck.model.models.Tile;
-import java.util.ArrayList;
+import com.dasheck.model.utilities.Utilities;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -77,6 +71,7 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         viewHolder.widthTextView.setText(String.valueOf(item.getWidth()));
         viewHolder.heightTextView.setText(String.valueOf(item.getHeight()));
+        viewHolder.difficultyTextView.setText(Utilities.getReadbaleNameFromDifficulty(item.getDifficulty()));
         viewHolder.startButton.setTag(position);
     }
   }
@@ -85,6 +80,7 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Bind(R.id.widthTextView) TextView widthTextView;
     @Bind(R.id.heightTextView) TextView heightTextView;
+    @Bind(R.id.difficultyTextView) TextView difficultyTextView;
     @Bind(R.id.startButton) Button startButton;
 
     @OnClick(R.id.startButton) public void onStartButtonClicked(View view) {

@@ -8,15 +8,13 @@ import java.util.List;
 public class GameMode {
 
   private String name;
-  private int mode;
   private List<Configuration> configurations;
 
   public GameMode() {
   }
 
-  public GameMode(String name, int mode, List<Configuration> configurations) {
+  public GameMode(String name, List<Configuration> configurations) {
     this.name = name;
-    this.mode = mode;
     this.configurations = configurations;
   }
 
@@ -26,14 +24,6 @@ public class GameMode {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public int getMode() {
-    return mode;
-  }
-
-  public void setMode(int mode) {
-    this.mode = mode;
   }
 
   public List<Configuration> getConfigurations() {
@@ -47,7 +37,6 @@ public class GameMode {
   @Override public String toString() {
     return "GameMode{" +
         "name='" + name + '\'' +
-        ", mode=" + mode +
         ", configurations=" + configurations +
         '}';
   }

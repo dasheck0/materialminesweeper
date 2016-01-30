@@ -65,7 +65,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
         }
       };
 
-      startGame(configuration.getWidth(), configuration.getHeight(), FieldDatastore.DIFFICULTY_EASY);
+      startGame(configuration.getWidth(), configuration.getHeight(), configuration.getDifficulty());
     }
   }
 
