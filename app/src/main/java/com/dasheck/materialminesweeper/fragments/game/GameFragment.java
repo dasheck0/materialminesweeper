@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.BaseAdapter;
 import com.dasheck.materialminesweeper.adapters.TileListAdapter;
@@ -92,10 +93,20 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
   }
 
   @Override public void showGameLostDialog(GameInformation gameInformation) {
-    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).title("You lost")
+    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).theme(Theme.LIGHT)
+        .title("You lost")
         .customView(R.layout.dialog_game_lost, true)
-        .positiveText("OK")
-        .onPositive((dialog, which) -> dialog.dismiss())
+        .positiveText("YES")
+        .negativeText("NO")
+        .cancelable(false)
+        .onPositive((dialog, which) -> {
+          presenter.restartGame();
+          dialog.dismiss();
+        })
+        .onNegative((dialog, which) -> {
+          presenter.showMenu();
+          dialog.dismiss();
+        })
         .build();
 
     View root = lostDialog.getCustomView();
@@ -111,25 +122,6 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
     }
 
     lostDialog.show();
-  }
-
-  @Override public void startNewGame() {
-    new MaterialDialog.Builder(getContext()).title("New Game")
-        .customView(R.layout.dialog_new_game, true)
-        .positiveText("Start")
-        .negativeText("Cancel")
-        .onPositive((dialog, which) -> {
-          View root = dialog.getCustomView();
-
-          if (root != null) {
-            DiscreteSeekBar colSeekbar = (DiscreteSeekBar) root.findViewById(R.id.columnSeekbar);
-            DiscreteSeekBar rowSeekbar = (DiscreteSeekBar) root.findViewById(R.id.rowSeekbar);
-
-            presenter.startGame(colSeekbar.getProgress(), rowSeekbar.getProgress(), FieldDatastore.DIFFICULTY_EASY);
-          }
-        })
-        .onNegative((dialog, which) -> dialog.dismiss())
-        .show();
   }
 
   @Override public void setNumberOfRemainingBombs(int remainingBombs) {

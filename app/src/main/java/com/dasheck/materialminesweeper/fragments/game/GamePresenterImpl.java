@@ -1,5 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game;
 
+import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.fragments.BasePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractor;
@@ -37,6 +38,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject GetElapsedTimeInteractor getElapsedTimeInteractor;
   @Inject StartGameTimeInteractor startGameTimeInteractor;
   @Inject GetGameInformationInteractor getGameInformationInteractor;
+  @Inject Navigator navigator;
 
   private Observable<Long> timer;
   private Subscriber<Long> timerSubscription;
@@ -101,6 +103,16 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
 
   @Override public void setConfiguration(Configuration configuration) {
     this.configuration = configuration;
+  }
+
+  @Override public void showMenu() {
+    navigator.showMenu();
+  }
+
+  @Override public void restartGame() {
+    if (configuration != null) {
+      startGame(configuration.getWidth(), configuration.getHeight(), configuration.getDifficulty());
+    }
   }
 
   private Observable<Void> updateGameInformation() {

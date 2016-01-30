@@ -35,7 +35,6 @@
             android:gravity="center_vertical|right"
             />
     </LinearLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -59,7 +58,6 @@
             android:gravity="center_vertical|right"
             />
     </LinearLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -83,5 +81,11 @@
             android:gravity="center_vertical|right"
             />
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you want to retry this level?"
+        android:id="@+id/textView13"
+        />
 
 </LinearLayout>

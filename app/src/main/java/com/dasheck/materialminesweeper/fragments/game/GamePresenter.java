@@ -15,4 +15,8 @@ public interface GamePresenter extends BasePresenter {
   void startGame(int columnCount, int rowCount, int difficulty);
 
   void setConfiguration(Configuration configuration);
+
+  void showMenu();
+
+  void restartGame();
 }
