@@ -43,4 +43,5 @@ dependencies {
     transitive = true
   }
   compile 'org.adw.library:discrete-seekbar:1.0.0'
+  compile 'com.android.support:cardview-v7:23.1.1'
 }

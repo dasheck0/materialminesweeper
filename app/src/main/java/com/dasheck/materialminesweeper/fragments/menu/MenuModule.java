@@ -1,5 +1,8 @@
 package com.dasheck.materialminesweeper.fragments.menu;
 
+import android.content.Context;
+import android.view.Menu;
+import com.dasheck.materialminesweeper.adapters.MenuPagerAdapter;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
 import dagger.Module;
 import dagger.Provides;
@@ -23,5 +26,9 @@ import dagger.Provides;
 
   @Provides @PerFragment MenuPresenter providePresenter() {
     return presenter;
+  }
+
+  @Provides @PerFragment MenuPagerAdapter<String> provideMenuPagerAdapter(Context context) {
+    return new MenuPagerAdapter<>(context);
   }
 }
