@@ -2,6 +2,7 @@ package com.dasheck.materialminesweeper.di;
 
 import android.content.Context;
 
+import android.support.v4.app.FragmentManager;
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
@@ -30,5 +31,9 @@ import dagger.Provides;
 
   @Provides @PerActivity Navigator provideNavigator() {
     return new Navigator(baseActivity);
+  }
+
+  @Provides @PerActivity FragmentManager provideSupportFragmentManager() {
+    return baseActivity.getSupportFragmentManager();
   }
 }

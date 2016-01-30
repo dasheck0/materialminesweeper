@@ -76,7 +76,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     return "";
   }
 
-  private BaseActivity getBaseActivity() {
+  protected BaseActivity getBaseActivity() {
     return (BaseActivity) getActivity();
   }
 }

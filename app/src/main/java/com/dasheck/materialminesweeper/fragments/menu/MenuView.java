@@ -1,6 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.menu;
 
 import com.dasheck.materialminesweeper.fragments.BaseView;
+import com.dasheck.model.models.GameMode;
 import java.util.List;
 
 /**
@@ -8,5 +9,5 @@ import java.util.List;
  */
 public interface MenuView extends BaseView {
 
-  void setGameModes(List<String> gameModes);
+  void setGameModes(List<GameMode> gameModes);
 }

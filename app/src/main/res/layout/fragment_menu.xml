@@ -6,28 +6,26 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.github.florent37.materialviewpager.MaterialViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        android:id="@+id/bottomContainer"
-        >
-
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/viewPager"
-            android:layout_above="@+id/indicator"
-            />
-
-    </RelativeLayout>
+        android:id="@+id/viewPager"
+        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
+        app:viewpager_logo="@layout/layout_logo"
+        app:viewpager_logoMarginTop="100dp"
+        app:viewpager_color="@color/colorPrimary"
+        app:viewpager_header="@layout/layout_header"
+        app:viewpager_headerHeight="200dp"
+        app:viewpager_headerAlpha="1.0"
+        app:viewpager_imageHeaderDarkLayerAlpha="0.2"
+        app:viewpager_hideLogoWithFade="false"
+        app:viewpager_hideToolbarAndTitle="true"
+        app:viewpager_enableToolbarElevation="true"
+        app:viewpager_parallaxHeaderFactor="1.5"
+        app:viewpager_headerAdditionalHeight="20dp"
+        app:viewpager_displayToolbarWhenSwipe="true"
+        app:viewpager_transparentToolbar="true"
+        app:viewpager_animatedHeaderImage="true"
+        />
 
 </LinearLayout>

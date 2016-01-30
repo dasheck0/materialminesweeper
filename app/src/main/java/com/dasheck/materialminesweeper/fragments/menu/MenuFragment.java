@@ -1,12 +1,16 @@
 package com.dasheck.materialminesweeper.fragments.menu;
 
-import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import butterknife.Bind;
+import butterknife.BindColor;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.MenuPagerAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
-import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
+import com.dasheck.model.models.GameMode;
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.header.HeaderDesign;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -14,23 +18,44 @@ import timber.log.Timber;
 /**
  * @author Stefan Neidig
  */
-@Layout(R.layout.fragment_menu) @Title(R.string.title_menu) public class MenuFragment extends BaseFragment
-    implements MenuView {
+@Layout(R.layout.fragment_menu) public class MenuFragment extends BaseFragment implements MenuView {
 
-  @Bind(R.id.viewPager) ViewPager viewPager;
+  @Bind(R.id.viewPager) MaterialViewPager viewPager;
+
+  @BindColor(R.color.colorPrimary) int colorPrimary;
 
   @Inject MenuPresenter presenter;
-  @Inject MenuPagerAdapter<String> menuPagerAdapter;
+
+  private MenuPagerAdapter<GameMode> menuPagerAdapter;
 
   @Override public void initializeViews() {
     setPresenter(presenter);
 
-    viewPager.setAdapter(menuPagerAdapter);
+    Toolbar toolbar = viewPager.getToolbar();
+    if (toolbar != null && getBaseActivity().getSupportActionBar() == null) {
+      getBaseActivity().setSupportActionBar(toolbar);
+
+      ActionBar actionBar = getBaseActivity().getSupportActionBar();
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setDisplayShowHomeEnabled(true);
+      actionBar.setDisplayShowTitleEnabled(true);
+      actionBar.setDisplayUseLogoEnabled(true);
+      actionBar.setHomeButtonEnabled(true);
+    }
+
+    //viewPager.getViewPager().setAdapter(menuPagerAdapter);
+    //viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
   }
 
-  @Override public void setGameModes(List<String> gameModes) {
-    Timber.d("Setting game modes" + gameModes);
-    menuPagerAdapter.clear();
-    menuPagerAdapter.addAll(gameModes);
+  @Override public void setGameModes(List<GameMode> gameModes) {
+    Timber.d("gameModesL :" + gameModes);
+    menuPagerAdapter =
+        new MenuPagerAdapter<GameMode>(getBaseActivity().getSupportFragmentManager(), getBaseActivity().getNavigator(),
+            gameModes);
+
+    Timber.d("Adding all gamemodes: " + gameModes);
+
+    viewPager.getViewPager().setAdapter(menuPagerAdapter);
+    viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
   }
 }

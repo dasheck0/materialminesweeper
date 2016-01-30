@@ -47,6 +47,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return R.id.fragmentContainer;
     }
 
+    public Navigator getNavigator() {
+        return activityComponent.navigator();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
