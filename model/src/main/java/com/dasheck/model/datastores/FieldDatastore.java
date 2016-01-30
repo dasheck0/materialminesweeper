@@ -32,4 +32,5 @@ public interface FieldDatastore {
 
   Observable<GameInformation> getGameInformation();
 
+  Observable<Boolean> isGameWon();
 }

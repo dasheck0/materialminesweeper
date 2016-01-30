@@ -21,4 +21,6 @@ public interface GameView extends BaseView {
   void setNumberOfRemainingBombs(int remainingBombs);
 
   void setElapsedTime(long elapsedTimeInSeconds);
+
+  void showGameWonDialog();
 }

@@ -8,6 +8,7 @@ import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
 import com.dasheck.model.utilities.Utilities;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
@@ -60,22 +61,14 @@ public class FieldDatastoreImpl implements FieldDatastore {
   }
 
   @Override public Observable<Void> markTile(Position position) {
-    if (field == null) {
-      throw new IllegalStateException("You cannot use a field without creating it");
-    } else {
-      return Observable.create(new Observable.OnSubscribe<Void>() {
-        @Override public void call(Subscriber<? super Void> subscriber) {
-          Tile tile = field.getTiles().get(position);
-          if (!tile.isRevealed()) {
-            tile.setIsMarked(!tile.isMarked());
-            Timber.d("Marking tile: " + tile.isMarked());
-          }
+    return get().map(field -> {
+      Tile tile = field.getTiles().get(position);
+      if (!tile.isRevealed()) {
+        tile.setIsMarked(!tile.isMarked());
+      }
 
-          subscriber.onNext(null);
-          subscriber.onCompleted();
-        }
-      });
-    }
+      return null;
+    });
   }
 
   private void revealTileRecursive(Position position) {
@@ -97,41 +90,29 @@ public class FieldDatastoreImpl implements FieldDatastore {
   }
 
   @Override public Observable<Boolean> isTileABomb(Position position) {
-    if (field == null) {
-      throw new IllegalStateException("You cannot use a field without creating it");
-    } else {
-      return Observable.create(new Observable.OnSubscribe<Boolean>() {
-        @Override public void call(Subscriber<? super Boolean> subscriber) {
-          Tile tile = field.getTiles().get(position);
-          subscriber.onNext(tile.isBomb());
-          subscriber.onCompleted();
-        }
-      });
-    }
+    return get().map(Field::getTiles).map(tiles -> tiles.get(position)).map(Tile::isBomb);
   }
 
   @Override public Observable<Integer> getNumberOfRemainingBombs() {
-    if (field == null) {
-      throw new IllegalStateException("You cannot use a field without creating it");
-    } else {
-      return Observable.just(field.getTiles().values())
-          .flatMap(Observable::from)
-          .map(tile -> new Pair<Integer, Integer>(tile.isBomb() ? 1 : 0, tile.isMarked() ? 1 : 0))
-          .toList()
-          .map(list -> {
-            int result = 0;
+    return get().map(Field::getTiles)
+        .map(Map::values)
+        .flatMap(Observable::from)
+        .map(tile -> new Pair<Integer, Integer>(tile.isBomb() ? 1 : 0, tile.isMarked() ? 1 : 0))
+        .toList()
+        .map(list -> {
+          int result = 0;
 
-            for (Pair<Integer, Integer> integerIntegerPair : list) {
-              result += integerIntegerPair.first;
-              result -= integerIntegerPair.second;
-            }
+          for (Pair<Integer, Integer> integerIntegerPair : list) {
+            result += integerIntegerPair.first;
+            result -= integerIntegerPair.second;
+          }
 
-            return result;
-          });
-    }
+          return result;
+        });
   }
 
   @Override public Observable<GameInformation> getGameInformation() {
+
     if (field == null) {
       throw new IllegalStateException("You cannot use a filed without creating it");
     } else {
@@ -150,5 +131,15 @@ public class FieldDatastoreImpl implements FieldDatastore {
         return new GameInformation(marked, revealed, elapsed);
       });
     }
+  }
+
+  @Override public Observable<Boolean> isGameWon() {
+    return get().map(Field::getTiles)
+        .map(Map::values)
+        .flatMap(Observable::from)
+        .filter(tile -> tile.isRevealed() || tile.isBomb())
+        .toList()
+        .doOnNext(list -> Timber.d("Size: " + list.size()))
+        .map(list -> list.size() == field.getTiles().values().size());
   }
 }

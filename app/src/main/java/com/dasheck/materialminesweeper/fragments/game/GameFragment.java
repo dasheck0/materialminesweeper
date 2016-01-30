@@ -132,6 +132,24 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
     timeTextView.setText(String.format("%03d", elapsedTimeInSeconds));
   }
 
+  @Override public void showGameWonDialog() {
+    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).theme(Theme.LIGHT)
+        .title("You won")
+        .content("Do you want to play again")
+        .positiveText("YES")
+        .negativeText("NO")
+        .cancelable(false)
+        .onPositive((dialog, which) -> {
+          presenter.restartGame();
+          dialog.dismiss();
+        })
+        .onNegative((dialog, which) -> {
+          presenter.showMenu();
+          dialog.dismiss();
+        })
+        .show();
+  }
+
   @Override public void onItemClicked(int position) {
     presenter.revealTile(adapter.get(position));
   }

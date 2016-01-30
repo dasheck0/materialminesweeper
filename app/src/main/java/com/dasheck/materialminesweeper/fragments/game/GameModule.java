@@ -13,6 +13,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBo
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
@@ -64,8 +66,7 @@ import dagger.Provides;
     return revealTileInteractorImpl;
   }
 
-  @Provides @PerFragment MarkTileInteractor provideMarkTileInteractor(
-      MarkTileInteractorImpl markTileInteractorImpl) {
+  @Provides @PerFragment MarkTileInteractor provideMarkTileInteractor(MarkTileInteractorImpl markTileInteractorImpl) {
     return markTileInteractorImpl;
   }
 
@@ -92,5 +93,10 @@ import dagger.Provides;
   @Provides @PerFragment GetGameInformationInteractor provideGetGameInformationInteractor(
       GetGameInformationInteractorImpl getGameInformationInteractorImpl) {
     return getGameInformationInteractorImpl;
+  }
+
+  @Provides @PerFragment
+  public IsGameWonInteractor provideIsGameWonInteractor(IsGameWonInteractorImpl isGameWonInteractorImpl) {
+    return isGameWonInteractorImpl;
   }
 }
