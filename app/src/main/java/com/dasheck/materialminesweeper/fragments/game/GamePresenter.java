@@ -1,6 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.game;
 
 import com.dasheck.materialminesweeper.fragments.BasePresenter;
+import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.Tile;
 
 /**
@@ -12,4 +13,6 @@ public interface GamePresenter extends BasePresenter {
   void markTile(Tile tile);
 
   void startGame(int columnCount, int rowCount, int difficulty);
+
+  void setConfiguration(Configuration configuration);
 }

@@ -7,6 +7,7 @@ import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.GameMenuListAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
+import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameMode;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -20,7 +21,7 @@ import timber.log.Timber;
  * @author Stefan Neidig
  */
 @Layout(R.layout.fragment_gamemenu_item) public class GameMenuItemFragment extends BaseFragment
-    implements GameMenuItemView {
+    implements GameMenuItemView, GameMenuListAdapter.OnGameMenuItemClickListener {
 
   @Bind(R.id.gameMenuItemList) RecyclerView gameMenuItemList;
 
@@ -36,13 +37,16 @@ import timber.log.Timber;
   }
 
   @Override public void setGameMode(GameMode gameMode) {
-    gameMenuListAdapter =
-        new RecyclerViewMaterialAdapter(new GameMenuListAdapter(getContext(), Arrays.asList(gameMode)));
+    gameMenuListAdapter = new RecyclerViewMaterialAdapter(new GameMenuListAdapter(getContext(), gameMode, this));
 
     gameMenuItemList.setAdapter(gameMenuListAdapter);
     gameMenuItemList.setHasFixedSize(true);
     gameMenuItemList.setLayoutManager(new LinearLayoutManager(getContext()));
 
     MaterialViewPagerHelper.registerRecyclerView(getActivity(), gameMenuItemList, null);
+  }
+
+  @Override public void onConfigurationStartClicked(int position) {
+    presenter.startGame(position);
   }
 }

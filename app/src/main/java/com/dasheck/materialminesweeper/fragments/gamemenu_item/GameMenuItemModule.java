@@ -28,7 +28,7 @@ import dagger.Provides;
     return presenter;
   }
 
-  @Provides @PerFragment public RecyclerViewMaterialAdapter provideGameMenuListAdapter(Context context) {
+  /*@Provides @PerFragment public RecyclerViewMaterialAdapter provideGameMenuListAdapter(Context context) {
     return new RecyclerViewMaterialAdapter(new GameMenuListAdapter(context));
-  }
+  }*/
 }

@@ -10,6 +10,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInt
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
+import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.Tile;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
@@ -39,27 +41,32 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   private Observable<Long> timer;
   private Subscriber<Long> timerSubscription;
 
+  private Configuration configuration;
+
   @Override public void onResume() {
     super.onResume();
 
-    view.startNewGame();
-    timer = Observable.interval(1, TimeUnit.SECONDS)
-        .flatMap(x -> getElapsedTimeInteractor.execute())
-        .observeOn(AndroidSchedulers.mainThread());
+    if (configuration != null) {
+      timer = Observable.interval(1, TimeUnit.SECONDS)
+          .flatMap(x -> getElapsedTimeInteractor.execute())
+          .observeOn(AndroidSchedulers.mainThread());
 
-    timerSubscription = new Subscriber<Long>() {
-      @Override public void onCompleted() {
+      timerSubscription = new Subscriber<Long>() {
+        @Override public void onCompleted() {
 
-      }
+        }
 
-      @Override public void onError(Throwable e) {
+        @Override public void onError(Throwable e) {
 
-      }
+        }
 
-      @Override public void onNext(Long aLong) {
-        view.setElapsedTime(aLong);
-      }
-    };
+        @Override public void onNext(Long aLong) {
+          view.setElapsedTime(aLong);
+        }
+      };
+
+      startGame(configuration.getWidth(), configuration.getHeight(), FieldDatastore.DIFFICULTY_EASY);
+    }
   }
 
   @Override public void onStop() {
@@ -67,8 +74,8 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void revealTile(Tile tile) {
-    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile), getGameInformationInteractor.execute(),
-        (isTileABomb, second, gameInformation) -> {
+    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile),
+        getGameInformationInteractor.execute(), (isTileABomb, second, gameInformation) -> {
           if (isTileABomb) {
             view.showGameLostDialog(gameInformation);
             timerSubscription.unsubscribe();
@@ -83,15 +90,17 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void startGame(int columnCount, int rowCount, int difficulty) {
-    startGameTimeInteractor.execute()
-        .flatMap(y -> createFieldInteractor.execute(columnCount, rowCount, difficulty).
-            flatMap(dimension -> updateGameInformation().map(x -> dimension)))
-        .subscribe(dimension -> {
-          view.setDimension(dimension.first, dimension.second);
-          view.repositionGrid(dimension.first, dimension.second);
-        }, Throwable::printStackTrace);
+    startGameTimeInteractor.execute().flatMap(y -> createFieldInteractor.execute(columnCount, rowCount, difficulty).
+        flatMap(dimension -> updateGameInformation().map(x -> dimension))).subscribe(dimension -> {
+      view.setDimension(dimension.first, dimension.second);
+      view.repositionGrid(dimension.first, dimension.second);
+    }, Throwable::printStackTrace);
 
     timer.subscribe(timerSubscription);
+  }
+
+  @Override public void setConfiguration(Configuration configuration) {
+    this.configuration = configuration;
   }
 
   private Observable<Void> updateGameInformation() {

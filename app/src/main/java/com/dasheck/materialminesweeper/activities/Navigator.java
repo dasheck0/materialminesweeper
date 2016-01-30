@@ -17,6 +17,7 @@ import com.dasheck.materialminesweeper.fragments.menu.MenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuModule;
 import com.dasheck.materialminesweeper.fragments.menu.MenuPresenterImpl;
+import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameMode;
 
 /**
@@ -45,9 +46,10 @@ public class Navigator {
     transist(fragment);
   }
 
-  public void showGame() {
+  public void showGame(Configuration configuration) {
     GameFragment fragment = new GameFragment();
     GamePresenterImpl presenter = new GamePresenterImpl();
+    presenter.setConfiguration(configuration);
 
     GameComponent component = DaggerGameComponent.builder()
         .activityComponent(baseActivity.getActivityComponent())

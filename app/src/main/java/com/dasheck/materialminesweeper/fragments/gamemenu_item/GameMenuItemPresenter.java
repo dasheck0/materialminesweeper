@@ -9,4 +9,6 @@ import com.dasheck.model.models.GameMode;
 public interface GameMenuItemPresenter extends BasePresenter {
 
   void setGameMode(GameMode gameMode);
+
+  void startGame(int position);
 }
