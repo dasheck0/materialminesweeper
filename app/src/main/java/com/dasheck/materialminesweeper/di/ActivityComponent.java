@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentManager;
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.PreferencesController;
 import com.dasheck.model.controllers.GameTimeController;
+import com.dasheck.model.controllers.GsonController;
 import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.datastores.GameModeDatastore;
 import dagger.Component;
@@ -36,4 +38,8 @@ import dagger.Component;
   /* Controllers */
 
   GameTimeController gameTimeController();
+
+  GsonController gsonController();
+
+  PreferencesController preferencesController();
 }

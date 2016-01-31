@@ -1,8 +1,12 @@
 package com.dasheck.materialminesweeper.di;
 
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.PreferencesController;
+import com.dasheck.materialminesweeper.controllers.PreferencesControllerImpl;
 import com.dasheck.model.controllers.GameTimeController;
 import com.dasheck.model.controllers.GameTimeControllerImpl;
+import com.dasheck.model.controllers.GsonController;
+import com.dasheck.model.controllers.GsonControllerImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -11,8 +15,16 @@ import dagger.Provides;
  */
 @Module public class ControllerModule {
 
-  @Provides @PerActivity GameTimeController provideGameTimeController(
-      GameTimeControllerImpl gameTimeController) {
+  @Provides @PerActivity GameTimeController provideGameTimeController(GameTimeControllerImpl gameTimeController) {
     return gameTimeController;
+  }
+
+  @Provides @PerActivity public GsonController provideGsonController(GsonControllerImpl gsonControllerImpl) {
+    return gsonControllerImpl;
+  }
+
+  @Provides @PerActivity
+  public PreferencesController preferencesController(PreferencesControllerImpl preferencesControllerImpl) {
+    return preferencesControllerImpl;
   }
 }
