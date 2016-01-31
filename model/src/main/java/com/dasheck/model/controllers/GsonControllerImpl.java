@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
+import timber.log.Timber;
 
 /**
  * @author Daniel Nagel

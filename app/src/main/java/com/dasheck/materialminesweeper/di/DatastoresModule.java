@@ -6,6 +6,8 @@ import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.datastores.FieldDatastoreImpl;
 import com.dasheck.model.datastores.GameModeDatastore;
 import com.dasheck.model.datastores.GameModeDatastoreImpl;
+import com.dasheck.model.datastores.StatisticsDatastore;
+import com.dasheck.model.datastores.StatisticsDatastoreImpl;
 import com.dasheck.model.models.Field;
 import dagger.Module;
 import dagger.Provides;
@@ -24,5 +26,10 @@ import javax.inject.Singleton;
   @Provides @PerActivity
   public GameModeDatastore provideGameModeDatastore(GameModeDatastoreImpl gameModeDatastoreImpl) {
     return gameModeDatastoreImpl;
+  }
+
+  @Provides @PerActivity
+  public StatisticsDatastore provideStatisticsDatastore(StatisticsDatastoreImpl statisticsDatastoreImpl) {
+    return statisticsDatastoreImpl;
   }
 }

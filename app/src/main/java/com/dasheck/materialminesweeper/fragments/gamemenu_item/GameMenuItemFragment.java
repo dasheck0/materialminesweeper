@@ -49,4 +49,8 @@ import timber.log.Timber;
   @Override public void onConfigurationStartClicked(int position) {
     presenter.startGame(position);
   }
+
+  @Override public void onGameInformationShareClicked(int position) {
+
+  }
 }

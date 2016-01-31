@@ -30,7 +30,7 @@ public interface FieldDatastore {
 
   Observable<Integer> getNumberOfRemainingBombs();
 
-  Observable<GameInformation> getGameInformation();
+  Observable<GameInformation> createGameInformation();
 
   Observable<Boolean> isGameWon();
 

@@ -81,7 +81,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
         trulyMarkedBombCount++;
       }
 
-      if(neighbourTile.isMarked()) {
+      if (neighbourTile.isMarked()) {
         markedBombCount++;
       }
     }
@@ -99,12 +99,10 @@ public class FieldDatastoreImpl implements FieldDatastore {
         }
       }
     } else {
-      if(trulyMarkedBombCount != markedBombCount) {
+      if (trulyMarkedBombCount != markedBombCount) {
         playerHitBomb = true;
       }
     }
-
-
 
     return playerHitBomb;
   }
@@ -160,7 +158,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
         });
   }
 
-  @Override public Observable<GameInformation> getGameInformation() {
+  @Override public Observable<GameInformation> createGameInformation() {
 
     if (field == null) {
       throw new IllegalStateException("You cannot use a filed without creating it");
@@ -168,7 +166,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
       return Observable.zip(Observable.just(field.getTiles().values())
           .flatMap(Observable::from)
           .map(tile -> new Pair<Integer, Integer>(tile.isMarked() ? 1 : 0, tile.isRevealed() ? 1 : 0))
-          .toList(), gameTimeController.getElapsed(), (list, elapsed) -> {
+          .toList(), gameTimeController.getElapsed(), isGameWon(), (list, elapsed, gameWon) -> {
         int marked = 0;
         int revealed = 0;
 
@@ -177,7 +175,7 @@ public class FieldDatastoreImpl implements FieldDatastore {
           revealed += integerIntegerPair.second;
         }
 
-        return new GameInformation(marked, revealed, elapsed);
+        return new GameInformation(gameWon, field.getWidth(), field.getHeight(), 0, 0, marked, revealed, elapsed);
       });
     }
   }

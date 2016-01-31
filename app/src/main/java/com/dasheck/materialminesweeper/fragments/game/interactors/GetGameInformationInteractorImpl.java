@@ -16,6 +16,6 @@ public class GetGameInformationInteractorImpl implements GetGameInformationInter
   }
 
   @Override public Observable<GameInformation> execute() {
-    return fieldDatastore.getGameInformation();
+    return fieldDatastore.createGameInformation();
   }
 }

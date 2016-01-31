@@ -9,13 +9,15 @@ public class GameMode {
 
   private String name;
   private List<Configuration> configurations;
+  private List<GameInformation> gameInformationList;
 
   public GameMode() {
   }
 
-  public GameMode(String name, List<Configuration> configurations) {
+  public GameMode(String name, List<Configuration> configurations, List<GameInformation> gameInformationList) {
     this.name = name;
     this.configurations = configurations;
+    this.gameInformationList = gameInformationList;
   }
 
   public String getName() {
@@ -32,6 +34,14 @@ public class GameMode {
 
   public void setConfigurations(List<Configuration> configurations) {
     this.configurations = configurations;
+  }
+
+  public List<GameInformation> getGameInformationList() {
+    return gameInformationList;
+  }
+
+  public void setGameInformationList(List<GameInformation> gameInformationList) {
+    this.gameInformationList = gameInformationList;
   }
 
   @Override public String toString() {

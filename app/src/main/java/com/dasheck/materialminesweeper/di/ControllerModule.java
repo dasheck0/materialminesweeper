@@ -1,12 +1,12 @@
 package com.dasheck.materialminesweeper.di;
 
 import com.dasheck.materialminesweeper.annotations.PerActivity;
-import com.dasheck.materialminesweeper.controllers.PreferencesController;
-import com.dasheck.materialminesweeper.controllers.PreferencesControllerImpl;
 import com.dasheck.model.controllers.GameTimeController;
 import com.dasheck.model.controllers.GameTimeControllerImpl;
 import com.dasheck.model.controllers.GsonController;
 import com.dasheck.model.controllers.GsonControllerImpl;
+import com.dasheck.model.controllers.PreferencesController;
+import com.dasheck.model.controllers.PreferencesControllerImpl;
 import dagger.Module;
 import dagger.Provides;
 

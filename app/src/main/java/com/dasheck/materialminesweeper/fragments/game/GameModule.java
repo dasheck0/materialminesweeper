@@ -25,6 +25,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTil
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractorImpl;
 import dagger.Module;
@@ -112,5 +114,10 @@ import dagger.Provides;
   @Provides @PerFragment public QuickRevealTileInteractor provideQuickRevealTileInteractor(
       QuickRevealTileInteractorImpl quickRevealTileInteractorImpl) {
     return quickRevealTileInteractorImpl;
+  }
+
+  @Provides @PerFragment public SaveLatestGameInformationInteractor provideSaveLatestGameInformationInteractor(
+      SaveLatestGameInformationInteractorImpl saveLatestGameInformationInteractorImpl) {
+    return saveLatestGameInformationInteractorImpl;
   }
 }

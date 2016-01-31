@@ -13,6 +13,7 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealed
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
 import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.Configuration;
@@ -44,6 +45,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject IsGameWonInteractor isGameWonInteractor;
   @Inject IsTileRevealedInteractor isTileRevealedInteractor;
   @Inject QuickRevealTileInteractor quickRevealTileInteractor;
+  @Inject SaveLatestGameInformationInteractor saveLatestGameInformationInteractor;
   @Inject Navigator navigator;
 
   private Observable<Long> timer;
@@ -82,18 +84,9 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void revealTile(Tile tile) {
-
     Observable<Boolean> revealObservable = isTileRevealedInteractor.execute(tile.getPosition())
         .flatMap(isRevealed -> isRevealed ? quickRevealTileInteractor.execute(tile.getPosition())
             : revealTileInteractor.execute(tile));
-
-    /*Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile), (isBomb, x) -> {
-      if (isBomb) {
-        timerSubscription.unsubscribe();
-      }
-
-      return isBomb;
-    })*/
 
     revealObservable.map(playerLost -> {
       if (playerLost) {
@@ -104,15 +97,15 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
     })
         .flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
             (gameWon, gameInformation) -> {
-              Timber.d("Is Bomb: " + isBomb);
               if (isBomb) {
                 view.showGameLostDialog(gameInformation);
               } else if (gameWon) {
                 view.showGameWonDialog();
               }
 
-              return "";
+              return gameInformation;
             }))
+        .flatMap(saveLatestGameInformationInteractor::execute)
         .flatMap(x -> updateGameInformation())
         .subscribe();
   }
