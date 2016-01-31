@@ -15,7 +15,7 @@ public class RevealTileInteractorImpl implements RevealTileInteractor {
   @Inject public RevealTileInteractorImpl() {
   }
 
-  @Override public Observable<Void> execute(Tile tile) {
+  @Override public Observable<Boolean> execute(Tile tile) {
     return fieldDatastore.revealTile(tile.getPosition());
   }
 }

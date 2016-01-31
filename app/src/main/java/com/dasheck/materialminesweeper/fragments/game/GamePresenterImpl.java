@@ -9,7 +9,9 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBo
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealedInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
 import com.dasheck.model.datastores.FieldDatastore;
@@ -40,6 +42,8 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject StartGameTimeInteractor startGameTimeInteractor;
   @Inject GetGameInformationInteractor getGameInformationInteractor;
   @Inject IsGameWonInteractor isGameWonInteractor;
+  @Inject IsTileRevealedInteractor isTileRevealedInteractor;
+  @Inject QuickRevealTileInteractor quickRevealTileInteractor;
   @Inject Navigator navigator;
 
   private Observable<Long> timer;
@@ -78,37 +82,39 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void revealTile(Tile tile) {
-    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile), (isBomb, x) -> {
+
+    Observable<Boolean> revealObservable = isTileRevealedInteractor.execute(tile.getPosition())
+        .flatMap(isRevealed -> isRevealed ? quickRevealTileInteractor.execute(tile.getPosition())
+            : revealTileInteractor.execute(tile));
+
+    /*Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile), (isBomb, x) -> {
       if (isBomb) {
         timerSubscription.unsubscribe();
       }
 
       return isBomb;
+    })*/
+
+    revealObservable.map(playerLost -> {
+      if (playerLost) {
+        timerSubscription.unsubscribe();
+      }
+
+      return playerLost;
     })
         .flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
             (gameWon, gameInformation) -> {
               Timber.d("Is Bomb: " + isBomb);
-              if(isBomb) {
+              if (isBomb) {
                 view.showGameLostDialog(gameInformation);
-              } else if(gameWon){
+              } else if (gameWon) {
                 view.showGameWonDialog();
               }
 
               return "";
-            })).flatMap(x -> updateGameInformation()).subscribe();
-
-/*    Observable.zip(isTileABombInteractor.execute(tile), revealTileInteractor.execute(tile),
-        getGameInformationInteractor.execute(), (isTileABomb, second, gameInformation) -> {
-          if (isTileABomb) {
-            view.showGameLostDialog(gameInformation);
-            timerSubscription.unsubscribe();
-          }
-          return gameInformation;
-        }).flatMap(x -> updateGameInformation()).flatMap(x -> isGameWonInteractor.execute()).subscribe(gameWon -> {
-      if (gameWon) {
-        view.showGameWonDialog();
-      }
-    }, Throwable::printStackTrace);*/
+            }))
+        .flatMap(x -> updateGameInformation())
+        .subscribe();
   }
 
   @Override public void markTile(Tile tile) {

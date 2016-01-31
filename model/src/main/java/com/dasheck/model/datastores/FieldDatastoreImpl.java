@@ -45,19 +45,68 @@ public class FieldDatastoreImpl implements FieldDatastore {
     }
   }
 
-  @Override public Observable<Void> revealTile(Position position) {
+  @Override public Observable<Boolean> revealTile(Position position) {
     if (field == null) {
       throw new IllegalStateException("You cannot use a field without creating it");
     } else {
       return Observable.create(new Observable.OnSubscribe<Position>() {
         @Override public void call(Subscriber<? super Position> subscriber) {
-          revealTileRecursive(position);
+          Tile tile = field.getTiles().get(position);
+
+          Timber.d("CLick ");
+          if (!tile.isRevealed()) {
+            revealTileRecursive(position);
+          }
 
           subscriber.onNext(position);
           subscriber.onCompleted();
         }
-      }).map(x -> null);
+      }).flatMap(this::isTileABomb);
     }
+  }
+
+  private boolean quickReveal(Position position) {
+    List<Position> neighbours = Utilities.getAdjacentTiles(field.getWidth(), field.getHeight(), position);
+
+    int unrevealedBombCount = 0;
+    int trulyMarkedBombCount = 0;
+    int markedBombCount = 0;
+    for (Position neighbour : neighbours) {
+      Tile neighbourTile = field.getTiles().get(neighbour);
+      if (!neighbourTile.isRevealed() && neighbourTile.isBomb()) {
+        unrevealedBombCount++;
+      }
+
+      if (neighbourTile.isBomb() && neighbourTile.isMarked()) {
+        trulyMarkedBombCount++;
+      }
+
+      if(neighbourTile.isMarked()) {
+        markedBombCount++;
+      }
+    }
+
+    unrevealedBombCount -= trulyMarkedBombCount;
+
+    boolean playerHitBomb = false;
+
+    if (unrevealedBombCount == 0) {
+      for (Position neighbour : neighbours) {
+        Tile neighbourTile = field.getTiles().get(neighbour);
+        if (!neighbourTile.isRevealed() && !neighbourTile.isBomb()) {
+          neighbourTile.setIsMarked(false);
+          neighbourTile.setIsRevealed(true);
+        }
+      }
+    } else {
+      if(trulyMarkedBombCount != markedBombCount) {
+        playerHitBomb = true;
+      }
+    }
+
+
+
+    return playerHitBomb;
   }
 
   @Override public Observable<Void> markTile(Position position) {
@@ -141,5 +190,28 @@ public class FieldDatastoreImpl implements FieldDatastore {
         .toList()
         .doOnNext(list -> Timber.d("Size: " + list.size()))
         .map(list -> list.size() == field.getTiles().values().size());
+  }
+
+  @Override public Observable<Boolean> isTileRevealed(Position position) {
+    return get().map(Field::getTiles).map(tiles -> tiles.get(position)).map(Tile::isRevealed);
+  }
+
+  @Override public Observable<Boolean> quickRevealTile(Position position) {
+    if (field == null) {
+      throw new IllegalStateException("You cannot use a field without creating it");
+    } else {
+      return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        @Override public void call(Subscriber<? super Boolean> subscriber) {
+          Tile tile = field.getTiles().get(position);
+
+          Timber.d("CLick ");
+          if (tile.isRevealed()) {
+            subscriber.onNext(quickReveal(position));
+          }
+
+          subscriber.onCompleted();
+        }
+      });
+    }
   }
 }

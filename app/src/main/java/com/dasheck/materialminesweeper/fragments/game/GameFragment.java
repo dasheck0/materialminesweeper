@@ -157,4 +157,5 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
   @Override public void onItemLongClicked(int position) {
     presenter.markTile(adapter.get(position));
   }
+
 }

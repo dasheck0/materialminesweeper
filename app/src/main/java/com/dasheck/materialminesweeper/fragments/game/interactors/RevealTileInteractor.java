@@ -8,5 +8,5 @@ import rx.Observable;
  */
 public interface RevealTileInteractor {
 
-  Observable<Void> execute(Tile tile);
+  Observable<Boolean> execute(Tile tile);
 }

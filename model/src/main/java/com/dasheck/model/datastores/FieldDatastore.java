@@ -22,7 +22,7 @@ public interface FieldDatastore {
 
   Observable<Field> get();
 
-  Observable<Void> revealTile(Position position);
+  Observable<Boolean> revealTile(Position position);
 
   Observable<Void> markTile(Position position);
 
@@ -33,4 +33,8 @@ public interface FieldDatastore {
   Observable<GameInformation> getGameInformation();
 
   Observable<Boolean> isGameWon();
+
+  Observable<Boolean> isTileRevealed(Position position);
+
+  Observable<Boolean> quickRevealTile(Position position);
 }
