@@ -12,8 +12,6 @@ import butterknife.OnLongClick;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.utilities.Utilities;
 import com.dasheck.model.models.Tile;
-import java.util.Calendar;
-import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.

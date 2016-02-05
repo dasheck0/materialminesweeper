@@ -14,18 +14,13 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileIntera
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
-import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
-import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.Tile;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * Created by s.neidig on 1701/16.
@@ -40,7 +35,6 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject IsTileABombInteractor isTileABombInteractor;
   @Inject GetRemainingBombsInteractor getRemainingBombsInteractor;
   @Inject GetElapsedTimeInteractor getElapsedTimeInteractor;
-  @Inject StartGameTimeInteractor startGameTimeInteractor;
   @Inject GetGameInformationInteractor getGameInformationInteractor;
   @Inject IsGameWonInteractor isGameWonInteractor;
   @Inject IsTileRevealedInteractor isTileRevealedInteractor;
@@ -75,7 +69,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
         }
       };
 
-      startGame(configuration.getWidth(), configuration.getHeight(), configuration.getDifficulty());
+      startGame(configuration);
     }
   }
 
@@ -114,9 +108,9 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
     markTileInteractor.execute(tile).flatMap(x -> updateGameInformation()).subscribe();
   }
 
-  @Override public void startGame(int columnCount, int rowCount, int difficulty) {
-    startGameTimeInteractor.execute().flatMap(y -> createFieldInteractor.execute(columnCount, rowCount, difficulty).
-        flatMap(dimension -> updateGameInformation().map(x -> dimension))).subscribe(dimension -> {
+  @Override public void startGame(Configuration configuration) {
+    createFieldInteractor.execute(configuration).
+        flatMap(dimension -> updateGameInformation().map(x -> dimension)).subscribe(dimension -> {
       view.setDimension(dimension.first, dimension.second);
       view.repositionGrid(dimension.first, dimension.second);
     }, Throwable::printStackTrace);
@@ -134,7 +128,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
 
   @Override public void restartGame() {
     if (configuration != null) {
-      startGame(configuration.getWidth(), configuration.getHeight(), configuration.getDifficulty());
+      startGame(configuration);
     }
   }
 

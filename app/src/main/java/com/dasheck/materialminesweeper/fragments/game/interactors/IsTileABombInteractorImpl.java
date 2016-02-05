@@ -1,6 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
-import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.models.Tile;
 import javax.inject.Inject;
 import rx.Observable;
@@ -10,12 +10,12 @@ import rx.Observable;
  */
 public class IsTileABombInteractorImpl implements IsTileABombInteractor {
 
-  @Inject FieldDatastore fieldDatastore;
+  @Inject CurrentGameController currentGameController;
 
   @Inject public IsTileABombInteractorImpl() {
   }
 
   @Override public Observable<Boolean> execute(Tile tile) {
-    return fieldDatastore.isTileABomb(tile.getPosition());
+    return currentGameController.isTileABomb(tile.getPosition());
   }
 }

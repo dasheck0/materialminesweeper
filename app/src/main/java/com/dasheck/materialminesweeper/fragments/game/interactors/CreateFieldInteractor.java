@@ -1,6 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
 import android.support.v4.util.Pair;
+import com.dasheck.model.models.Configuration;
 import rx.Observable;
 
 /**
@@ -8,5 +9,5 @@ import rx.Observable;
  */
 public interface CreateFieldInteractor {
 
-  Observable<Pair<Integer, Integer>> execute(int columnCount, int rowCount, int difficulty);
+  Observable<Pair<Integer, Integer>> execute(Configuration configuration);
 }

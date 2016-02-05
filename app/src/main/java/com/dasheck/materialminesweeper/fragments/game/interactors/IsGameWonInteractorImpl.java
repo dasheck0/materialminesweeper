@@ -1,6 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
-import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.controllers.CurrentGameController;
 import javax.inject.Inject;
 import rx.Observable;
 
@@ -9,12 +9,12 @@ import rx.Observable;
  */
 public class IsGameWonInteractorImpl implements IsGameWonInteractor {
 
-  @Inject FieldDatastore fieldDatastore;
+  @Inject CurrentGameController currentGameController;
 
   @Inject public IsGameWonInteractorImpl() {
   }
 
   @Override public Observable<Boolean> execute() {
-    return fieldDatastore.isGameWon();
+    return currentGameController.isGameWon();
   }
 }

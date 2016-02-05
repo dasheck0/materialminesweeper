@@ -16,12 +16,10 @@ import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.layoutmanagers.FixedGridLayoutManager;
 import com.dasheck.materialminesweeper.utilities.Utilities;
-import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.Tile;
 import java.util.List;
 import javax.inject.Inject;
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 /**
  * Created by s.neidig on 17/01/16.

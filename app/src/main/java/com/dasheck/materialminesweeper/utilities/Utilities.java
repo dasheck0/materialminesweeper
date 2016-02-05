@@ -78,7 +78,7 @@ public class Utilities {
   }
 
   public static String timespanToReadable(long timespan) {
-    long seconds = timespan;
+    long seconds = timespan % 60;
     long minutes = (timespan / 60) % 60;
     long hours = (timespan / (60 * 60)) % 24;
 

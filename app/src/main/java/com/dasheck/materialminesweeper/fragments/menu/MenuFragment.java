@@ -10,7 +10,6 @@ import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.model.models.GameMode;
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.header.HeaderDesign;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;

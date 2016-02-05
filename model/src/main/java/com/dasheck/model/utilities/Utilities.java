@@ -1,7 +1,5 @@
 package com.dasheck.model.utilities;
 
-import android.support.v4.util.Pair;
-import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.Field;
 import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
@@ -10,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -70,21 +67,6 @@ public class Utilities {
     }
 
     return result;
-  }
-
-  public static String getReadbaleNameFromDifficulty(int difficulty) {
-    switch (difficulty) {
-      case FieldDatastore.DIFFICULTY_EASY:
-        return String.format("Easy (%.0f%%) bombs", getRelativeBombCount(difficulty) * 100.0f);
-      case FieldDatastore.DIFFICULTY_MEDIUM:
-        return String.format("Medium (%.0f%%) bombs", getRelativeBombCount(difficulty) * 100.0f);
-      case FieldDatastore.DIFFICULTY_HARD:
-        return String.format("Hard (%.0f%%) bombs", getRelativeBombCount(difficulty) * 100.0f);
-      case FieldDatastore.DIFFICULTY_XMETIRX:
-        return String.format("Expert (%.0f%%) bombs", getRelativeBombCount(difficulty) * 100.0f);
-      default:
-        return "";
-    }
   }
 
   public static float getRelativeBombCount(int difficulty) {

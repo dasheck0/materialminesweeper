@@ -7,15 +7,12 @@ import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.GameMenuListAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
-import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameMode;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 /**
  * @author Stefan Neidig

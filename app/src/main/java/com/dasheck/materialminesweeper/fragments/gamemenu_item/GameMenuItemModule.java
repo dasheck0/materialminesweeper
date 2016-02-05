@@ -1,9 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.gamemenu_item;
 
-import android.content.Context;
-import com.dasheck.materialminesweeper.adapters.GameMenuListAdapter;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
-import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import dagger.Module;
 import dagger.Provides;
 

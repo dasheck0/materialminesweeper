@@ -1,17 +1,14 @@
 package com.dasheck.materialminesweeper.di;
 
 import android.content.Context;
-
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
-
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by s.neidig on 17/01/16.

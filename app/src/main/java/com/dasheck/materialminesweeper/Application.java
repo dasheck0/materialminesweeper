@@ -3,7 +3,6 @@ package com.dasheck.materialminesweeper;
 import com.dasheck.materialminesweeper.di.ApplicationComponent;
 import com.dasheck.materialminesweeper.di.ApplicationModule;
 import com.dasheck.materialminesweeper.di.DaggerApplicationComponent;
-
 import timber.log.Timber;
 
 /**

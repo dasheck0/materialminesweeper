@@ -1,8 +1,8 @@
 package com.dasheck.model.controllers;
 
 import android.content.SharedPreferences;
-import com.dasheck.model.datastores.FieldDatastore;
 import com.dasheck.model.models.GameInformation;
+import com.dasheck.model.utilities.Constants;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -43,13 +43,13 @@ public class PreferencesControllerImpl implements PreferencesController {
 
   private String getListName(int difficulty) {
     switch (difficulty) {
-      case FieldDatastore.DIFFICULTY_EASY:
+      case Constants.DIFFICULTY_EASY:
         return GAME_INFORMATION_LIST_NAME_EASY;
-      case FieldDatastore.DIFFICULTY_MEDIUM:
+      case Constants.DIFFICULTY_MEDIUM:
         return GAME_INFORMATION_LIST_NAME_MEDIUM;
-      case FieldDatastore.DIFFICULTY_HARD:
+      case Constants.DIFFICULTY_HARD:
         return GAME_INFORMATION_LIST_NAME_HARD;
-      case FieldDatastore.DIFFICULTY_XMETIRX:
+      case Constants.DIFFICULTY_XMETIRX:
         return GAME_INFORMATION_LIST_NAME_EXPERT;
       default:
         throw new IllegalStateException("Game mode is not supported");

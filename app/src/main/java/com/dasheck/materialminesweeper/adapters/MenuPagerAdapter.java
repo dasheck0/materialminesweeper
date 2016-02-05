@@ -4,19 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.model.models.GameMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * @author Stefan Neidig

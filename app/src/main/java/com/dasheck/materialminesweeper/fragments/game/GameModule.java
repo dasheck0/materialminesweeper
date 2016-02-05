@@ -27,8 +27,6 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInte
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractorImpl;
-import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractor;
-import com.dasheck.materialminesweeper.fragments.game.interactors.StartGameTimeInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -89,11 +87,6 @@ import dagger.Provides;
   @Provides @PerFragment GetElapsedTimeInteractor provideGetElapsedTimeInteractor(
       GetElapsedTimeInteractorImpl getElapsedTimeInteractorImpl) {
     return getElapsedTimeInteractorImpl;
-  }
-
-  @Provides @PerFragment StartGameTimeInteractor provideStartGameTimeInteractor(
-      StartGameTimeInteractorImpl startGameTimeInteractorImpl) {
-    return startGameTimeInteractorImpl;
   }
 
   @Provides @PerFragment GetGameInformationInteractor provideGetGameInformationInteractor(

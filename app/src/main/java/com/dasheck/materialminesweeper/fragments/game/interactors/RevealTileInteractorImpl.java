@@ -1,6 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
-import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.models.Tile;
 import javax.inject.Inject;
 import rx.Observable;
@@ -10,12 +10,12 @@ import rx.Observable;
  */
 public class RevealTileInteractorImpl implements RevealTileInteractor {
 
-  @Inject FieldDatastore fieldDatastore;
+  @Inject CurrentGameController currentGameController;
 
   @Inject public RevealTileInteractorImpl() {
   }
 
   @Override public Observable<Boolean> execute(Tile tile) {
-    return fieldDatastore.revealTile(tile.getPosition());
+    return currentGameController.revealTile(tile.getPosition());
   }
 }

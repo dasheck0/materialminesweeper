@@ -1,26 +1,24 @@
-package com.dasheck.model.datastores;
+package com.dasheck.model.controllers;
 
+import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.Field;
 import com.dasheck.model.models.GameInformation;
+import com.dasheck.model.models.GameMode;
 import com.dasheck.model.models.Position;
 import rx.Observable;
 
 /**
- * Created by s.neidig on 23/01/16.
+ * @author Stefan Neidig
  */
-public interface FieldDatastore {
+public interface CurrentGameController {
 
-  public static final int DIFFICULTY_EASY = 0;
+  Observable<Void> startGame(Configuration configuration);
 
-  public static final int DIFFICULTY_MEDIUM = 1;
+  Observable<Field> getField();
 
-  public static final int DIFFICULTY_HARD = 2;
+  Observable<GameInformation> createGameInformation();
 
-  public static final int DIFFICULTY_XMETIRX = 3;
-
-  Observable<Field> create(int width, int height, int difficulty);
-
-  Observable<Field> get();
+  /* Field manipulation */
 
   Observable<Boolean> revealTile(Position position);
 
@@ -29,8 +27,6 @@ public interface FieldDatastore {
   Observable<Boolean> isTileABomb(Position position);
 
   Observable<Integer> getNumberOfRemainingBombs();
-
-  Observable<GameInformation> createGameInformation();
 
   Observable<Boolean> isGameWon();
 

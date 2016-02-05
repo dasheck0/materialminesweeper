@@ -1,12 +1,8 @@
 package com.dasheck.materialminesweeper.di;
 
-import android.content.Context;
-
 import com.dasheck.materialminesweeper.Application;
-
-import javax.inject.Singleton;
-
 import dagger.Component;
+import javax.inject.Singleton;
 
 /**
  * Created by s.neidig on 17/01/16.

@@ -5,7 +5,6 @@ import com.dasheck.model.models.GameMode;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
-import timber.log.Timber;
 
 /**
  * @author Stefan Neidig

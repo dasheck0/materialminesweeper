@@ -4,7 +4,6 @@ import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.fragments.BasePresenterImpl;
 import com.dasheck.model.models.GameMode;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 /**
  * @author Stefan Neidig

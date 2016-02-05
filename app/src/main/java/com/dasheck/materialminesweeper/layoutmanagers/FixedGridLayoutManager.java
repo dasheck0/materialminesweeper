@@ -10,7 +10,6 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.HashSet;
 import java.util.List;
 

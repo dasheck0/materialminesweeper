@@ -1,20 +1,15 @@
 package com.dasheck.materialminesweeper.activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-
+import butterknife.ButterKnife;
 import com.dasheck.materialminesweeper.Application;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.di.AcitivityModule;
 import com.dasheck.materialminesweeper.di.ActivityComponent;
 import com.dasheck.materialminesweeper.di.DaggerActivityComponent;
-
 import java.lang.annotation.Annotation;
-
-import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.

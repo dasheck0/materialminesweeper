@@ -7,14 +7,16 @@ public class Configuration {
 
   private int width;
   private int height;
+  private int bombCount;
   private int difficulty;
 
   public Configuration() {
   }
 
-  public Configuration(int width, int height, int difficulty) {
+  public Configuration(int width, int height, int bombCount, int difficulty) {
     this.width = width;
     this.height = height;
+    this.bombCount = bombCount;
     this.difficulty = difficulty;
   }
 
@@ -32,6 +34,14 @@ public class Configuration {
 
   public void setHeight(int height) {
     this.height = height;
+  }
+
+  public int getBombCount() {
+    return bombCount;
+  }
+
+  public void setBombCount(int bombCount) {
+    this.bombCount = bombCount;
   }
 
   public int getDifficulty() {

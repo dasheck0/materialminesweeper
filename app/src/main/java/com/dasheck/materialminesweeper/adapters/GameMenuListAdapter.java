@@ -13,7 +13,6 @@ import com.dasheck.materialminesweeper.R;
 import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.GameMode;
-import com.dasheck.model.utilities.Utilities;
 import java.util.List;
 
 /**
@@ -85,8 +84,7 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         configurationHolder.widthTextView.setText(String.valueOf(configuration.getWidth()));
         configurationHolder.heightTextView.setText(String.valueOf(configuration.getHeight()));
-        configurationHolder.difficultyTextView.setText(
-            Utilities.getReadbaleNameFromDifficulty(configuration.getDifficulty()));
+        configurationHolder.difficultyTextView.setText(String.valueOf(configuration.getBombCount()));
         configurationHolder.startButton.setTag(position);
         break;
 

@@ -1,6 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
-import com.dasheck.model.datastores.FieldDatastore;
+import com.dasheck.model.controllers.CurrentGameController;
 import javax.inject.Inject;
 import rx.Observable;
 
@@ -9,12 +9,12 @@ import rx.Observable;
  */
 public class GetRemainingBombsInteractorImpl implements GetRemainingBombsInteractor {
 
-  @Inject FieldDatastore fieldDatastore;
+  @Inject CurrentGameController currentGameController;
 
   @Inject public GetRemainingBombsInteractorImpl() {
   }
 
   @Override public Observable<Integer> execute() {
-    return fieldDatastore.getNumberOfRemainingBombs();
+    return currentGameController.getNumberOfRemainingBombs();
   }
 }

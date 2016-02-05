@@ -2,15 +2,14 @@ package com.dasheck.materialminesweeper.activities;
 
 import android.support.v4.app.Fragment;
 import com.dasheck.materialminesweeper.fragments.game.DaggerGameComponent;
+import com.dasheck.materialminesweeper.fragments.game.GameComponent;
 import com.dasheck.materialminesweeper.fragments.game.GameFragment;
 import com.dasheck.materialminesweeper.fragments.game.GameModule;
-import com.dasheck.materialminesweeper.fragments.game.GameComponent;
 import com.dasheck.materialminesweeper.fragments.game.GamePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.DaggerGameMenuItemComponent;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemComponent;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemFragment;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemModule;
-import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemPresenter;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemPresenterImpl;
 import com.dasheck.materialminesweeper.fragments.menu.DaggerMenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuComponent;
