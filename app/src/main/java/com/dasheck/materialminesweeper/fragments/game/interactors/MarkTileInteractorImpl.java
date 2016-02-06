@@ -1,5 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
+import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.models.Tile;
 import javax.inject.Inject;
@@ -11,11 +12,12 @@ import rx.Observable;
 public class MarkTileInteractorImpl implements MarkTileInteractor {
 
   @Inject CurrentGameController currentGameController;
+  @Inject VibrationController vibrationController;
 
   @Inject public MarkTileInteractorImpl() {
   }
 
   @Override public Observable<Void> execute(Tile tile) {
-    return currentGameController.markTile(tile.getPosition());
+    return currentGameController.markTile(tile.getPosition()).flatMap(x -> vibrationController.vibrate(150));
   }
 }
