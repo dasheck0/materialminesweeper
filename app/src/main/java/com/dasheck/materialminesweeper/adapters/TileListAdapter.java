@@ -41,8 +41,8 @@ public class TileListAdapter extends BaseAdapter<Tile, TileListAdapter.ViewHolde
 
     if (item.isRevealed()) {
       if (item.isBomb()) {
-        holder.rootLayout.setBackgroundColor(Color.RED);
         holder.rootLayout.setBackground(context.getResources().getDrawable(R.drawable.ic_mine));
+        holder.numberTextView.setVisibility(View.GONE);
       } else {
         holder.rootLayout.setBackground(context.getResources().getDrawable(R.drawable.tile_background));
       }
