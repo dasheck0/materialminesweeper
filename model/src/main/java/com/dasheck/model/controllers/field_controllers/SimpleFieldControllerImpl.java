@@ -36,7 +36,7 @@ public class SimpleFieldControllerImpl implements FieldController {
   @Override public Observable<Boolean> revealTile(Field field, Position position) {
     return getTile(field, position).map(tile -> {
       if (!tile.isRevealed()) {
-        revealTileRecursive(field, position);
+        revealTileRecursive(field, position, true);
       }
 
       return position;
@@ -112,18 +112,20 @@ public class SimpleFieldControllerImpl implements FieldController {
     return getTiles(field).map(tiles -> tiles.get(position));
   }
 
-  private void revealTileRecursive(Field field, Position position) {
+  private void revealTileRecursive(Field field, Position position, boolean exposeBombs) {
     Tile tile = field.getTiles().get(position);
     if (!tile.isRevealed()) {
-      tile.setIsRevealed(true);
-      tile.setIsMarked(false);
+      if (!tile.isBomb() || exposeBombs) {
+        tile.setIsRevealed(true);
+        tile.setIsMarked(false);
 
-      if (tile.getNumberOfAdjacentBombs() == 0) {
-        List<Position> neighbours = Utilities.getAdjacentTiles(field.getWidth(), field.getHeight(), position);
-        for (Position neighbour : neighbours) {
-          Tile neighbourTile = field.getTiles().get(neighbour);
-          if (!neighbourTile.isRevealed()) {
-            revealTileRecursive(field, neighbour);
+        if (tile.getNumberOfAdjacentBombs() == 0) {
+          List<Position> neighbours = Utilities.getAdjacentTiles(field.getWidth(), field.getHeight(), position);
+          for (Position neighbour : neighbours) {
+            Tile neighbourTile = field.getTiles().get(neighbour);
+            if (!neighbourTile.isRevealed()) {
+              revealTileRecursive(field, neighbour, exposeBombs);
+            }
           }
         }
       }
@@ -157,11 +159,13 @@ public class SimpleFieldControllerImpl implements FieldController {
 
     if (unrevealedBombCount == 0) {
       for (Position neighbour : neighbours) {
-        Tile neighbourTile = field.getTiles().get(neighbour);
+        revealTileRecursive(field, neighbour, false);
+
+        /*Tile neighbourTile = field.getTiles().get(neighbour);
         if (!neighbourTile.isRevealed() && !neighbourTile.isBomb()) {
           neighbourTile.setIsMarked(false);
           neighbourTile.setIsRevealed(true);
-        }
+        }*/
       }
     } else {
       if (trulyMarkedBombCount != markedBombCount) {
