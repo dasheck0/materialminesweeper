@@ -2,6 +2,8 @@ package com.dasheck.model.controllers;
 
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.time.StopWatch;
 import rx.Observable;
 
 /**
@@ -9,29 +11,59 @@ import rx.Observable;
  */
 public class GameTimeControllerImpl implements GameTimeController {
 
-  private long elapsed;
-  private long currentStartTime;
+  private static final int STATE_RUNNING = 0;
+
+  private static final int STATE_STOPPED = 1;
+
+  private static final int STATE_PAUSED = 2;
+
+  private StopWatch stopWatch;
+  private int stopWatchState;
 
   @Inject public GameTimeControllerImpl() {
-    elapsed = 0;
+    this.stopWatch = new StopWatch();
+  }
+
+  @Override public Observable<Void> start() {
+    stopWatch.start();
+    stopWatchState = STATE_RUNNING;
+    return Observable.just(null);
+  }
+
+  @Override public Observable<Void> stop() {
+    stopWatch.stop();
+    stopWatchState = STATE_STOPPED;
+    return Observable.just(null);
   }
 
   @Override public Observable<Void> reset() {
-    elapsed = 0;
-    currentStartTime = getCurrentTime();
+    stopWatch.reset();
     return Observable.just(null);
   }
 
   @Override public Observable<Long> getElapsed() {
-    return Observable.just(elapsed + getCurrentTime() - currentStartTime);
+    return Observable.just(stopWatch.getTime() / 1000L);
   }
 
   @Override public Observable<Void> set(long timestamp) {
-    currentStartTime = timestamp;
+    throw new NotImplementedException("Currently not implemented");
+  }
+
+  @Override public Observable<Void> pause() {
+    if (stopWatchState == STATE_RUNNING) {
+      stopWatch.suspend();
+      stopWatchState = STATE_PAUSED;
+    }
+
     return Observable.just(null);
   }
 
-  private long getCurrentTime() {
-    return System.currentTimeMillis() / 1000;
+  @Override public Observable<Void> unpause() {
+    if (stopWatchState == STATE_PAUSED) {
+      stopWatch.resume();
+      stopWatchState = STATE_RUNNING;
+    }
+
+    return Observable.just(null);
   }
 }

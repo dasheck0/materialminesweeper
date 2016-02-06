@@ -28,7 +28,11 @@ public class CurrentGameControllerImpl implements CurrentGameController {
     return fieldController.create(configuration).doOnNext(created -> {
       this.field = created;
       this.configuration = configuration;
-    }).flatMap(x -> gameTimeController.reset());
+    }).flatMap(x -> gameTimeController.reset()).flatMap(x -> gameTimeController.start());
+  }
+
+  @Override public Observable<Void> stopGame() {
+    return gameTimeController.stop();
   }
 
   @Override public Observable<Field> getField() {

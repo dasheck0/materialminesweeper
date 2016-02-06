@@ -19,4 +19,10 @@ public interface GamePresenter extends BasePresenter {
   void showMenu();
 
   void restartGame();
+
+  void loadMenu();
+
+  void pauseGame();
+
+  void unpauseGame();
 }

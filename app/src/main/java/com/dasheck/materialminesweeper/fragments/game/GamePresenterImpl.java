@@ -11,9 +11,11 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInter
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealedInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.PauseGameInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.StopGameInteractor;
 import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.Tile;
 import java.util.concurrent.TimeUnit;
@@ -40,6 +42,8 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject IsTileRevealedInteractor isTileRevealedInteractor;
   @Inject QuickRevealTileInteractor quickRevealTileInteractor;
   @Inject SaveLatestGameInformationInteractor saveLatestGameInformationInteractor;
+  @Inject PauseGameInteractor pauseGameInteractor;
+  @Inject StopGameInteractor stopGameInteractor;
   @Inject Navigator navigator;
 
   private Observable<Long> timer;
@@ -84,29 +88,27 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
         .flatMap(isRevealed -> isRevealed ? quickRevealTileInteractor.execute(tile.getPosition())
             : revealTileInteractor.execute(tile));
 
-    revealObservable.map(playerLost -> {
-      if (playerLost) {
-        timerSubscription.unsubscribe();
-      }
+    revealObservable.flatMap(
+        isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
+            (gameWon, gameInformation) -> {
+              view.setSmileyDefault();
 
-      return playerLost;
-    }).flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
-        (gameWon, gameInformation) -> {
-          view.setSmileyDefault();
+              if (isBomb) {
+                view.setSmileyLost();
+                view.freezeField();
+                stopGameInteractor.execute()
+                    .flatMap(x -> saveLatestGameInformationInteractor.execute(gameInformation))
+                    .subscribe();
+              } else if (gameWon) {
+                view.setSmileyWon();
+                view.freezeField();
+                stopGameInteractor.execute()
+                    .flatMap(x -> saveLatestGameInformationInteractor.execute(gameInformation))
+                    .subscribe();
+              }
 
-          if (isBomb) {
-            view.setSmileyLost();
-            view.freezeField();
-            saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
-          } else if (gameWon) {
-            view.setSmileyWon();
-            view.freezeField();
-            saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
-          }
-
-          return gameInformation;
-        }))
-        .flatMap(x -> updateGameInformation()).subscribe();
+              return gameInformation;
+            })).flatMap(x -> updateGameInformation()).subscribe();
   }
 
   @Override public void markTile(Tile tile) {
@@ -138,6 +140,18 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
     if (configuration != null) {
       startGame(configuration);
     }
+  }
+
+  @Override public void loadMenu() {
+    navigator.showMenu();
+  }
+
+  @Override public void pauseGame() {
+    pauseGameInteractor.execute(true);
+  }
+
+  @Override public void unpauseGame() {
+    pauseGameInteractor.execute(false);
   }
 
   private Observable<Void> updateGameInformation() {

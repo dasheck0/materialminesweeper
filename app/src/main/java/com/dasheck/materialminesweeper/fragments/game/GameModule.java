@@ -21,12 +21,16 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealed
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealedInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.MarkTileInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.PauseGameInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.PauseGameInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.QuickRevealTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.RevealTileInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.SaveLatestGameInformationInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.StopGameInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.StopGameInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -112,5 +116,15 @@ import dagger.Provides;
   @Provides @PerFragment public SaveLatestGameInformationInteractor provideSaveLatestGameInformationInteractor(
       SaveLatestGameInformationInteractorImpl saveLatestGameInformationInteractorImpl) {
     return saveLatestGameInformationInteractorImpl;
+  }
+
+  @Provides @PerFragment
+  public PauseGameInteractor providePauseGameInteractor(PauseGameInteractorImpl pauseGameInteractorImpl) {
+    return pauseGameInteractorImpl;
+  }
+
+  @Provides @PerFragment
+  public StopGameInteractor provideStopGameInteractor(StopGameInteractorImpl stopGameInteractorImpl) {
+    return stopGameInteractorImpl;
   }
 }

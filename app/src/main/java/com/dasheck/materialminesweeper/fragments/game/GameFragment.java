@@ -3,6 +3,7 @@ package com.dasheck.materialminesweeper.fragments.game;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.BindDrawable;
 import butterknife.OnClick;
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dasheck.materialminesweeper.R;
@@ -47,6 +49,25 @@ import javax.inject.Inject;
 
   private FixedGridLayoutManager gridLayoutManager;
   private boolean fieldFrozen = false;
+
+  @OnClick(R.id.backButton) public void onBackButtonClicked(View view) {
+    presenter.pauseGame();
+
+    new MaterialDialog.Builder(getContext()).title("Are you sure?")
+        .content("Any progress will be lost")
+        .theme(Theme.LIGHT)
+        .positiveText("OK")
+        .negativeText("Cancel")
+        .onPositive((dialog, which) -> {
+          dialog.dismiss();
+          presenter.loadMenu();
+        })
+        .onNegative((dialog, which) -> {
+          dialog.dismiss();
+          presenter.unpauseGame();
+        })
+        .show();
+  }
 
   @OnClick(R.id.smileyButton) public void onSmileyButtonClicked(View view) {
     presenter.restartGame();

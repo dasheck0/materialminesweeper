@@ -39,4 +39,6 @@ dependencies {
   provided 'javax.annotation:jsr250-api:1.0'
   compile 'com.jakewharton.timber:timber:4.1.0'
   compile 'com.google.code.gson:gson:2.4'
+  compile 'commons-lang:commons-lang:2.6'
+
 }

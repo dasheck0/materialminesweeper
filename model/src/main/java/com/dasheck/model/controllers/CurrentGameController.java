@@ -14,6 +14,8 @@ public interface CurrentGameController {
 
   Observable<Void> startGame(Configuration configuration);
 
+  Observable<Void> stopGame();
+
   Observable<Field> getField();
 
   Observable<GameInformation> createGameInformation();

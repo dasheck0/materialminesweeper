@@ -14,17 +14,24 @@
         android:elevation="6dp"
         >
 
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/backButton"
+            android:src="@drawable/ic_navigation_arrow_back"
+            android:scaleType="centerInside"
+            android:background="?android:selectableItemBackground"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bombs"
             android:id="@+id/textView3"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp"
             style="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/backButton"
+            android:layout_toEndOf="@+id/backButton"
             />
 
         <TextView
@@ -76,6 +83,7 @@
             android:src="@drawable/ic_smiley"
             android:padding="8dp"
             android:background="?android:selectableItemBackground"
+            android:scaleType="centerInside"
             />
     </RelativeLayout>
 
