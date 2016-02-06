@@ -57,7 +57,7 @@ public class GameModeDatastoreImpl implements GameModeDatastore {
       @Override public void call(Subscriber<? super List<Configuration>> subscriber) {
         List<Configuration> result = new ArrayList<Configuration>();
 
-        result.add(new Configuration(8, 8, 10, Constants.DIFFICULTY_EASY));
+        result.add(new Configuration(9, 9, 10, Constants.DIFFICULTY_EASY));
         result.add(new Configuration(16, 16, 40, Constants.DIFFICULTY_MEDIUM));
         result.add(new Configuration(16, 30, 99, Constants.DIFFICULTY_HARD));
         result.add(new Configuration(25, 25, 150, Constants.DIFFICULTY_XMETIRX));

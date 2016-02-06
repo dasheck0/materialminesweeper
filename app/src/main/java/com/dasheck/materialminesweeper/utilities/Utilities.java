@@ -45,9 +45,7 @@ public class Utilities {
       statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
     }
 
-    Timber.d("Toolbar height: " + toolbarHeight + ", " + statusBarHeight);
-
-    return new Pair<Integer, Integer>(point.x, point.y - toolbarHeight - statusBarHeight);
+    return new Pair<Integer, Integer>(point.x, point.y - statusBarHeight);
   }
 
   /**
