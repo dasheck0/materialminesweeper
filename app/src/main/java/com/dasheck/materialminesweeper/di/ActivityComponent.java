@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.controllers.GameTimeController;
 import com.dasheck.model.controllers.GsonController;
@@ -48,4 +49,6 @@ import dagger.Component;
   FieldController fieldController();
 
   CurrentGameController currentGameController();
+
+  VibrationController vibrationController();
 }

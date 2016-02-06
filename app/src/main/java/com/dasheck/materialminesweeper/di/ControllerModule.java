@@ -1,6 +1,8 @@
 package com.dasheck.materialminesweeper.di;
 
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.VibrationController;
+import com.dasheck.materialminesweeper.controllers.VibrationControllerImpl;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.controllers.CurrentGameControllerImpl;
 import com.dasheck.model.controllers.GameTimeController;
@@ -39,5 +41,10 @@ import dagger.Provides;
   @Provides @PerActivity
   public CurrentGameController provideCurrentGameController(CurrentGameControllerImpl currentGameControllerImpl) {
     return currentGameControllerImpl;
+  }
+
+  @Provides @PerActivity
+  public VibrationController provideVibrationController(VibrationControllerImpl vibrationControllerImpl) {
+    return vibrationControllerImpl;
   }
 }
