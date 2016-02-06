@@ -33,4 +33,6 @@ public interface GameView extends BaseView {
   void freezeField();
 
   void unfreezeField();
+
+  void showGameInterruptDialog();
 }

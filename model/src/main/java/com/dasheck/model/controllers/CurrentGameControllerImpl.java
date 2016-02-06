@@ -20,6 +20,7 @@ public class CurrentGameControllerImpl implements CurrentGameController {
 
   private Configuration configuration;
   private Field field;
+  private boolean hasGameStarted;
 
   @Inject public CurrentGameControllerImpl() {
   }
@@ -28,11 +29,17 @@ public class CurrentGameControllerImpl implements CurrentGameController {
     return fieldController.create(configuration).doOnNext(created -> {
       this.field = created;
       this.configuration = configuration;
+      this.hasGameStarted = true;
     }).flatMap(x -> gameTimeController.reset()).flatMap(x -> gameTimeController.start());
   }
 
   @Override public Observable<Void> stopGame() {
+    hasGameStarted = false;
     return gameTimeController.stop();
+  }
+
+  @Override public Observable<Boolean> hasGameStarted() {
+    return Observable.just(hasGameStarted);
   }
 
   @Override public Observable<Field> getField() {

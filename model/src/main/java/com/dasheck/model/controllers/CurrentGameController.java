@@ -16,6 +16,8 @@ public interface CurrentGameController {
 
   Observable<Void> stopGame();
 
+  Observable<Boolean> hasGameStarted();
+
   Observable<Field> getField();
 
   Observable<GameInformation> createGameInformation();

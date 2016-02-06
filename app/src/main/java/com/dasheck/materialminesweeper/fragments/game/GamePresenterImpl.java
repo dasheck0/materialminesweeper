@@ -7,6 +7,7 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTime
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetGameInformationInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.HasGameStartedInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileRevealedInteractor;
@@ -44,6 +45,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject SaveLatestGameInformationInteractor saveLatestGameInformationInteractor;
   @Inject PauseGameInteractor pauseGameInteractor;
   @Inject StopGameInteractor stopGameInteractor;
+  @Inject HasGameStartedInteractor hasGameStartedInteractor;
   @Inject Navigator navigator;
 
   private Observable<Long> timer;
@@ -152,6 +154,17 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
 
   @Override public void unpauseGame() {
     pauseGameInteractor.execute(false);
+  }
+
+  @Override public void interruptGame() {
+    pauseGame();
+    hasGameStartedInteractor.execute().subscribe(hasGameStarted -> {
+      if (hasGameStarted) {
+        view.showGameInterruptDialog();
+      } else {
+        loadMenu();
+      }
+    });
   }
 
   private Observable<Void> updateGameInformation() {

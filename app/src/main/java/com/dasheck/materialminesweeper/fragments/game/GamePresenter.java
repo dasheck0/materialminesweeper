@@ -25,4 +25,6 @@ public interface GamePresenter extends BasePresenter {
   void pauseGame();
 
   void unpauseGame();
+
+  void interruptGame();
 }

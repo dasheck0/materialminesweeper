@@ -51,26 +51,16 @@ import javax.inject.Inject;
   private boolean fieldFrozen = false;
 
   @OnClick(R.id.backButton) public void onBackButtonClicked(View view) {
-    presenter.pauseGame();
-
-    new MaterialDialog.Builder(getContext()).title("Are you sure?")
-        .content("Any progress will be lost")
-        .theme(Theme.LIGHT)
-        .positiveText("OK")
-        .negativeText("Cancel")
-        .onPositive((dialog, which) -> {
-          dialog.dismiss();
-          presenter.loadMenu();
-        })
-        .onNegative((dialog, which) -> {
-          dialog.dismiss();
-          presenter.unpauseGame();
-        })
-        .show();
+    presenter.interruptGame();
   }
 
   @OnClick(R.id.smileyButton) public void onSmileyButtonClicked(View view) {
     presenter.restartGame();
+  }
+
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+    presenter.interruptGame();
   }
 
   @Override public void initializeViews() {
@@ -160,6 +150,23 @@ import javax.inject.Inject;
 
   @Override public void unfreezeField() {
     fieldFrozen = false;
+  }
+
+  @Override public void showGameInterruptDialog() {
+    new MaterialDialog.Builder(getContext()).title("Are you sure?")
+        .content("Any progress will be lost")
+        .theme(Theme.LIGHT)
+        .positiveText("OK")
+        .negativeText("Cancel")
+        .onPositive((dialog, which) -> {
+          dialog.dismiss();
+          presenter.loadMenu();
+        })
+        .onNegative((dialog, which) -> {
+          dialog.dismiss();
+          presenter.unpauseGame();
+        })
+        .show();
   }
 
   @Override public void onItemClicked(int position) {

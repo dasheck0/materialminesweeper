@@ -12,6 +12,7 @@ import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.annotations.Title;
 import java.lang.annotation.Annotation;
+import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -50,6 +51,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     if (presenter != null) {
       presenter.onStop();
     }
+  }
+
+  @Override public void onBackPressed() {
   }
 
   public void setPresenter(BasePresenter presenter) {

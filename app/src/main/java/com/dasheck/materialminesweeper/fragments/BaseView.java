@@ -8,4 +8,6 @@ public interface BaseView {
     void setupToolbar();
 
     void initializeViews();
+
+    void onBackPressed();
 }

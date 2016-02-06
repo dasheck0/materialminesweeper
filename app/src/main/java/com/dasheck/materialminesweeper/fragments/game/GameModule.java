@@ -13,6 +13,8 @@ import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBo
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetRemainingBombsInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetTileListInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.game.interactors.HasGameStartedInteractor;
+import com.dasheck.materialminesweeper.fragments.game.interactors.HasGameStartedInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsGameWonInteractorImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.IsTileABombInteractor;
@@ -126,5 +128,10 @@ import dagger.Provides;
   @Provides @PerFragment
   public StopGameInteractor provideStopGameInteractor(StopGameInteractorImpl stopGameInteractorImpl) {
     return stopGameInteractorImpl;
+  }
+
+  @Provides @PerFragment public HasGameStartedInteractor provideHasGameStartedInteractor(
+      HasGameStartedInteractorImpl hasGameStartedInteractorImpl) {
+    return hasGameStartedInteractorImpl;
   }
 }
