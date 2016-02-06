@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 /**
  * Created by s.neidig on 1701/16.
@@ -114,7 +115,18 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void markTile(Tile tile) {
-    markTileInteractor.execute(tile).flatMap(x -> updateGameInformation()).subscribe();
+    isTileRevealedInteractor.execute(tile.getPosition()).flatMap(isRevealed -> {
+      if (isRevealed) {
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+          @Override public void call(Subscriber<? super Void> subscriber) {
+            subscriber.onNext(null);
+            subscriber.onCompleted();
+          }
+        });
+      } else {
+        return markTileInteractor.execute(tile);
+      }
+    }).flatMap(x -> updateGameInformation()).subscribe();
   }
 
   @Override public void startGame(Configuration configuration) {
