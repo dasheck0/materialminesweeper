@@ -65,6 +65,18 @@
             style="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/smileyButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_smiley"
+            android:padding="8dp"
+            android:background="?android:selectableItemBackground"
+            />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
