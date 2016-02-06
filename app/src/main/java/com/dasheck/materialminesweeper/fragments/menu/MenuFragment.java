@@ -47,12 +47,9 @@ import timber.log.Timber;
   }
 
   @Override public void setGameModes(List<GameMode> gameModes) {
-    Timber.d("gameModesL :" + gameModes);
     menuPagerAdapter =
         new MenuPagerAdapter<GameMode>(getBaseActivity().getSupportFragmentManager(), getBaseActivity().getNavigator(),
             gameModes);
-
-    Timber.d("Adding all gamemodes: " + gameModes);
 
     viewPager.getViewPager().setAdapter(menuPagerAdapter);
     viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());

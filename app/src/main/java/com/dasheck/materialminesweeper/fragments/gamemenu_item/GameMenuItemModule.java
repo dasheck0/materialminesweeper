@@ -1,6 +1,8 @@
 package com.dasheck.materialminesweeper.fragments.gamemenu_item;
 
 import com.dasheck.materialminesweeper.annotations.PerFragment;
+import com.dasheck.materialminesweeper.fragments.gamemenu_item.interactors.ResetGameStatisticsInteractor;
+import com.dasheck.materialminesweeper.fragments.gamemenu_item.interactors.ResetGameStatisticsInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,6 +25,11 @@ import dagger.Provides;
 
   @Provides @PerFragment public GameMenuItemPresenter providePresenter() {
     return presenter;
+  }
+
+  @Provides @PerFragment public ResetGameStatisticsInteractor provideResetGameStatisticsInteractor(
+      ResetGameStatisticsInteractorImpl resetGameStatisticsInteractorImpl) {
+    return resetGameStatisticsInteractorImpl;
   }
 
   /*@Provides @PerFragment public RecyclerViewMaterialAdapter provideGameMenuListAdapter(Context context) {

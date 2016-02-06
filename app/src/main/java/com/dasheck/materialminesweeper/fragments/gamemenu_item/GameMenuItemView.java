@@ -9,4 +9,6 @@ import com.dasheck.model.models.GameMode;
 public interface GameMenuItemView extends BaseView{
 
   void setGameMode(GameMode gameMode);
+
+  void refreshGameStatistics(int position);
 }

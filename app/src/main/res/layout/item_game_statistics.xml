@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Latest game"
+                    android:text="Statistics"
                     android:id="@+id/titleTextView"
                     android:layout_gravity="left"
                     style="@style/TextAppearance.AppCompat.Title"
@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="This are some information about your latest game in that mode"
+                    android:text="This is some information about your game history"
                     android:id="@+id/textView7"
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/colorSecondaryText"
@@ -66,14 +66,15 @@
                     <TextView
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:text="Won"
-                        android:id="@+id/textView12"
+                        android:text="Played"
+                        android:id="@+id/textView1"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:id="@+id/wonTextView"
+                        android:layout_height="match_parent"
+                        android:text="32456"
+                        android:id="@+id/gamesCountTextView"
+                        android:gravity="center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -84,14 +85,15 @@
                     <TextView
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:text="Revealed"
-                        android:id="@+id/textView22"
+                        android:text="Winning rate"
+                        android:id="@+id/textView2"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:id="@+id/revealedTilesTextView"
+                        android:layout_height="match_parent"
+                        android:text="56%"
+                        android:id="@+id/winningRateTextView"
+                        android:gravity="center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -102,14 +104,15 @@
                     <TextView
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:text="Marked"
-                        android:id="@+id/textView20"
+                        android:text="Streak"
+                        android:id="@+id/textView3"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:id="@+id/markedTilesTextView"
+                        android:layout_height="match_parent"
+                        android:text="5"
+                        android:id="@+id/streakTextView"
+                        android:gravity="center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -120,14 +123,15 @@
                     <TextView
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:text="Bombs"
-                        android:id="@+id/textView18"
+                        android:text="Total time"
+                        android:id="@+id/textView4"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:id="@+id/bombCountTextView"
+                        android:layout_height="match_parent"
+                        android:text="34:29"
+                        android:id="@+id/totalTimeTextView"
+                        android:gravity="center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -138,14 +142,15 @@
                     <TextView
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:id="@+id/textView16"
+                        android:text="Avg. time"
+                        android:id="@+id/textView5"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:id="@+id/elapsedTimeTextView"
+                        android:layout_height="match_parent"
+                        android:text="1:43m"
+                        android:id="@+id/averageTimeTextView"
+                        android:gravity="center_vertical"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -162,14 +167,33 @@
                     android:background="@color/divider"
                     >
                 </FrameLayout>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Share"
-                    android:id="@+id/shareButton"
-                    android:layout_gravity="right"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    />
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RESET"
+                        android:id="@+id/resetButton"
+                        android:layout_gravity="center_horizontal|right"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/shareButton"
+                        android:layout_toStartOf="@+id/shareButton"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Share"
+                        android:id="@+id/shareButton"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

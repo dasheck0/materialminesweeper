@@ -35,6 +35,10 @@ public class PreferencesControllerImpl implements PreferencesController {
         .flatMap(json -> gsonController.listFromJson(json, GameInformation[].class));
   }
 
+  @Override public Observable<Void> removeGameInformationList(int difficulty) {
+    return Observable.just(sharedPreferences.edit().remove(getListName(difficulty)).commit()).map(x -> null);
+  }
+
   private Observable<Void> saveGameInformationList(List<GameInformation> gameInformationList, int difficulty) {
     return gsonController.listToJson(gameInformationList)
         .map(json -> sharedPreferences.edit().putString(getListName(difficulty), json).commit())

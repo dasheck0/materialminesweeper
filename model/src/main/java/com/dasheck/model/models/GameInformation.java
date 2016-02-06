@@ -5,22 +5,6 @@ package com.dasheck.model.models;
  */
 public class GameInformation {
 
-  /*
-
-  Gamedata
-
-{
-	elapsed: 120,
-	won: true,
-	revealed: 10,
-	marked: 2,
-	width: 10,
-	height: 10,
-	bombs: 20,
-	mode: 0
-}
-   */
-
   private boolean won;
   private int boardWidth;
   private int boardHeight;

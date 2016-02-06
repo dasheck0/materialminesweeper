@@ -16,6 +16,6 @@ public class MenuPresenterImpl extends BasePresenterImpl implements MenuPresente
   @Override public void onResume() {
     super.onResume();
 
-    getGameModesInteractor.execute().doOnNext(modes -> Timber.d("Emitting: " + modes)).subscribe(view::setGameModes);
+    getGameModesInteractor.execute().subscribe(view::setGameModes);
   }
 }

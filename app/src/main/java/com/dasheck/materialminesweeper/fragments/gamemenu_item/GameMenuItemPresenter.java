@@ -11,4 +11,6 @@ public interface GameMenuItemPresenter extends BasePresenter {
   void setGameMode(GameMode gameMode);
 
   void startGame(int position);
+
+  void resetGameStatistics(int position);
 }

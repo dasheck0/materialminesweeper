@@ -88,20 +88,19 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
       }
 
       return playerLost;
-    })
-        .flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
-            (gameWon, gameInformation) -> {
-              if (isBomb) {
-                view.showGameLostDialog(gameInformation);
-              } else if (gameWon) {
-                view.showGameWonDialog();
-              }
+    }).flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
+        (gameWon, gameInformation) -> {
+          if (isBomb) {
+            view.showGameLostDialog(gameInformation);
+            saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
+          } else if (gameWon) {
+            saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
+            view.showGameWonDialog();
+          }
 
-              return gameInformation;
-            }))
-        .flatMap(saveLatestGameInformationInteractor::execute)
-        .flatMap(x -> updateGameInformation())
-        .subscribe();
+          return gameInformation;
+        }))
+        .flatMap(x -> updateGameInformation()).subscribe();
   }
 
   @Override public void markTile(Tile tile) {

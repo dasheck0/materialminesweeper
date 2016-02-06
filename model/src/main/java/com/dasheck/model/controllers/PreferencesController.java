@@ -12,4 +12,6 @@ public interface PreferencesController {
   Observable<Void> addGameInformation(GameInformation gameInformation);
 
   Observable<List<GameInformation>> getGameInformationList(int difficulty);
+
+  Observable<Void> removeGameInformationList(int difficulty);
 }

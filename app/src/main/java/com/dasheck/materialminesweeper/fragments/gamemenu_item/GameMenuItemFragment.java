@@ -13,6 +13,7 @@ import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapte
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /**
  * @author Stefan Neidig
@@ -26,6 +27,7 @@ import javax.inject.Inject;
   private RecyclerViewMaterialAdapter gameMenuListAdapter;
 
   private List<GameMode> gameModes;
+  private GameMenuListAdapter adapter;
 
   @Override public void initializeViews() {
     setPresenter(presenter);
@@ -34,7 +36,8 @@ import javax.inject.Inject;
   }
 
   @Override public void setGameMode(GameMode gameMode) {
-    gameMenuListAdapter = new RecyclerViewMaterialAdapter(new GameMenuListAdapter(getContext(), gameMode, this));
+    adapter = new GameMenuListAdapter(getContext(), gameMode, this);
+    gameMenuListAdapter = new RecyclerViewMaterialAdapter(adapter);
 
     gameMenuItemList.setAdapter(gameMenuListAdapter);
     gameMenuItemList.setHasFixedSize(true);
@@ -43,11 +46,22 @@ import javax.inject.Inject;
     MaterialViewPagerHelper.registerRecyclerView(getActivity(), gameMenuItemList, null);
   }
 
+  @Override public void refreshGameStatistics(int position) {
+    adapter.notifyDataSetChanged();
+    gameMenuListAdapter.notifyDataSetChanged();
+
+    Timber.d("GameMenuItemFragment:52: " + "Updated data");
+  }
+
   @Override public void onConfigurationStartClicked(int position) {
     presenter.startGame(position);
   }
 
   @Override public void onGameInformationShareClicked(int position) {
 
+  }
+
+  @Override public void onGameStatisticsResetClicked(int position) {
+    presenter.resetGameStatistics(position);
   }
 }
