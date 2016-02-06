@@ -9,5 +9,5 @@ import rx.Observable;
  */
 public interface ResetGameStatisticsInteractor {
 
-  Observable<List<GameStatistics>> execute(int difficulty);
+  Observable<GameStatistics> execute(int difficulty);
 }

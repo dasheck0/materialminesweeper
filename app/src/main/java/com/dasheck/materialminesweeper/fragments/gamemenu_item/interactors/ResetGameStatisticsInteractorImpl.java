@@ -16,7 +16,7 @@ public class ResetGameStatisticsInteractorImpl implements ResetGameStatisticsInt
   @Inject public ResetGameStatisticsInteractorImpl() {
   }
 
-  @Override public Observable<List<GameStatistics>> execute(int position) {
-    return statisticsDatastore.resetGameStatistics(position).toList();
+  @Override public Observable<GameStatistics> execute(int position) {
+    return statisticsDatastore.resetGameStatistics(position);
   }
 }

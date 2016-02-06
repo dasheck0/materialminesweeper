@@ -27,12 +27,12 @@ public class GameMenuItemPresenterImpl extends BasePresenterImpl implements Game
   }
 
   @Override public void startGame(int position) {
-    navigator.showGame(gameMode.getConfigurations().get(position));
+    navigator.showGame(gameMode.getConfiguration());
   }
 
   @Override public void resetGameStatistics(int position) {
-    resetGameStatisticsInteractor.execute(gameMode.getConfigurations().get(0).getDifficulty())
-        .doOnNext(gameMode::setGameStatisticses);
-    view.refreshGameStatistics(position);
+    resetGameStatisticsInteractor.execute(gameMode.getConfiguration().getDifficulty())
+        .doOnNext(gameMode::setGameStatistics)
+        .subscribe(x -> view.refreshGameStatistics(position));
   }
 }

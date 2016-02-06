@@ -24,15 +24,12 @@ import timber.log.Timber;
   @Bind(R.id.gameMenuItemList) RecyclerView gameMenuItemList;
 
   @Inject GameMenuItemPresenter presenter;
-  private RecyclerViewMaterialAdapter gameMenuListAdapter;
 
-  private List<GameMode> gameModes;
+  private RecyclerViewMaterialAdapter gameMenuListAdapter;
   private GameMenuListAdapter adapter;
 
   @Override public void initializeViews() {
     setPresenter(presenter);
-
-    gameModes = new ArrayList<>();
   }
 
   @Override public void setGameMode(GameMode gameMode) {
@@ -47,8 +44,7 @@ import timber.log.Timber;
   }
 
   @Override public void refreshGameStatistics(int position) {
-    adapter.notifyDataSetChanged();
-    gameMenuListAdapter.notifyDataSetChanged();
+    gameMenuListAdapter.mvp_notifyDataSetChanged();
 
     Timber.d("GameMenuItemFragment:52: " + "Updated data");
   }

@@ -8,19 +8,19 @@ import java.util.List;
 public class GameMode {
 
   private String name;
-  private List<Configuration> configurations;
-  private List<GameInformation> gameInformationList;
-  private List<GameStatistics> gameStatisticses;
+  private Configuration configuration;
+  private GameInformation gameInformation;
+  private GameStatistics gameStatistics;
 
   public GameMode() {
   }
 
-  public GameMode(String name, List<Configuration> configurations, List<GameInformation> gameInformationList,
-      List<GameStatistics> gameStatisticses) {
+  public GameMode(String name, Configuration configuration, GameInformation gameInformation,
+      GameStatistics gameStatistics) {
     this.name = name;
-    this.configurations = configurations;
-    this.gameInformationList = gameInformationList;
-    this.gameStatisticses = gameStatisticses;
+    this.configuration = configuration;
+    this.gameInformation = gameInformation;
+    this.gameStatistics = gameStatistics;
   }
 
   public String getName() {
@@ -31,36 +31,36 @@ public class GameMode {
     this.name = name;
   }
 
-  public List<Configuration> getConfigurations() {
-    return configurations;
+  public Configuration getConfiguration() {
+    return configuration;
   }
 
-  public void setConfigurations(List<Configuration> configurations) {
-    this.configurations = configurations;
+  public void setConfiguration(Configuration configuration) {
+    this.configuration = configuration;
   }
 
-  public List<GameInformation> getGameInformationList() {
-    return gameInformationList;
+  public GameInformation getGameInformation() {
+    return gameInformation;
   }
 
-  public void setGameInformationList(List<GameInformation> gameInformationList) {
-    this.gameInformationList = gameInformationList;
+  public void setGameInformation(GameInformation gameInformation) {
+    this.gameInformation = gameInformation;
   }
 
-  public List<GameStatistics> getGameStatisticses() {
-    return gameStatisticses;
+  public GameStatistics getGameStatistics() {
+    return gameStatistics;
   }
 
-  public void setGameStatisticses(List<GameStatistics> gameStatisticses) {
-    this.gameStatisticses = gameStatisticses;
+  public void setGameStatistics(GameStatistics gameStatistics) {
+    this.gameStatistics = gameStatistics;
   }
 
   @Override public String toString() {
     return "GameMode{" +
         "name='" + name + '\'' +
-        ", configurations=" + configurations +
-        ", gameInformationList=" + gameInformationList +
-        ", gameStatisticses=" + gameStatisticses +
+        ", configuration=" + configuration +
+        ", gameInformation=" + gameInformation +
+        ", gameStatistics=" + gameStatistics +
         '}';
   }
 }

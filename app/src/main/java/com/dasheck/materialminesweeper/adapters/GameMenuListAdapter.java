@@ -30,17 +30,13 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private static final int VIEW_TYPE_GAME_STATISTICS = 2;
 
   private Context context;
-  private List<Configuration> configurations;
-  private List<GameInformation> gameInformationList;
-  private List<GameStatistics> gameStatisticsList;
+  private GameMode gameMode;
 
   private OnGameMenuItemClickListener onGameMenuItemClickListener;
 
   public GameMenuListAdapter(Context context, GameMode gameMode, OnGameMenuItemClickListener listener) {
     this.context = context;
-    this.configurations = gameMode.getConfigurations();
-    this.gameInformationList = gameMode.getGameInformationList();
-    this.gameStatisticsList = gameMode.getGameStatisticses();
+    this.gameMode = gameMode;
     this.onGameMenuItemClickListener = listener;
   }
 
@@ -65,10 +61,12 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   @Override public int getItemCount() {
-    return configurations.size() + gameInformationList.size() + gameStatisticsList.size();
+    return 3;
   }
 
   @Override public int getItemViewType(int position) {
+    return position;
+   /*
     if (position < configurations.size()) {
       return VIEW_TYPE_CONFIGURATION;
     } else if (position < configurations.size() + gameInformationList.size()) {
@@ -77,19 +75,19 @@ public class GameMenuListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       return VIEW_TYPE_GAME_STATISTICS;
     }
 
-    return -1;
+    return -1;*/
   }
 
   public Configuration getConfiguration(int absolutePosition) {
-    return configurations.get(absolutePosition);
+    return gameMode.getConfiguration();
   }
 
   public GameInformation getGameInformation(int absolutePosition) {
-    return gameInformationList.get(absolutePosition - configurations.size());
+    return gameMode.getGameInformation();
   }
 
   public GameStatistics getGameStatistics(int absolutePosition) {
-    return gameStatisticsList.get(absolutePosition - configurations.size() - gameInformationList.size());
+    return gameMode.getGameStatistics();
   }
 
   @Override public void onBindViewHolder(BaseViewHolder holder, int position) {
