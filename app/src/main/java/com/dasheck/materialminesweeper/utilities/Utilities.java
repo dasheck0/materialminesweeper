@@ -83,11 +83,11 @@ public class Utilities {
     long hours = (timespan / (60 * 60)) % 24;
 
     if (hours > 0) {
-      return String.format("%02dh %02dm %02ds", hours, minutes, seconds);
+      return String.format("%dh %02dm %02ds", hours, minutes, seconds);
     } else if (minutes > 0) {
-      return String.format("%02dm %02ds", minutes, seconds);
+      return String.format("%dm %02ds", minutes, seconds);
     } else {
-      return String.format("%02ds", seconds);
+      return String.format("%ds", seconds);
     }
   }
 }
