@@ -1,11 +1,15 @@
 package com.dasheck.materialminesweeper.fragments.game;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
+import butterknife.BindDrawable;
+import butterknife.OnClick;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dasheck.materialminesweeper.R;
@@ -24,18 +28,29 @@ import javax.inject.Inject;
 /**
  * Created by s.neidig on 17/01/16.
  */
-@Layout(R.layout.fragment_test) @Title(R.string.game_title) public class GameFragment extends BaseFragment
+@Layout(R.layout.fragment_game) @Title(R.string.game_title) public class GameFragment extends BaseFragment
     implements GameView, BaseAdapter.OnItemClickedListener, BaseAdapter.OnItemLongClickedListener {
 
   @Bind(R.id.tileMapContainer) View tileMapContainer;
   @Bind(R.id.tileMap) RecyclerView tileMap;
   @Bind(R.id.bombTextView) TextView bombTextView;
   @Bind(R.id.timeTextView) TextView timeTextView;
+  @Bind(R.id.smileyButton) ImageView smileyButton;
+
+  @BindDrawable(R.drawable.ic_smiley) Drawable icSmiley;
+  @BindDrawable(R.drawable.ic_smileay_won) Drawable icSmileayWon;
+  @BindDrawable(R.drawable.ic_smiley_checking) Drawable icSmileyChecking;
+  @BindDrawable(R.drawable.ic_smiley_dead) Drawable icSmileyDead;
 
   @Inject GamePresenter presenter;
   @Inject TileListAdapter adapter;
 
   private FixedGridLayoutManager gridLayoutManager;
+  private boolean fieldFrozen = false;
+
+  @OnClick(R.id.smileyButton) public void onSmileyButtonClicked(View view) {
+    presenter.restartGame();
+  }
 
   @Override public void initializeViews() {
     setPresenter(presenter);
@@ -90,36 +105,8 @@ import javax.inject.Inject;
     tileMap.setLayoutParams(params);
   }
 
-  @Override public void showGameLostDialog(GameInformation gameInformation) {
-    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).theme(Theme.LIGHT)
-        .title("You lost")
-        .customView(R.layout.dialog_game_lost, true)
-        .positiveText("YES")
-        .negativeText("NO")
-        .cancelable(false)
-        .onPositive((dialog, which) -> {
-          presenter.restartGame();
-          dialog.dismiss();
-        })
-        .onNegative((dialog, which) -> {
-          presenter.showMenu();
-          dialog.dismiss();
-        })
-        .build();
-
-    View root = lostDialog.getCustomView();
-
-    if (root != null) {
-      TextView markedTilesTextView = (TextView) root.findViewById(R.id.markedTilesTextView);
-      TextView revealedTilesTextView = (TextView) root.findViewById(R.id.revealedTilesTextView);
-      TextView elapsedTimeTextView = (TextView) root.findViewById(R.id.elapsedTimeTextView);
-
-      markedTilesTextView.setText(String.valueOf(gameInformation.getMarkedTilesCount()));
-      revealedTilesTextView.setText(String.valueOf(gameInformation.getRevealedTilesCount()));
-      elapsedTimeTextView.setText(String.format("%d sec", gameInformation.getElapsedTime()));
-    }
-
-    lostDialog.show();
+  @Override public void setSmileyLost(GameInformation gameInformation) {
+    smileyButton.setImageDrawable(icSmileyDead);
   }
 
   @Override public void setNumberOfRemainingBombs(int remainingBombs) {
@@ -130,30 +117,39 @@ import javax.inject.Inject;
     timeTextView.setText(String.format("%03d", elapsedTimeInSeconds));
   }
 
-  @Override public void showGameWonDialog() {
-    MaterialDialog lostDialog = new MaterialDialog.Builder(getContext()).theme(Theme.LIGHT)
-        .title("You won")
-        .content("Do you want to play again")
-        .positiveText("YES")
-        .negativeText("NO")
-        .cancelable(false)
-        .onPositive((dialog, which) -> {
-          presenter.restartGame();
-          dialog.dismiss();
-        })
-        .onNegative((dialog, which) -> {
-          presenter.showMenu();
-          dialog.dismiss();
-        })
-        .show();
+  @Override public void setSmileyWon() {
+    smileyButton.setImageDrawable(icSmileayWon);
+  }
+
+  @Override public void setSmileyChecking() {
+    smileyButton.setImageDrawable(icSmileyChecking);
+  }
+
+  @Override public void setSmileyDefault() {
+    smileyButton.setImageDrawable(icSmiley);
+  }
+
+  @Override public void setSmileyLost() {
+    smileyButton.setImageDrawable(icSmileyDead);
+  }
+
+  @Override public void freezeField() {
+    fieldFrozen = true;
+  }
+
+  @Override public void unfreezeField() {
+    fieldFrozen = false;
   }
 
   @Override public void onItemClicked(int position) {
-    presenter.revealTile(adapter.get(position));
+    if (!fieldFrozen) {
+      presenter.revealTile(adapter.get(position));
+    }
   }
 
   @Override public void onItemLongClicked(int position) {
-    presenter.markTile(adapter.get(position));
+    if (!fieldFrozen) {
+      presenter.markTile(adapter.get(position));
+    }
   }
-
 }

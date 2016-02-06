@@ -78,6 +78,8 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void revealTile(Tile tile) {
+    view.setSmileyChecking();
+
     Observable<Boolean> revealObservable = isTileRevealedInteractor.execute(tile.getPosition())
         .flatMap(isRevealed -> isRevealed ? quickRevealTileInteractor.execute(tile.getPosition())
             : revealTileInteractor.execute(tile));
@@ -90,12 +92,16 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
       return playerLost;
     }).flatMap(isBomb -> Observable.zip(isGameWonInteractor.execute(), getGameInformationInteractor.execute(),
         (gameWon, gameInformation) -> {
+          view.setSmileyDefault();
+
           if (isBomb) {
-            view.showGameLostDialog(gameInformation);
+            view.setSmileyLost();
+            view.freezeField();
             saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
           } else if (gameWon) {
+            view.setSmileyWon();
+            view.freezeField();
             saveLatestGameInformationInteractor.execute(gameInformation).subscribe();
-            view.showGameWonDialog();
           }
 
           return gameInformation;
@@ -108,6 +114,9 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   }
 
   @Override public void startGame(Configuration configuration) {
+    view.setSmileyDefault();
+    view.unfreezeField();
+
     createFieldInteractor.execute(configuration).
         flatMap(dimension -> updateGameInformation().map(x -> dimension)).subscribe(dimension -> {
       view.setDimension(dimension.first, dimension.second);

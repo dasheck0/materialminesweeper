@@ -16,11 +16,21 @@ public interface GameView extends BaseView {
 
   void repositionGrid(int columns, int rows);
 
-  void showGameLostDialog(GameInformation gameInformation);
+  void setSmileyLost(GameInformation gameInformation);
 
   void setNumberOfRemainingBombs(int remainingBombs);
 
   void setElapsedTime(long elapsedTimeInSeconds);
 
-  void showGameWonDialog();
+  void setSmileyWon();
+
+  void setSmileyChecking();
+
+  void setSmileyDefault();
+
+  void setSmileyLost();
+
+  void freezeField();
+
+  void unfreezeField();
 }
