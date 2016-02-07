@@ -3,4 +3,5 @@
   <string name="title_menu">Menu</string>
   <string name="game_title">Game</string>
   <string name="settings_title">Settings</string>
+  <string name="history_title">History</string>
 </resources>

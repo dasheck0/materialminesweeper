@@ -11,6 +11,11 @@ import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemCompo
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemFragment;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemModule;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemPresenterImpl;
+import com.dasheck.materialminesweeper.fragments.history.DaggerHistoryComponent;
+import com.dasheck.materialminesweeper.fragments.history.HistoryComponent;
+import com.dasheck.materialminesweeper.fragments.history.HistoryFragment;
+import com.dasheck.materialminesweeper.fragments.history.HistoryModule;
+import com.dasheck.materialminesweeper.fragments.history.HistoryPresenterImpl;
 import com.dasheck.materialminesweeper.fragments.menu.DaggerMenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
@@ -84,14 +89,27 @@ public class Navigator {
   }
 
   public void showSettings() {
-    Timber.d("Navigator:86: " + "Showing settings");
-
     SettingsFragment fragment = new SettingsFragment();
     SettingsPresenterImpl presenter = new SettingsPresenterImpl();
 
     SettingsComponent component = DaggerSettingsComponent.builder()
         .activityComponent(baseActivity.getActivityComponent())
         .settingsModule(new SettingsModule(fragment, presenter))
+        .build();
+
+    component.inject(fragment);
+    component.inject(presenter);
+
+    transist(fragment);
+  }
+
+  public void showHistory() {
+    HistoryFragment fragment = new HistoryFragment();
+    HistoryPresenterImpl presenter = new HistoryPresenterImpl();
+
+    HistoryComponent component = DaggerHistoryComponent.builder()
+        .activityComponent(baseActivity.getActivityComponent())
+        .historyModule(new HistoryModule(fragment, presenter))
         .build();
 
     component.inject(fragment);

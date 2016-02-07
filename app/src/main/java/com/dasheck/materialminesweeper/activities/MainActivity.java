@@ -14,6 +14,7 @@ import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.fragments.BaseView;
+import com.dasheck.materialminesweeper.fragments.history.HistoryFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.settings.SettingsFragment;
 import timber.log.Timber;
@@ -67,8 +68,10 @@ import timber.log.Timber;
           break;
 
         case R.id.ic_history:
-          Timber.d("MenuFragment:73: " + "Loading history");
-          result = true;
+          if (!(getCurrentFragment() instanceof HistoryFragment)) {
+            getNavigator().showHistory();
+            result = true;
+          }
           break;
 
         case R.id.ic_settings:

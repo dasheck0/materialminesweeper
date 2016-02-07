@@ -13,12 +13,13 @@ public class GameInformation {
   private int revealedTilesCount;
   private int markedTilesCount;
   private long elapsedTime;
+  private long timestamp;
 
   public GameInformation() {
   }
 
   public GameInformation(boolean won, int boardWidth, int boardHeight, int difficulty, int bombCount,
-      int revealedTilesCount, int markedTilesCount, long elapsedTime) {
+      int revealedTilesCount, int markedTilesCount, long elapsedTime, long timestamp) {
     this.won = won;
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
@@ -27,6 +28,7 @@ public class GameInformation {
     this.revealedTilesCount = revealedTilesCount;
     this.markedTilesCount = markedTilesCount;
     this.elapsedTime = elapsedTime;
+    this.timestamp = timestamp;
   }
 
   public boolean isWon() {
@@ -93,6 +95,14 @@ public class GameInformation {
     this.elapsedTime = elapsedTime;
   }
 
+  public long getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(long timestamp) {
+    this.timestamp = timestamp;
+  }
+
   @Override public String toString() {
     return "GameInformation{" +
         "won=" + won +
@@ -103,6 +113,7 @@ public class GameInformation {
         ", revealedTilesCount=" + revealedTilesCount +
         ", markedTilesCount=" + markedTilesCount +
         ", elapsedTime=" + elapsedTime +
+        ", timestamp=" + timestamp +
         '}';
   }
 }

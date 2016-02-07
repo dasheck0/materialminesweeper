@@ -28,7 +28,6 @@
         android:checkable="true"
         android:checked="false"
         android:title="History"
-        android:enabled="false"
         />
     <item
         android:icon="@drawable/ic_settings_grey600_48dp"

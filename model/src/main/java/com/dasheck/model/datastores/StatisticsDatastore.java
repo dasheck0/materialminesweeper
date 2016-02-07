@@ -2,12 +2,15 @@ package com.dasheck.model.datastores;
 
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.GameStatistics;
+import java.util.List;
 import rx.Observable;
 
 /**
  * @author Stefan Neidig
  */
 public interface StatisticsDatastore {
+
+  Observable<List<GameInformation>> getGameInformationList();
 
   Observable<GameInformation> getLatestGameInformation(int difficulty);
 

@@ -51,7 +51,7 @@ public class CurrentGameControllerImpl implements CurrentGameController {
         fieldController.getNumberOfMarkedTiles(field), gameTimeController.getElapsed(),
         (isWon, revealedTileCount, markedTileCount, elapsed) -> new GameInformation(isWon, configuration.getWidth(),
             configuration.getHeight(), configuration.getDifficulty(), configuration.getBombCount(), revealedTileCount,
-            markedTileCount, elapsed));
+            markedTileCount, elapsed, System.currentTimeMillis()));
   }
 
   /* Field manipulation */
