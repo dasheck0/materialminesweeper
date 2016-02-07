@@ -9,5 +9,5 @@ public interface BaseView {
 
     void initializeViews();
 
-    void onBackPressed();
+    boolean onBackPressed();
 }

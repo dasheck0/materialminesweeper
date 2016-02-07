@@ -23,7 +23,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setupToolbar();
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +36,8 @@ public abstract class BaseFragment extends Fragment implements BaseView {
   @Override public void onResume() {
     super.onResume();
     initializeViews();
+    setupToolbar();
+
     if (presenter != null) {
       presenter.onResume();
     }
@@ -48,12 +49,13 @@ public abstract class BaseFragment extends Fragment implements BaseView {
   }
 
   @Override public void setupToolbar() {
-    if (presenter != null) {
+    /*if (presenter != null) {
       presenter.onStop();
-    }
+    }*/
   }
 
-  @Override public void onBackPressed() {
+  @Override public boolean onBackPressed() {
+    return false;
   }
 
   public void setPresenter(BasePresenter presenter) {

@@ -16,8 +16,14 @@ import com.dasheck.materialminesweeper.fragments.menu.MenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuModule;
 import com.dasheck.materialminesweeper.fragments.menu.MenuPresenterImpl;
+import com.dasheck.materialminesweeper.fragments.settings.DaggerSettingsComponent;
+import com.dasheck.materialminesweeper.fragments.settings.SettingsComponent;
+import com.dasheck.materialminesweeper.fragments.settings.SettingsFragment;
+import com.dasheck.materialminesweeper.fragments.settings.SettingsModule;
+import com.dasheck.materialminesweeper.fragments.settings.SettingsPresenterImpl;
 import com.dasheck.model.models.Configuration;
 import com.dasheck.model.models.GameMode;
+import timber.log.Timber;
 
 /**
  * Created by s.neidig on 17/01/16.
@@ -75,6 +81,23 @@ public class Navigator {
     component.inject(presenter);
 
     return fragment;
+  }
+
+  public void showSettings() {
+    Timber.d("Navigator:86: " + "Showing settings");
+
+    SettingsFragment fragment = new SettingsFragment();
+    SettingsPresenterImpl presenter = new SettingsPresenterImpl();
+
+    SettingsComponent component = DaggerSettingsComponent.builder()
+        .activityComponent(baseActivity.getActivityComponent())
+        .settingsModule(new SettingsModule(fragment, presenter))
+        .build();
+
+    component.inject(fragment);
+    component.inject(presenter);
+
+    transist(fragment);
   }
 
   // TODO: 26/01/16 Write an awesome transition controller supporting shared element transition

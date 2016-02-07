@@ -1,7 +1,11 @@
 package com.dasheck.materialminesweeper.fragments.menu;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.BindColor;
 import com.dasheck.materialminesweeper.R;
@@ -35,15 +39,56 @@ import timber.log.Timber;
       getBaseActivity().setSupportActionBar(toolbar);
 
       ActionBar actionBar = getBaseActivity().getSupportActionBar();
-      actionBar.setDisplayHomeAsUpEnabled(true);
-      actionBar.setDisplayShowHomeEnabled(true);
       actionBar.setDisplayShowTitleEnabled(true);
-      actionBar.setDisplayUseLogoEnabled(true);
-      actionBar.setHomeButtonEnabled(true);
+      /*actionBar.setDisplayHomeAsUpEnabled(false);
+      actionBar.setDisplayShowHomeEnabled(false);
+      actionBar.setDisplayUseLogoEnabled(false);
+      actionBar.setHomeButtonEnabled(false);*/
     }
 
-    //viewPager.getViewPager().setAdapter(menuPagerAdapter);
-    //viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
+    /*actionBarDrawerToggle =
+        new ActionBarDrawerToggle(getBaseActivity(), drawerLayout, toolbar, R.string.app_name, R.string.app_name);
+    drawerLayout.setDrawerListener(actionBarDrawerToggle);
+    actionBarDrawerToggle.syncState();
+
+    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+      @Override public boolean onNavigationItemSelected(MenuItem item) {
+
+        if (item.isCheckable()) {
+          item.setChecked(true);
+        }
+
+        switch (item.getItemId()) {
+          case R.id.ic_menu:
+            return true;
+
+          case R.id.ic_leaderbord:
+            Timber.d("MenuFragment:69: " + "loading leaderboard");
+            return true;
+
+          case R.id.ic_history:
+            Timber.d("MenuFragment:73: " + "Loading history");
+            return true;
+
+          case R.id.ic_settings:
+            return true;
+
+          case R.id.ic_twitter:
+            return true;
+
+          case R.id.ic_google_play:
+            return true;
+        }
+
+        return false;
+      }
+    });*/
+  }
+
+  @Override public void setupToolbar() {
+    super.setupToolbar();
+
+    getBaseActivity().setupDrawerLayout(viewPager.getToolbar());
   }
 
   @Override public void setGameModes(List<GameMode> gameModes) {

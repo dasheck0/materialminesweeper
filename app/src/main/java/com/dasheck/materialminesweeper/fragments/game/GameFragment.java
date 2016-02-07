@@ -58,9 +58,9 @@ import javax.inject.Inject;
     presenter.restartGame();
   }
 
-  @Override public void onBackPressed() {
-    super.onBackPressed();
+  @Override public boolean onBackPressed() {
     presenter.interruptGame();
+    return true;
   }
 
   @Override public void initializeViews() {

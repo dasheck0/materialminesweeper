@@ -2,6 +2,7 @@ package com.dasheck.materialminesweeper.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import butterknife.ButterKnife;
 import com.dasheck.materialminesweeper.Application;
 import com.dasheck.materialminesweeper.R;
@@ -45,6 +46,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Navigator getNavigator() {
         return activityComponent.navigator();
     }
+
+    public abstract void setupDrawerLayout(Toolbar toolbar);
 
     @Override
     protected void onDestroy() {

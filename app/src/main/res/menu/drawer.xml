@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group
+      android:menuCategory="container"
+      android:checkableBehavior="single"
+      android:id="@+id/menu"
+      >
+
+    <item
+        android:icon="@drawable/ic_apps_grey600_48dp"
+        android:id="@+id/ic_menu"
+        android:checkable="true"
+        android:checked="true"
+        android:title="Menu"
+        />
+    <item
+        android:icon="@drawable/ic_trophy_grey600_48dp"
+        android:id="@+id/ic_leaderbord"
+        android:checkable="true"
+        android:checked="false"
+        android:title="Leaderboard"
+        android:enabled="false"
+        />
+    <item
+        android:icon="@drawable/ic_book_open_grey600_48dp"
+        android:id="@+id/ic_history"
+        android:checkable="true"
+        android:checked="false"
+        android:title="History"
+        android:enabled="false"
+        />
+    <item
+        android:icon="@drawable/ic_settings_grey600_48dp"
+        android:id="@+id/ic_settings"
+        android:checkable="true"
+        android:checked="false"
+        android:title="Settings"
+        />
+
+  </group>
+
+    <group
+      android:menuCategory="container"
+      android:checkableBehavior="single"
+        android:id="@+id/menu_social"
+      >
+
+    <item
+        android:icon="@drawable/ic_twitter_grey600_48dp"
+        android:id="@+id/ic_twitter"
+        android:checkable="false"
+        android:title="Twitter"
+        />
+
+    <item
+        android:icon="@drawable/ic_google_play_grey600_48dp"
+        android:id="@+id/ic_google_play"
+        android:checkable="false"
+        android:title="Playstore"
+        />
+
+  </group>
+
+</menu>
