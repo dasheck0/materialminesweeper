@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.ShareController;
 import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.materialminesweeper.controllers.WebController;
 import com.dasheck.model.controllers.CurrentGameController;
@@ -54,4 +55,6 @@ import dagger.Component;
   VibrationController vibrationController();
 
   WebController webController();
+
+  ShareController shareController();
 }

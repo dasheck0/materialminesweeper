@@ -77,14 +77,6 @@ import timber.log.Timber;
             result = true;
           }
           break;
-
-        case R.id.ic_twitter:
-          result = true;
-          break;
-
-        case R.id.ic_google_play:
-          result = true;
-          break;
       }
 
       if (result) {

@@ -1,6 +1,8 @@
 package com.dasheck.materialminesweeper.di;
 
 import com.dasheck.materialminesweeper.annotations.PerActivity;
+import com.dasheck.materialminesweeper.controllers.ShareController;
+import com.dasheck.materialminesweeper.controllers.ShareControllerImpl;
 import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.materialminesweeper.controllers.VibrationControllerImpl;
 import com.dasheck.materialminesweeper.controllers.WebController;
@@ -52,5 +54,9 @@ import dagger.Provides;
 
   @Provides @PerActivity public WebController provideWebController(WebControllerImpl webControllerImpl) {
     return webControllerImpl;
+  }
+
+  @Provides @PerActivity public ShareController provideShareController(ShareControllerImpl shareControllerImpl) {
+    return shareControllerImpl;
   }
 }

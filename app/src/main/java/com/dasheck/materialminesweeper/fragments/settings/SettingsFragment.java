@@ -29,6 +29,10 @@ import javax.inject.Inject;
     presenter.openGooglePlayPage(getBaseActivity().getPackageName());
   }
 
+  @OnClick(R.id.shareContainer) public void onShareContainerClicked(View view) {
+    presenter.shareApp();
+  }
+
   @Override public void initializeViews() {
     setPresenter(presenter);
 

@@ -2,6 +2,7 @@ package com.dasheck.materialminesweeper.fragments.settings;
 
 import com.dasheck.materialminesweeper.fragments.BasePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.settings.interactors.OpenWebsiteInteractor;
+import com.dasheck.materialminesweeper.fragments.settings.interactors.ShareAppInteractor;
 import javax.inject.Inject;
 
 /**
@@ -11,6 +12,7 @@ public class SettingsPresenterImpl extends BasePresenterImpl implements Settings
 
   @Inject SettingsView view;
   @Inject OpenWebsiteInteractor openWebsiteInteractor;
+  @Inject ShareAppInteractor shareAppInteractor;
 
   @Override public void openTwitterPage() {
     openWebsiteInteractor.execute("https://twitter.com/dasheck")
@@ -19,5 +21,9 @@ public class SettingsPresenterImpl extends BasePresenterImpl implements Settings
 
   @Override public void openGooglePlayPage(String packageName) {
     openWebsiteInteractor.execute("market://details?id=" + packageName).subscribe();
+  }
+
+  @Override public void shareApp() {
+    shareAppInteractor.execute().subscribe();
   }
 }

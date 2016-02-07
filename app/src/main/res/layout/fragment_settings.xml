@@ -2,22 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:id="@+id/toolbar"
-        android:background="@color/colorPrimary"
-        android:elevation="6dp"
-        />
+  <android.support.v7.widget.Toolbar
+      android:layout_width="match_parent"
+      android:layout_height="56dp"
+      android:id="@+id/toolbar"
+      android:background="@color/colorPrimary"
+      android:elevation="6dp"
+      />
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/scrollView"
+      >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/generalSettingsContainer"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/generalSettingsContainer"
+          android:orientation="vertical"
+          >
 
         <TextView
             android:layout_width="match_parent"
@@ -34,57 +47,57 @@
             android:layout_height="72dp"
             android:id="@+id/vibrationContainer"
             >
-            <RelativeLayout
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView2"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_vibration"
-                    android:scaleType="centerCrop"
-                    android:padding="4dp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/imageView2"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_vibration"
+                android:scaleType="centerCrop"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vibration"
+                android:id="@+id/textView17"
+                android:layout_marginTop="16dp"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorSecondaryText"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The device vibrates when a flag is placed/removed"
+                android:id="@+id/textView19"
+                android:layout_below="@+id/textView17"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_toLeftOf="@+id/switch1"
+                android:layout_toStartOf="@+id/switch1"
                 android:layout_marginRight="16dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vibration"
-                    android:id="@+id/textView17"
-                    android:layout_marginTop="16dp"
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/colorSecondaryText"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="The device vibrates when a flag is placed/removed"
-                    android:id="@+id/textView19"
-                    android:layout_below="@+id/textView17"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_toLeftOf="@+id/switch1"
-                    android:layout_toStartOf="@+id/switch1"
-                    android:layout_marginRight="16dp"
-                    />
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/switch1"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:checked="true"
-                    />
-            </RelativeLayout>
+                />
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:checked="true"
+                />
+          </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -92,55 +105,55 @@
             android:layout_height="72dp"
             android:id="@+id/aboutContainer"
             >
-            <RelativeLayout
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView3"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_tooltip_text_grey600_48dp"
-                    android:scaleType="centerCrop"
-                    android:padding="4dp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/imageView3"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_tooltip_text_grey600_48dp"
+                android:scaleType="centerCrop"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About"
+                android:id="@+id/textView21"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorSecondaryText"
+                />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView23"
+                android:layout_below="@+id/textView21"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginRight="16dp"
-                >
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="About"
-                    android:id="@+id/textView21"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/colorSecondaryText"
-                    />
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView23"
-                    android:layout_below="@+id/textView21"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginRight="16dp"
-                    android:text="Some information about this project"
-                    />
-            </RelativeLayout>
+                android:text="Some information about this project"
+                />
+          </RelativeLayout>
         </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout3"
-        android:orientation="vertical"
-        >
+      </LinearLayout>
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/socialMediaContainer"
+          android:orientation="vertical"
+          >
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -164,46 +177,46 @@
             android:id="@+id/twitterContainer"
             android:background="?android:selectableItemBackground"
             >
-            <RelativeLayout
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView4"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_twitter_grey600_48dp"
-                    android:scaleType="centerInside"
-                    android:padding="4dp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/imageView4"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_twitter_grey600_48dp"
+                android:scaleType="centerInside"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Twitter"
+                android:id="@+id/textView24"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorSecondaryText"
+                />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Follow material minesweeper"
+                android:id="@+id/textView25"
+                android:layout_below="@+id/textView24"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginRight="16dp"
-                >
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Twitter"
-                    android:id="@+id/textView24"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/colorSecondaryText"
-                    />
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Follow material minesweeper"
-                    android:id="@+id/textView25"
-                    android:layout_below="@+id/textView24"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginRight="16dp"
-                    />
-            </RelativeLayout>
+                />
+          </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -212,47 +225,97 @@
             android:id="@+id/googlePlayContainer"
             android:background="?android:selectableItemBackground"
             >
-            <RelativeLayout
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView5"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_google_play_grey600_48dp"
-                    android:scaleType="centerInside"
-                    android:padding="4dp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/imageView5"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_google_play_grey600_48dp"
+                android:scaleType="centerInside"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Google play"
+                android:id="@+id/textView26"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorSecondaryText"
+                />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView27"
+                android:layout_below="@+id/textView26"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginRight="16dp"
-                >
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Google play"
-                    android:id="@+id/textView26"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/colorSecondaryText"
-                    />
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView27"
-                    android:layout_below="@+id/textView26"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginRight="16dp"
-                    android:text="Rate this app or leave a comment"
-                    />
-            </RelativeLayout>
+                android:text="Rate this app or leave a comment"
+                />
+          </RelativeLayout>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:id="@+id/shareContainer"
+            android:background="?android:selectableItemBackground"
+            android:layout_gravity="right"
+            >
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView6"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_share_variant_grey600_48dp"
+                android:scaleType="centerInside"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:id="@+id/textView28"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorSecondaryText"
+                />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView29"
+                android:layout_below="@+id/textView28"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="16dp"
+                android:text="Tell your friends about this"
+                />
+          </RelativeLayout>
+        </LinearLayout>
+      </LinearLayout>
     </LinearLayout>
-
+  </ScrollView>
 </LinearLayout>

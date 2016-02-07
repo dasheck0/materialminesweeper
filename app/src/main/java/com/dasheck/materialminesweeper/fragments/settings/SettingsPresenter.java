@@ -10,4 +10,6 @@ public interface SettingsPresenter extends BasePresenter {
   void openTwitterPage();
 
   void openGooglePlayPage(String packageName);
+
+  void shareApp();
 }
