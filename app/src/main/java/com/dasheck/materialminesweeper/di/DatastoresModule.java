@@ -3,6 +3,8 @@ package com.dasheck.materialminesweeper.di;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
 import com.dasheck.model.datastores.GameModeDatastore;
 import com.dasheck.model.datastores.GameModeDatastoreImpl;
+import com.dasheck.model.datastores.SettingsDatastore;
+import com.dasheck.model.datastores.SettingsDatastoreImpl;
 import com.dasheck.model.datastores.StatisticsDatastore;
 import com.dasheck.model.datastores.StatisticsDatastoreImpl;
 import dagger.Module;
@@ -21,5 +23,10 @@ import dagger.Provides;
   @Provides @PerActivity
   public StatisticsDatastore provideStatisticsDatastore(StatisticsDatastoreImpl statisticsDatastoreImpl) {
     return statisticsDatastoreImpl;
+  }
+
+  @Provides @PerActivity
+  public SettingsDatastore provideSettingsDatastore(SettingsDatastoreImpl settingsDatastoreImpl) {
+    return settingsDatastoreImpl;
   }
 }

@@ -84,14 +84,14 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_toLeftOf="@+id/switch1"
-                android:layout_toStartOf="@+id/switch1"
+                android:layout_toLeftOf="@+id/vibrationSwitch"
+                android:layout_toStartOf="@+id/vibrationSwitch"
                 android:layout_marginRight="16dp"
                 />
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch1"
+                android:id="@+id/vibrationSwitch"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"

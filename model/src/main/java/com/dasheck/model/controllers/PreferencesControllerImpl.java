@@ -39,6 +39,14 @@ public class PreferencesControllerImpl implements PreferencesController {
     return Observable.just(sharedPreferences.edit().remove(getListName(difficulty)).commit()).map(x -> null);
   }
 
+  @Override public Observable<Void> writeBoolean(String key, boolean value) {
+    return Observable.just(sharedPreferences.edit().putBoolean(key, value).commit()).map(x -> null);
+  }
+
+  @Override public Observable<Boolean> readBoolean(String key) {
+    return Observable.just(sharedPreferences.getBoolean(key, false));
+  }
+
   private Observable<Void> saveGameInformationList(List<GameInformation> gameInformationList, int difficulty) {
     return gsonController.listToJson(gameInformationList)
         .map(json -> sharedPreferences.edit().putString(getListName(difficulty), json).commit())

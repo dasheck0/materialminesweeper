@@ -6,4 +6,6 @@ import com.dasheck.materialminesweeper.fragments.BaseView;
  * @author Stefan Neidig
  */
 public interface SettingsView extends BaseView {
+
+  void setVibrationEnabled(boolean enabled);
 }

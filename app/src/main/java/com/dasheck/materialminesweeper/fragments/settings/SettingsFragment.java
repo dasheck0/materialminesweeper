@@ -1,15 +1,18 @@
 package com.dasheck.materialminesweeper.fragments.settings;
 
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
+import android.widget.Switch;
 import butterknife.Bind;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /**
  * @author Stefan Neidig
@@ -18,8 +21,11 @@ import javax.inject.Inject;
     implements SettingsView {
 
   @Bind(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.vibrationSwitch) Switch vibrationSwitch;
 
   @Inject SettingsPresenter presenter;
+
+  private boolean vibrationTouched = false;
 
   @OnClick(R.id.twitterContainer) public void onTwitterContainerClicked(View view) {
     presenter.openTwitterPage();
@@ -33,6 +39,20 @@ import javax.inject.Inject;
     presenter.shareApp();
   }
 
+  @OnCheckedChanged(R.id.vibrationSwitch) void onVibrationSwitchChecked(boolean checked) {
+    Timber.d("SettingsFragment:41: " + "Checked");
+    // TODO: 07/02/16 Do we have to think about if user input checked this?
+    if (vibrationTouched) {
+      presenter.setVibrationEnabled(checked);
+      vibrationTouched = false;
+    }
+  }
+
+  @OnTouch(R.id.vibrationSwitch) public boolean onVibrationSwitchTouched() {
+    vibrationTouched = true;
+    return false;
+  }
+
   @Override public void initializeViews() {
     setPresenter(presenter);
 
@@ -43,5 +63,9 @@ import javax.inject.Inject;
     super.setupToolbar();
 
     getBaseActivity().setupDrawerLayout(toolbar);
+  }
+
+  @Override public void setVibrationEnabled(boolean enabled) {
+    vibrationSwitch.setChecked(enabled);
   }
 }

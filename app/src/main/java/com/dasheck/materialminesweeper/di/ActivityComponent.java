@@ -14,6 +14,7 @@ import com.dasheck.model.controllers.GsonController;
 import com.dasheck.model.controllers.PreferencesController;
 import com.dasheck.model.controllers.field_controllers.FieldController;
 import com.dasheck.model.datastores.GameModeDatastore;
+import com.dasheck.model.datastores.SettingsDatastore;
 import com.dasheck.model.datastores.StatisticsDatastore;
 import dagger.Component;
 
@@ -39,6 +40,8 @@ import dagger.Component;
   GameModeDatastore gameModeDatastore();
 
   StatisticsDatastore statisticsDatastore();
+
+  SettingsDatastore settingsDatastore();
 
   /* Controllers */
 

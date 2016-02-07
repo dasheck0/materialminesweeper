@@ -14,4 +14,8 @@ public interface PreferencesController {
   Observable<List<GameInformation>> getGameInformationList(int difficulty);
 
   Observable<Void> removeGameInformationList(int difficulty);
+
+  Observable<Void> writeBoolean(String key, boolean value);
+
+  Observable<Boolean> readBoolean(String key);
 }

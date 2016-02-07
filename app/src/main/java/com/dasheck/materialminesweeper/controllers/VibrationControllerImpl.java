@@ -16,6 +16,10 @@ public class VibrationControllerImpl implements VibrationController {
     this.vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
   }
 
+  @Override public Observable<Boolean> supportsVibration() {
+    return Observable.just(vibrator.hasVibrator());
+  }
+
   @Override public Observable<Void> vibrate(long timeInMillis) {
     if (vibrator != null && vibrator.hasVibrator()) {
       vibrator.vibrate(timeInMillis);

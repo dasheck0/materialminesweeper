@@ -12,4 +12,6 @@ public interface SettingsPresenter extends BasePresenter {
   void openGooglePlayPage(String packageName);
 
   void shareApp();
+
+  void setVibrationEnabled(boolean enabled);
 }
