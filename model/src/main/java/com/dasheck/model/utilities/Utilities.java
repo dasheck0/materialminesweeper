@@ -4,6 +4,7 @@ import com.dasheck.model.models.Field;
 import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,5 +88,16 @@ public class Utilities {
     }
 
     return result;
+  }
+
+  public static boolean areOnSameDate(long first, long second) {
+    Calendar firstDate = Calendar.getInstance();
+    Calendar secondDate = Calendar.getInstance();
+
+    firstDate.setTimeInMillis(first);
+    secondDate.setTimeInMillis(second);
+
+    return firstDate.get(Calendar.DAY_OF_YEAR) == secondDate.get(Calendar.DAY_OF_YEAR)
+        && firstDate.get(Calendar.YEAR) == secondDate.get(Calendar.YEAR);
   }
 }

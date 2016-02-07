@@ -20,8 +20,7 @@ public class GetGameInformationListInteractorImpl implements GetGameInformationL
   @Override public Observable<List<GameInformation>> execute() {
     return statisticsDatastore.getGameInformationList()
         .flatMap(Observable::from)
-        .toSortedList((gameInformation, gameInformation2) -> {
-          return Long.valueOf(gameInformation.getTimestamp()).compareTo(gameInformation2.getTimestamp());
-        });
+        .toSortedList((gameInformation, gameInformation2) -> -Long.valueOf(gameInformation.getTimestamp())
+            .compareTo(gameInformation2.getTimestamp()));
   }
 }

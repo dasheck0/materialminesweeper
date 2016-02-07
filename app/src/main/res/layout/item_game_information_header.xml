@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/lightgray"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="22/02/2016 - Sunday"
+        android:id="@+id/dateTextView"
+        android:gravity="center_vertical|left"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/colorSecondaryText"
+        />
+</LinearLayout>

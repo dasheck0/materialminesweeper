@@ -12,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.dasheck.materialminesweeper.R;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import timber.log.Timber;
 
 /**
@@ -87,5 +92,13 @@ public class Utilities {
     } else {
       return String.format("%ds", seconds);
     }
+  }
+
+  public static String timestampToReadble(long timestamp) {
+    return timestampToReadble(timestamp, "dd/MM/yyyy HH:mm:ss");
+  }
+
+  public static String timestampToReadble(long timestamp, String format) {
+    return new SimpleDateFormat(format).format(new Date(timestamp));
   }
 }
