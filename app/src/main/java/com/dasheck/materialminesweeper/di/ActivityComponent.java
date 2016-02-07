@@ -6,6 +6,7 @@ import com.dasheck.materialminesweeper.activities.BaseActivity;
 import com.dasheck.materialminesweeper.activities.Navigator;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
 import com.dasheck.materialminesweeper.controllers.VibrationController;
+import com.dasheck.materialminesweeper.controllers.WebController;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.controllers.GameTimeController;
 import com.dasheck.model.controllers.GsonController;
@@ -51,4 +52,6 @@ import dagger.Component;
   CurrentGameController currentGameController();
 
   VibrationController vibrationController();
+
+  WebController webController();
 }

@@ -1,7 +1,10 @@
 package com.dasheck.materialminesweeper.fragments.settings;
 
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.View;
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.annotations.Title;
@@ -17,6 +20,14 @@ import javax.inject.Inject;
   @Bind(R.id.toolbar) Toolbar toolbar;
 
   @Inject SettingsPresenter presenter;
+
+  @OnClick(R.id.twitterContainer) public void onTwitterContainerClicked(View view) {
+    presenter.openTwitterPage();
+  }
+
+  @OnClick(R.id.googlePlayContainer) public void onGooglePlayContainerClicked(View view) {
+    presenter.openGooglePlayPage(getBaseActivity().getPackageName());
+  }
 
   @Override public void initializeViews() {
     setPresenter(presenter);

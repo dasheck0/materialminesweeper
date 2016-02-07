@@ -1,6 +1,8 @@
 package com.dasheck.materialminesweeper.fragments.settings;
 
 import com.dasheck.materialminesweeper.annotations.PerFragment;
+import com.dasheck.materialminesweeper.fragments.settings.interactors.OpenWebsiteInteractor;
+import com.dasheck.materialminesweeper.fragments.settings.interactors.OpenWebsiteInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,5 +25,10 @@ import dagger.Provides;
 
   @PerFragment @Provides SettingsPresenter providePresenter() {
     return presenter;
+  }
+
+  @Provides @PerFragment
+  public OpenWebsiteInteractor provideOpenWebsiteInteractor(OpenWebsiteInteractorImpl openWebsiteInteractorImpl) {
+    return openWebsiteInteractorImpl;
   }
 }

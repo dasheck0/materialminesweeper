@@ -3,6 +3,8 @@ package com.dasheck.materialminesweeper.di;
 import com.dasheck.materialminesweeper.annotations.PerActivity;
 import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.materialminesweeper.controllers.VibrationControllerImpl;
+import com.dasheck.materialminesweeper.controllers.WebController;
+import com.dasheck.materialminesweeper.controllers.WebControllerImpl;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.controllers.CurrentGameControllerImpl;
 import com.dasheck.model.controllers.GameTimeController;
@@ -46,5 +48,9 @@ import dagger.Provides;
   @Provides @PerActivity
   public VibrationController provideVibrationController(VibrationControllerImpl vibrationControllerImpl) {
     return vibrationControllerImpl;
+  }
+
+  @Provides @PerActivity public WebController provideWebController(WebControllerImpl webControllerImpl) {
+    return webControllerImpl;
   }
 }

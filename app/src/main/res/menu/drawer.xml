@@ -40,26 +40,4 @@
 
   </group>
 
-    <group
-      android:menuCategory="container"
-      android:checkableBehavior="single"
-        android:id="@+id/menu_social"
-      >
-
-    <item
-        android:icon="@drawable/ic_twitter_grey600_48dp"
-        android:id="@+id/ic_twitter"
-        android:checkable="false"
-        android:title="Twitter"
-        />
-
-    <item
-        android:icon="@drawable/ic_google_play_grey600_48dp"
-        android:id="@+id/ic_google_play"
-        android:checkable="false"
-        android:title="Playstore"
-        />
-
-  </group>
-
 </menu>
