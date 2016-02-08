@@ -6,12 +6,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 import butterknife.Bind;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.GameInformationListAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
+import com.dasheck.model.models.Filter;
 import com.dasheck.model.models.GameInformation;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import java.util.List;
@@ -29,6 +35,16 @@ import timber.log.Timber;
 
   @Inject HistoryPresenter presenter;
   @Inject GameInformationListAdapter adapter;
+
+  private MaterialDialog filterDialog;
+  private View customView;
+
+  private CheckBox wonCheckbox;
+  private CheckBox lostCheckbox;
+  private CheckBox easyCheckbox;
+  private CheckBox mediumCheckbox;
+  private CheckBox hardCheckbox;
+  private CheckBox expertCheckbox;
 
   @Override public void initializeViews() {
     setPresenter(presenter);
@@ -62,7 +78,7 @@ import timber.log.Timber;
         return true;
 
       case R.id.ic_filter:
-        Timber.d("HistoryFragment:64: " + "filter");
+        presenter.openFilterDialog();
         return true;
     }
 
@@ -73,6 +89,45 @@ import timber.log.Timber;
     adapter.clear();
     adapter.addAll(gameInformationList);
     adapter.getHighscore();
+  }
+
+  @Override public void openFilterDialog(Filter currentFilter) {
+    if (filterDialog == null) {
+      initializeFilterDialog();
+    }
+
+    wonCheckbox.setChecked(currentFilter.isIncludeWonGames());
+    lostCheckbox.setChecked(currentFilter.isIncludeLostGames());
+    easyCheckbox.setChecked(currentFilter.isIncludeEasyGames());
+    mediumCheckbox.setChecked(currentFilter.isIncludeMediumGames());
+    hardCheckbox.setChecked(currentFilter.isIncludeHardGames());
+    expertCheckbox.setChecked(currentFilter.isIncludeExpertGames());
+
+    filterDialog.show();
+  }
+
+  private void initializeFilterDialog() {
+    filterDialog = new MaterialDialog.Builder(getContext()).title("Filter")
+        .theme(Theme.LIGHT)
+        .customView(R.layout.dialog_filter, true)
+        .positiveText("Apply")
+        .negativeText("Cancel")
+        .neutralText("Reset")
+        .onPositive((dialog, which) -> {
+          presenter.applyFilter(new Filter(wonCheckbox.isChecked(), lostCheckbox.isChecked(), easyCheckbox.isChecked(),
+              mediumCheckbox.isChecked(), hardCheckbox.isChecked(), expertCheckbox.isChecked()));
+        })
+        .onNeutral((dialog, which) -> presenter.applyInitialFilter())
+        .build();
+
+    customView = filterDialog.getCustomView();
+
+    wonCheckbox = (CheckBox) customView.findViewById(R.id.wonCheckbox);
+    lostCheckbox = (CheckBox) customView.findViewById(R.id.lostCheckbox);
+    easyCheckbox = (CheckBox) customView.findViewById(R.id.easyCheckbox);
+    mediumCheckbox = (CheckBox) customView.findViewById(R.id.mediumCheckbox);
+    hardCheckbox = (CheckBox) customView.findViewById(R.id.hardCheckbox);
+    expertCheckbox = (CheckBox) customView.findViewById(R.id.expertCheckbox);
   }
 
   @Override public void onShareItemClicked(int position) {

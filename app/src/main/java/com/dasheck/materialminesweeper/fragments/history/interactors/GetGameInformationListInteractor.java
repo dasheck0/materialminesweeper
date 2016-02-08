@@ -1,5 +1,6 @@
 package com.dasheck.materialminesweeper.fragments.history.interactors;
 
+import com.dasheck.model.models.Filter;
 import com.dasheck.model.models.GameInformation;
 import java.util.List;
 import rx.Observable;
@@ -9,5 +10,5 @@ import rx.Observable;
  */
 public interface GetGameInformationListInteractor {
 
-  Observable<List<GameInformation>> execute();
+  Observable<List<GameInformation>> execute(Filter filter);
 }
