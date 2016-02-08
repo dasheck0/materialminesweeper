@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +14,22 @@
       android:elevation="6dp"
       />
 
-  <android.support.v7.widget.RecyclerView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+
+        <com.db.chart.view.LineChartView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lineChart"
+            android:layout_margin="16dp"
+            app:chart_axisThickness="2dp"
+            />
+
+
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:id="@+id/gameInformationList"

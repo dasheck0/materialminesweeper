@@ -49,4 +49,5 @@ dependencies {
     transitive = true
   }
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+  compile 'com.diogobernardino:williamchart:2.2'
 }

@@ -3,12 +3,15 @@ package com.dasheck.model.datastores;
 import com.dasheck.model.controllers.PreferencesController;
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.GameStatistics;
+import com.dasheck.model.models.ValueSet;
 import com.dasheck.model.utilities.Constants;
+import com.dasheck.model.utilities.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import rx.Observable;
+import rx.functions.Func2;
 import timber.log.Timber;
 
 /**
@@ -56,6 +59,85 @@ public class StatisticsDatastoreImpl implements StatisticsDatastore {
 
   @Override public Observable<Void> setLatestGameInformation(GameInformation gameInformation) {
     return preferencesController.addGameInformation(gameInformation);
+  }
+
+  @Override public Observable<ValueSet> getWinningRateAsValueSet() {
+    return getGameInformationList().flatMap(Observable::from)
+        .toSortedList((gameInformation, gameInformation2) -> Long.valueOf(gameInformation.getTimestamp())
+            .compareTo(gameInformation2.getTimestamp()))
+        .map(list -> {
+          List<String> keys = new ArrayList<>();
+          List<Float> values = new ArrayList<>();
+          int itemCount = 0;
+          int wonCount = 0;
+          String currentKey = "";
+
+          for (int i = 0; i < list.size(); i++) {
+            GameInformation gameInformation = list.get(i);
+            String key = Utilities.timestampToReadble(gameInformation.getTimestamp(), "dd/MM/yyyy");
+
+            if (!key.equalsIgnoreCase(currentKey)) {
+              Timber.d("StatisticsDatastoreImpl:80: " + key + ", " + itemCount + ", " + wonCount + ", "
+                  + (float) wonCount / (itemCount == 0 ? 1 : itemCount));
+
+              keys.add(currentKey);
+              values.add((float) wonCount / (itemCount == 0 ? 1 : itemCount) * 100.0f);
+              currentKey = key;
+
+              itemCount = 0;
+              wonCount = 0;
+            }
+
+            itemCount += 1;
+            wonCount += gameInformation.isWon() ? 1 : 0;
+
+            if (i == list.size() - 1) {
+              keys.add(key);
+              values.add((float) wonCount / (itemCount == 0 ? 1 : itemCount) * 100.0f);
+            }
+          }
+
+          return new ValueSet(keys, values, 0.0f, 100.0f);
+        });
+  }
+
+  @Override public Observable<ValueSet> getGamesCountAsValueSet() {
+    return getGameInformationList().flatMap(Observable::from)
+        .toSortedList((gameInformation, gameInformation2) -> Long.valueOf(gameInformation.getTimestamp())
+            .compareTo(gameInformation2.getTimestamp()))
+        .map(list -> {
+          List<String> keys = new ArrayList<>();
+          List<Float> values = new ArrayList<>();
+          int itemCount = 0;
+          int maxItemCount = 0;
+          String currentKey = "";
+
+          for (int i = 0; i < list.size(); i++) {
+            GameInformation gameInformation = list.get(i);
+            String key = Utilities.timestampToReadble(gameInformation.getTimestamp(), "dd/MM/yyyy");
+
+            if (!key.equalsIgnoreCase(currentKey)) {
+              keys.add(currentKey);
+              values.add((float) itemCount);
+              currentKey = key;
+
+              itemCount = 0;
+            }
+
+            itemCount += 1;
+
+            if (itemCount > maxItemCount) {
+              maxItemCount = itemCount;
+            }
+
+            if (i == list.size() - 1) {
+              keys.add(key);
+              values.add((float) itemCount);
+            }
+          }
+
+          return new ValueSet(keys, values, 0.0f, maxItemCount + 10);
+        });
   }
 
   private Observable<Integer> getGameCount(List<GameInformation> gameInformationList) {

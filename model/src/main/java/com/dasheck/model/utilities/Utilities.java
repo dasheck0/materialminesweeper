@@ -3,8 +3,10 @@ package com.dasheck.model.utilities;
 import com.dasheck.model.models.Field;
 import com.dasheck.model.models.Position;
 import com.dasheck.model.models.Tile;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,5 +101,9 @@ public class Utilities {
 
     return firstDate.get(Calendar.DAY_OF_YEAR) == secondDate.get(Calendar.DAY_OF_YEAR)
         && firstDate.get(Calendar.YEAR) == secondDate.get(Calendar.YEAR);
+  }
+
+  public static String timestampToReadble(long timestamp, String format) {
+    return new SimpleDateFormat(format).format(new Date(timestamp));
   }
 }
