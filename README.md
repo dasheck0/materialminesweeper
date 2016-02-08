@@ -10,8 +10,11 @@ Take a look at [this link](https://www.livecoding.tv/dasheck0/videos/) for the l
 
 ## Screenshot
 
-<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot2.png" width="320">
-<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot.png" width="320">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot1.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot12.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot2.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot3.png" width="240">
 
 # License
 ```
