@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.dasheck.materialminesweeper.R;
+import com.dasheck.model.utilities.Constants;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -100,5 +101,20 @@ public class Utilities {
 
   public static String timestampToReadble(long timestamp, String format) {
     return new SimpleDateFormat(format).format(new Date(timestamp));
+  }
+
+  public static String difficultyToReadable(int difficulty) {
+    switch (difficulty) {
+      case Constants.DIFFICULTY_EASY:
+        return "Easy";
+      case Constants.DIFFICULTY_MEDIUM:
+        return "Medium";
+      case Constants.DIFFICULTY_HARD:
+        return "Hard";
+      case Constants.DIFFICULTY_XMETIRX:
+        return "Expert";
+      default:
+        return "";
+    }
   }
 }

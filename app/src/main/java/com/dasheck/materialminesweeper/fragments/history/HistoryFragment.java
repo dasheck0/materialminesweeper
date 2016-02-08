@@ -13,12 +13,13 @@ import com.dasheck.model.models.GameInformation;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import java.util.List;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /**
  * @author Stefan Neidig
  */
 @Layout(R.layout.fragment_history) @Title(R.string.history_title) public class HistoryFragment extends BaseFragment
-    implements HistoryView {
+    implements HistoryView, GameInformationListAdapter.OnShareItemClickedListener {
 
   @Bind(R.id.gameInformationList) RecyclerView gameInformationList;
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -34,6 +35,7 @@ import javax.inject.Inject;
       gameInformationList.setLayoutManager(new LinearLayoutManager(getContext()));
       gameInformationList.setAdapter(adapter);
       gameInformationList.addItemDecoration(new StickyRecyclerHeadersDecoration(adapter));
+      adapter.setOnShareItemClickedListener(this);
     }
 
     getBaseActivity().setSupportActionBar(toolbar);
@@ -47,5 +49,10 @@ import javax.inject.Inject;
   @Override public void setGameInformationList(List<GameInformation> gameInformationList) {
     adapter.clear();
     adapter.addAll(gameInformationList);
+    adapter.getHighscore();
+  }
+
+  @Override public void onShareItemClicked(int position) {
+    Timber.d("HistoryFragment:54: " + "Shared item at position " + position);
   }
 }

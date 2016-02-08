@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.utilities.Utilities;
 import com.dasheck.model.models.GameInformation;
@@ -18,8 +20,16 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 public class GameInformationListAdapter extends BaseAdapter<GameInformation, GameInformationListAdapter.ViewHolder>
     implements StickyRecyclerHeadersAdapter<GameInformationListAdapter.HeaderViewHolder> {
 
+  private OnShareItemClickedListener onShareItemClickedListener;
+  private GameInformation highScore;
+
   public GameInformationListAdapter(Context context) {
     super(context);
+    this.highScore = null;
+  }
+
+  public void setOnShareItemClickedListener(OnShareItemClickedListener onShareItemClickedListener) {
+    this.onShareItemClickedListener = onShareItemClickedListener;
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,13 +39,21 @@ public class GameInformationListAdapter extends BaseAdapter<GameInformation, Gam
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     GameInformation gameInformation = get(position);
+    long difference = 0;
 
-    holder.wonTextView.setText(gameInformation.isWon() ? "Yes" : "No");
-    holder.bombCountTextView.setText(String.valueOf(gameInformation.getBombCount()));
-    holder.elapsedTimeTextView.setText(Utilities.timespanToReadable(gameInformation.getElapsedTime()));
-    holder.revealedTilesTextView.setText(String.valueOf(gameInformation.getRevealedTilesCount()));
-    holder.markedTilesTextView.setText(String.valueOf(gameInformation.getMarkedTilesCount()));
-    holder.dateTextView.setText(Utilities.timestampToReadble(gameInformation.getTimestamp()));
+    if (highScore != null) {
+      difference = gameInformation.getElapsedTime() - highScore.getElapsedTime();
+    }
+
+    holder.wonImageView.setImageDrawable(context.getResources()
+        .getDrawable(gameInformation.isWon() ? R.drawable.ic_smileay_won : R.drawable.ic_smiley_dead));
+    holder.elapsedTimeTextView.setText(
+        Utilities.timespanToReadable(gameInformation.getElapsedTime()) + (gameInformation.isWon() ? (difference == 0
+            ? " best time!" : String.format(" +%ds", difference)) : ""));
+    holder.difficultyTextView.setText(
+        String.format("%s (%d bombs)", Utilities.difficultyToReadable(gameInformation.getDifficulty()),
+            gameInformation.getBombCount()));
+    holder.shareButton.setTag(position);
   }
 
   @Override public long getHeaderId(int position) {
@@ -62,14 +80,31 @@ public class GameInformationListAdapter extends BaseAdapter<GameInformation, Gam
     holder.dateTextView.setText(Utilities.timestampToReadble(item.getTimestamp(), "dd/MM/yyyy - EEEE"));
   }
 
+  public void getHighscore() {
+    if (getItemCount() > 0) {
+      long elapsedTime = Long.MAX_VALUE;
+
+      for (GameInformation gameInformation : get()) {
+        if (gameInformation.isWon() && gameInformation.getElapsedTime() < elapsedTime) {
+          highScore = gameInformation;
+          elapsedTime = highScore.getElapsedTime();
+        }
+      }
+    }
+  }
+
   public class ViewHolder extends BaseViewHolder {
 
-    @Bind(R.id.wonTextView) TextView wonTextView;
-    @Bind(R.id.revealedTilesTextView) TextView revealedTilesTextView;
-    @Bind(R.id.markedTilesTextView) TextView markedTilesTextView;
-    @Bind(R.id.bombCountTextView) TextView bombCountTextView;
+    @Bind(R.id.wonImageView) ImageView wonImageView;
+    @Bind(R.id.difficultyTextView) TextView difficultyTextView;
     @Bind(R.id.elapsedTimeTextView) TextView elapsedTimeTextView;
-    @Bind(R.id.dateTextView) TextView dateTextView;
+    @Bind(R.id.shareButton) ImageView shareButton;
+
+    @OnClick(R.id.shareButton) public void onShareButtonClicked(View view) {
+      if (onShareItemClickedListener != null) {
+        onShareItemClickedListener.onShareItemClicked((int) view.getTag());
+      }
+    }
 
     public ViewHolder(View itemView) {
       super(itemView);
@@ -83,5 +118,9 @@ public class GameInformationListAdapter extends BaseAdapter<GameInformation, Gam
     public HeaderViewHolder(View itemView) {
       super(itemView);
     }
+  }
+
+  public interface OnShareItemClickedListener {
+    void onShareItemClicked(int position);
   }
 }
