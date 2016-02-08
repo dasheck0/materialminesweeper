@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+  <item
+      android:id="@+id/ic_charts"
+      android:icon="@drawable/ic_chart_areaspline_white_48dp"
+      android:title="Charts"
+      android:orderInCategory="99"
+      app:showAsAction="always"
+      />
+
+  <item
+      android:id="@+id/ic_filter"
+      android:icon="@drawable/ic_filter_variant_white_48dp"
+      android:title="Filter"
+      android:orderInCategory="100"
+      app:showAsAction="always"
+      />
+</menu>

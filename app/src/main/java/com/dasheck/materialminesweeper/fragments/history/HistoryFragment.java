@@ -3,6 +3,9 @@ package com.dasheck.materialminesweeper.fragments.history;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import butterknife.Bind;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.GameInformationListAdapter;
@@ -29,6 +32,7 @@ import timber.log.Timber;
 
   @Override public void initializeViews() {
     setPresenter(presenter);
+    setHasOptionsMenu(true);
 
     if (gameInformationList.getAdapter() == null) {
       gameInformationList.setHasFixedSize(true);
@@ -44,6 +48,25 @@ import timber.log.Timber;
   @Override public void setupToolbar() {
     super.setupToolbar();
     getBaseActivity().setupDrawerLayout(toolbar);
+  }
+
+  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.history, menu);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.ic_charts:
+        Timber.d("HistoryFragment:60: " + "charts");
+        return true;
+
+      case R.id.ic_filter:
+        Timber.d("HistoryFragment:64: " + "filter");
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 
   @Override public void setGameInformationList(List<GameInformation> gameInformationList) {
