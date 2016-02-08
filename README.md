@@ -8,6 +8,40 @@ This is the repository for the app I am developing. The aim is to create the cla
 
 Take a look at [this link](https://www.livecoding.tv/dasheck0/videos/) for the latest livestream of this project.
 
+## Build
+
+In order to build the binaries you need to install gradle and run 
+```
+bash ./gradlew build
+```
+in the main directory. This will produce so called *.apk files, which can be deployed to your device. Afterwards you can deploy your apk to your device by running 
+```
+adb install %name%.apk
+adb shell am start -n %packagename%/.MainActivity
+```
+In order to do this you need to install adb command line tools first.
+
+## Features
+
+### Game modes
+
+Minesweeper comes in 3 classic modes
+* Easy : 9x9 board with 10 bombs
+* Medium : 16x16 board with 40 bombs
+* Hard : 16x30 board with 99 bombs
+
+and a new mode called expert, which has a 25x25 board with 150 bombs you need to defuse.
+
+### History
+
+Each game you play will be stored for you to analyse after the game. You gain such information like
+
+* time spend to complete the game or hit the first bomb
+* number of tiles revealed
+* number of tiles marked
+
+and many more. The game data as also aggregated, so that you can access average time, winning rate and many more. 
+
 ## Screenshot
 
 <img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot1.png" width="240">
