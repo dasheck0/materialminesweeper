@@ -13,4 +13,6 @@ public interface HistoryPresenter extends BasePresenter {
   void applyInitialFilter();
 
   void applyFilter(Filter filter);
+
+  void loadChartValues(String chartType);
 }

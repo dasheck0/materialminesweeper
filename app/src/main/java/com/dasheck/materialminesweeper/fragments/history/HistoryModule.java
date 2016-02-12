@@ -2,6 +2,7 @@ package com.dasheck.materialminesweeper.fragments.history;
 
 import android.content.Context;
 import com.dasheck.materialminesweeper.adapters.GameInformationListAdapter;
+import com.dasheck.materialminesweeper.adapters.StringAdapter;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
 import com.dasheck.materialminesweeper.fragments.history.interactors.GetChartValuesInteractor;
 import com.dasheck.materialminesweeper.fragments.history.interactors.GetChartValuesInteractorImpl;
@@ -33,6 +34,10 @@ import dagger.Provides;
 
   @PerFragment @Provides GameInformationListAdapter provideGameInformationListAdapter(Context context) {
     return new GameInformationListAdapter(context);
+  }
+
+  @Provides @PerFragment StringAdapter provideStringAdapter(Context context) {
+    return new StringAdapter(context);
   }
 
   @Provides @PerFragment public GetGameInformationListInteractor provideGetGameInformationListInteractor(

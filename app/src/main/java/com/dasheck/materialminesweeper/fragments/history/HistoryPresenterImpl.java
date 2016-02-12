@@ -6,10 +6,12 @@ import com.dasheck.materialminesweeper.fragments.history.interactors.GetGameInfo
 import com.dasheck.model.models.ChartValues;
 import com.dasheck.model.models.Filter;
 import com.dasheck.model.models.ValueSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /**
  * @author Stefan Neidig
@@ -21,17 +23,18 @@ public class HistoryPresenterImpl extends BasePresenterImpl implements HistoryPr
   @Inject GetChartValuesInteractor getChartValuesInteractor;
 
   private Filter currentFilter = new Filter();
+  private ChartValues chartValues;
 
   @Override public void onResume() {
     super.onResume();
     applyInitialFilter();
 
-    getChartValuesInteractor.execute().subscribe(view::setChartValues);
-/*
-    List<String> keys = Arrays.asList("Jan", "Feb", "Mar");
-    List<Float> values = Arrays.asList(0.0f, 50.0f, 25.0f);
+    getChartValuesInteractor.execute().subscribe(this::setChartValues);
+  }
 
-    view.setChartValues(new ChartValues(Collections.singletonList(new ValueSet(keys, values ))));*/
+  private void setChartValues(ChartValues chartValues) {
+    this.chartValues = chartValues;
+    view.setChartTypes(new ArrayList<>(chartValues.getValueSets().keySet()));
   }
 
   @Override public void openFilterDialog() {
@@ -46,6 +49,12 @@ public class HistoryPresenterImpl extends BasePresenterImpl implements HistoryPr
   @Override public void applyFilter(Filter filter) {
     currentFilter = filter;
     applyFilter();
+  }
+
+  @Override public void loadChartValues(String chartType) {
+    if (chartValues != null) {
+      view.setChartValues(chartValues.getValueSets().get(chartType));
+    }
   }
 
   private void applyFilter() {

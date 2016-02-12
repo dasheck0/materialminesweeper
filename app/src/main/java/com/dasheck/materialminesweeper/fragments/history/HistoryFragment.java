@@ -10,25 +10,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import butterknife.Bind;
 import butterknife.BindColor;
+import butterknife.OnItemSelected;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.adapters.GameInformationListAdapter;
+import com.dasheck.materialminesweeper.adapters.StringAdapter;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.annotations.Title;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
 import com.dasheck.materialminesweeper.utilities.Utilities;
-import com.dasheck.model.models.ChartValues;
 import com.dasheck.model.models.Filter;
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.models.ValueSet;
 import com.db.chart.model.LineSet;
 import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
-import com.db.chart.view.animation.Animation;
-import com.db.chart.view.animation.easing.SineEase;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import java.util.List;
 import javax.inject.Inject;
@@ -43,12 +43,14 @@ import timber.log.Timber;
   @Bind(R.id.gameInformationList) RecyclerView gameInformationList;
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.lineChart) LineChartView lineChart;
+  @Bind(R.id.chartTypeSpinner) Spinner chartTypeSpinner;
 
   @BindColor(R.color.colorHintText) int colorHintText;
   @BindColor(R.color.colorAccent) int colorAccent;
 
   @Inject HistoryPresenter presenter;
   @Inject GameInformationListAdapter adapter;
+  @Inject StringAdapter chartTypeAdapter;
 
   private MaterialDialog filterDialog;
   private View customView;
@@ -60,9 +62,16 @@ import timber.log.Timber;
   private CheckBox hardCheckbox;
   private CheckBox expertCheckbox;
 
+  @OnItemSelected(R.id.chartTypeSpinner) public void onChartTypeSpinnerSelected(int position) {
+    String item = chartTypeAdapter.getItem(position);
+    presenter.loadChartValues(item);
+  }
+
   @Override public void initializeViews() {
     setPresenter(presenter);
     setHasOptionsMenu(true);
+
+    getBaseActivity().setSupportActionBar(toolbar);
 
     if (gameInformationList.getAdapter() == null) {
       gameInformationList.setHasFixedSize(true);
@@ -72,28 +81,9 @@ import timber.log.Timber;
       adapter.setOnShareItemClickedListener(this);
     }
 
-    getBaseActivity().setSupportActionBar(toolbar);
+    chartTypeSpinner.setAdapter(chartTypeAdapter);
 
     initializeChartView();
-
-    Animation animation = new Animation();
-
-    animation.setDuration(300);
-    animation.setEasing(new SineEase());
-    animation.setStartPoint(0.0f, 0.0f);
-    animation.setAlpha(150);
-
-    /*LineSet dataSet =
-        new LineSet(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" },
-            new float[] { 0.0f, 1.0f, 4.0f, 10.0f, 2.0f, 14.0f, 2.5f, 1.0f, -1.0f, 20.0f, 0.0f, 1.0f });
-
-    dataSet.setDotsColor(colorAccent);
-    dataSet.setDotsRadius(Utilities.convertDpToPixel(4, getContext()));
-    dataSet.setSmooth(true);
-    dataSet.setColor(colorHintText);
-
-    lineChart.addData(dataSet);
-    lineChart.show(new Animation(300));*/
   }
 
   private void initializeChartView() {
@@ -159,8 +149,10 @@ import timber.log.Timber;
     filterDialog.show();
   }
 
-  @Override public void setChartValues(ChartValues chartValues) {
-    for (ValueSet valueSet : chartValues.getValueSets()) {
+  @Override public void setChartValues(ValueSet valueSet) {
+    if (valueSet != null) {
+
+      lineChart.dismiss();
 
       String[] keyArray = new String[valueSet.getXValues().size()];
       valueSet.getXValues().toArray(keyArray);
@@ -170,17 +162,21 @@ import timber.log.Timber;
         valueArray[i] = valueSet.getYValues().get(i);
       }
 
-      LineSet dataSet = new LineSet(keyArray, valueArray);
-
-      dataSet.setDotsColor(colorAccent);
-      dataSet.setDotsRadius(Utilities.convertDpToPixel(4, getContext()));
-      dataSet.setSmooth(true);
-      dataSet.setColor(colorHintText);
+      LineSet dataSet = new LineSet(keyArray, valueArray).setDotsColor(colorAccent)
+          .setDotsRadius(Utilities.convertDpToPixel(4, getContext()))
+          .setSmooth(true)
+          .setColor(colorAccent);
 
       lineChart.addData(dataSet);
       lineChart.setAxisBorderValues((int) valueSet.getMinValue(), (int) valueSet.getMaxValue());
-      lineChart.show(new Animation(300));
+      lineChart.setStep((int) (valueSet.getMaxValue() / 5.0));
+      lineChart.show();
     }
+  }
+
+  @Override public void setChartTypes(List<String> chartTypes) {
+    chartTypeAdapter.clear();
+    chartTypeAdapter.addAll(chartTypes);
   }
 
   private void initializeFilterDialog() {
