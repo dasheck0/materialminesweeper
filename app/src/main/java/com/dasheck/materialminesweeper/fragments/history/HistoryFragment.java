@@ -2,6 +2,7 @@ package com.dasheck.materialminesweeper.fragments.history;
 
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -81,6 +82,7 @@ import timber.log.Timber;
       adapter.setOnShareItemClickedListener(this);
     }
 
+    chartTypeSpinner.getBackground().setColorFilter(colorAccent, PorterDuff.Mode.SRC_ATOP);
     chartTypeSpinner.setAdapter(chartTypeAdapter);
 
     initializeChartView();

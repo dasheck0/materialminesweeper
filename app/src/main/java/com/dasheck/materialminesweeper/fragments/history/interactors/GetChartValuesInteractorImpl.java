@@ -20,11 +20,12 @@ public class GetChartValuesInteractorImpl implements GetChartValuesInteractor {
     /*
     return Observable.just(new ChartValues());*/
     return Observable.zip(statisticsDatastore.getGamesCountAsValueSet(), statisticsDatastore.getWinningRateAsValueSet(),
-        (gamesCount, winningRate) -> {
+        statisticsDatastore.getAverageTimePlayedAsValueSet(), (gamesCount, winningRate, averageTime) -> {
           ChartValues chartValues = new ChartValues();
 
           chartValues.getValueSets().put("Games played", gamesCount);
           chartValues.getValueSets().put("Winning rate", winningRate);
+          chartValues.getValueSets().put("Average time", averageTime);
 
           return chartValues;
         });

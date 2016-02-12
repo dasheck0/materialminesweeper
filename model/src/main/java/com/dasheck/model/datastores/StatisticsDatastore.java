@@ -24,4 +24,6 @@ public interface StatisticsDatastore {
   Observable<ValueSet> getWinningRateAsValueSet();
 
   Observable<ValueSet> getGamesCountAsValueSet();
+
+  Observable<ValueSet> getAverageTimePlayedAsValueSet();
 }

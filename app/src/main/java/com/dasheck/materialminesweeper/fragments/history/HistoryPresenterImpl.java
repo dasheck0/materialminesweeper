@@ -5,13 +5,8 @@ import com.dasheck.materialminesweeper.fragments.history.interactors.GetChartVal
 import com.dasheck.materialminesweeper.fragments.history.interactors.GetGameInformationListInteractor;
 import com.dasheck.model.models.ChartValues;
 import com.dasheck.model.models.Filter;
-import com.dasheck.model.models.ValueSet;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 /**
  * @author Stefan Neidig

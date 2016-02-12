@@ -77,9 +77,6 @@ public class StatisticsDatastoreImpl implements StatisticsDatastore {
             String key = Utilities.timestampToReadble(gameInformation.getTimestamp(), "dd/MM/yyyy");
 
             if (!key.equalsIgnoreCase(currentKey)) {
-              Timber.d("StatisticsDatastoreImpl:80: " + key + ", " + itemCount + ", " + wonCount + ", "
-                  + (float) wonCount / (itemCount == 0 ? 1 : itemCount));
-
               keys.add(currentKey);
               values.add((float) wonCount / (itemCount == 0 ? 1 : itemCount) * 100.0f);
               currentKey = key;
@@ -137,6 +134,64 @@ public class StatisticsDatastoreImpl implements StatisticsDatastore {
           }
 
           return new ValueSet(keys, values, 0.0f, maxItemCount + 10);
+        });
+  }
+
+  @Override public Observable<ValueSet> getAverageTimePlayedAsValueSet() {
+    return getGameInformationList().flatMap(Observable::from)
+        .toSortedList((gameInformation, gameInformation2) -> Long.valueOf(gameInformation.getTimestamp())
+            .compareTo(gameInformation2.getTimestamp()))
+        .map(list -> {
+          List<String> keys = new ArrayList<>();
+          List<Float> values = new ArrayList<>();
+          List<Long> elapsed = new ArrayList<>();
+          float maxElapsed = 0.0f;
+          String currentKey = "";
+
+          for (int i = 0; i < list.size(); i++) {
+            GameInformation gameInformation = list.get(i);
+            String key = Utilities.timestampToReadble(gameInformation.getTimestamp(), "dd/MM/yyyy");
+
+            if (!key.equalsIgnoreCase(currentKey)) {
+              keys.add(currentKey);
+              long totalElapsedTime = 0;
+
+              for (Long aLong : elapsed) {
+                totalElapsedTime += aLong;
+              }
+
+              float averageTime = (float) (totalElapsedTime / (elapsed.size() == 0 ? 1 : elapsed.size()));
+              if (averageTime > maxElapsed) {
+                maxElapsed = averageTime;
+              }
+
+              values.add(averageTime);
+              currentKey = key;
+
+              elapsed.clear();
+            }
+
+            elapsed.add(gameInformation.getElapsedTime());
+
+            if (i == list.size() - 1) {
+              keys.add(key);
+              long totalElapsedTime = 0;
+
+              for (Long aLong : elapsed) {
+                totalElapsedTime += aLong;
+              }
+
+              float averageTime = (float) (totalElapsedTime / (elapsed.size() == 0 ? 1 : elapsed.size()));
+              if (averageTime > maxElapsed) {
+                maxElapsed = averageTime;
+              }
+
+              values.add(averageTime);
+              currentKey = key;
+            }
+          }
+
+          return new ValueSet(keys, values, 0.0f, maxElapsed);
         });
   }
 
