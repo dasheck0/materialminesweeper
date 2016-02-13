@@ -18,4 +18,12 @@ public interface PreferencesController {
   Observable<Void> writeBoolean(String key, boolean value);
 
   Observable<Boolean> readBoolean(String key);
+
+  Observable<Void> writeString(String key, String value);
+
+  Observable<String> readString(String key);
+
+  Observable<Void> writeFloat(String key, float value);
+
+  Observable<Float> readFloat(String key);
 }

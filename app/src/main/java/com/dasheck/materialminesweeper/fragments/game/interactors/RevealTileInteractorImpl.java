@@ -1,5 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
+import com.dasheck.materialminesweeper.R;
+import com.dasheck.materialminesweeper.controllers.SoundController;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.models.Tile;
 import javax.inject.Inject;
@@ -11,11 +13,12 @@ import rx.Observable;
 public class RevealTileInteractorImpl implements RevealTileInteractor {
 
   @Inject CurrentGameController currentGameController;
+  @Inject SoundController soundController;
 
   @Inject public RevealTileInteractorImpl() {
   }
 
   @Override public Observable<Boolean> execute(Tile tile) {
-    return currentGameController.revealTile(tile.getPosition());
+    return soundController.playSoundEffect(R.raw.click).flatMap(x -> currentGameController.revealTile(tile.getPosition()));
   }
 }

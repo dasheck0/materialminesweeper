@@ -1,5 +1,7 @@
 package com.dasheck.materialminesweeper.fragments.game.interactors;
 
+import com.dasheck.materialminesweeper.R;
+import com.dasheck.materialminesweeper.controllers.SoundController;
 import com.dasheck.materialminesweeper.controllers.VibrationController;
 import com.dasheck.model.controllers.CurrentGameController;
 import com.dasheck.model.controllers.PreferencesController;
@@ -17,6 +19,7 @@ public class MarkTileInteractorImpl implements MarkTileInteractor {
   @Inject CurrentGameController currentGameController;
   @Inject VibrationController vibrationController;
   @Inject SettingsDatastore settingsDatastore;
+  @Inject SoundController soundController;
 
   @Inject public MarkTileInteractorImpl() {
   }
@@ -29,6 +32,6 @@ public class MarkTileInteractorImpl implements MarkTileInteractor {
           } else {
             return null;
           }
-        }).map(x -> null);
+        }).flatMap(y -> soundController.playSoundEffect(R.raw.chime));
   }
 }

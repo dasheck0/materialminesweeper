@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -103,6 +104,71 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="72dp"
+            android:id="@+id/soundContainer"
+            >
+          <RelativeLayout
+              android:layout_width="72dp"
+              android:layout_height="match_parent"
+              >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView9"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_music_box_outline_grey600_48dp"
+                android:scaleType="centerCrop"
+                android:padding="4dp"
+                />
+          </RelativeLayout>
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="16dp"
+              >
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/backgroundMusicSpinner"
+                android:layout_toStartOf="@+id/volumeSeekbar"
+                android:layout_alignParentBottom="true"
+                android:spinnerMode="dialog"
+                android:layout_marginLeft="-16dp"
+                android:layout_toLeftOf="@+id/volumeSeekbar"
+                />
+
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:id="@+id/volumeSeekbar"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true"
+                app:dsb_min="0"
+                app:dsb_max="100"
+                app:dsb_value="50"
+                app:dsb_allowTrackClickToDrag="true"
+                app:dsb_progressColor="@color/colorAccent"
+                app:dsb_indicatorColor="@color/colorAccent"
+                app:dsb_indicatorElevation="6dp"
+                />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/soundSwitch"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:checked="true"
+                android:visibility="invisible"
+                />
+          </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
             android:id="@+id/aboutContainer"
             >
           <RelativeLayout
@@ -148,7 +214,7 @@
         </LinearLayout>
 
       </LinearLayout>
-        <LinearLayout
+      <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:id="@+id/socialMediaContainer"

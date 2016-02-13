@@ -8,12 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.MenuItem;
 import butterknife.Bind;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
-import com.dasheck.materialminesweeper.fragments.BaseView;
 import com.dasheck.materialminesweeper.fragments.history.HistoryFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.settings.SettingsFragment;
@@ -32,6 +30,21 @@ import timber.log.Timber;
     getActivityComponent().navigator().showMenu();
 
     setupNavigationItemListener();
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    getActivityComponent().soundController().startBackgroundMusic().subscribe();
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    getActivityComponent().soundController().stopBackgroundMusic().subscribe();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    getActivityComponent().soundController().releaseAll().subscribe(x -> Timber.d("MainActivity:43: " + "bye"));
   }
 
   public void setupDrawerLayout(Toolbar toolbar) {

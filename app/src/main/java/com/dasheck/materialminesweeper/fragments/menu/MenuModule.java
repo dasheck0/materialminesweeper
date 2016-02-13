@@ -3,6 +3,8 @@ package com.dasheck.materialminesweeper.fragments.menu;
 import com.dasheck.materialminesweeper.annotations.PerFragment;
 import com.dasheck.materialminesweeper.fragments.menu.interactors.GetGameModesInteractor;
 import com.dasheck.materialminesweeper.fragments.menu.interactors.GetGameModesInteractorImpl;
+import com.dasheck.materialminesweeper.fragments.menu.interactors.SetupSoundEffectsInteractor;
+import com.dasheck.materialminesweeper.fragments.menu.interactors.SetupSoundEffectsInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -30,5 +32,10 @@ import dagger.Provides;
   @Provides @PerFragment
   public GetGameModesInteractor provideGetGameModesInteractor(GetGameModesInteractorImpl getGameModesInteractorImpl) {
     return getGameModesInteractorImpl;
+  }
+
+  @Provides @PerFragment public SetupSoundEffectsInteractor provideSetupSoundEffectsInteractor(
+      SetupSoundEffectsInteractorImpl setupSoundEffectsInteractorImpl) {
+    return setupSoundEffectsInteractorImpl;
   }
 }

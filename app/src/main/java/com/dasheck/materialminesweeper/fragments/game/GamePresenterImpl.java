@@ -1,6 +1,8 @@
 package com.dasheck.materialminesweeper.fragments.game;
 
+import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.activities.Navigator;
+import com.dasheck.materialminesweeper.controllers.SoundController;
 import com.dasheck.materialminesweeper.fragments.BasePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.game.interactors.CreateFieldInteractor;
 import com.dasheck.materialminesweeper.fragments.game.interactors.GetElapsedTimeInteractor;
@@ -47,6 +49,7 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
   @Inject PauseGameInteractor pauseGameInteractor;
   @Inject StopGameInteractor stopGameInteractor;
   @Inject HasGameStartedInteractor hasGameStartedInteractor;
+  @Inject SoundController soundController;
   @Inject Navigator navigator;
 
   private Observable<Long> timer;
@@ -99,7 +102,8 @@ public class GamePresenterImpl extends BasePresenterImpl implements GamePresente
               if (isBomb) {
                 view.setSmileyLost();
                 view.freezeField();
-                stopGameInteractor.execute()
+                soundController.playSoundEffect(R.raw.explosion)
+                    .flatMap(x -> stopGameInteractor.execute())
                     .flatMap(x -> saveLatestGameInformationInteractor.execute(gameInformation))
                     .subscribe();
               } else if (gameWon) {

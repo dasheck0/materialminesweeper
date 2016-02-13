@@ -47,6 +47,22 @@ public class PreferencesControllerImpl implements PreferencesController {
     return Observable.just(sharedPreferences.getBoolean(key, false));
   }
 
+  @Override public Observable<Void> writeString(String key, String value) {
+    return Observable.just(sharedPreferences.edit().putString(key, value).commit()).map(x -> null);
+  }
+
+  @Override public Observable<String> readString(String key) {
+    return Observable.just(sharedPreferences.getString(key, "Overworld"));
+  }
+
+  @Override public Observable<Void> writeFloat(String key, float value) {
+    return Observable.just(sharedPreferences.edit().putFloat(key, value).commit()).map(x -> null);
+  }
+
+  @Override public Observable<Float> readFloat(String key) {
+    return Observable.just(sharedPreferences.getFloat(key, 0.0f));
+  }
+
   private Observable<Void> saveGameInformationList(List<GameInformation> gameInformationList, int difficulty) {
     return gsonController.listToJson(gameInformationList)
         .map(json -> sharedPreferences.edit().putString(getListName(difficulty), json).commit())
