@@ -29,12 +29,25 @@
         android:checked="false"
         android:title="History"
         />
+  </group>
+  <group
+      android:menuCategory="container"
+      android:checkableBehavior="single"
+      android:id="@+id/help"
+      >
     <item
         android:icon="@drawable/ic_settings_grey600_48dp"
         android:id="@+id/ic_settings"
         android:checkable="true"
         android:checked="false"
         android:title="Settings"
+        />
+    <item
+        android:id="@+id/ic_help"
+        android:icon="@drawable/ic_help_circle_grey600_48dp"
+        android:checked="false"
+        android:checkable="true"
+        android:title="Help"
         />
 
   </group>
