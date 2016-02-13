@@ -18,6 +18,7 @@ public class SettingsDatastoreImpl implements SettingsDatastore {
   private static final String SETTINGS_BGM = "settingsBGM";
   private static final String SETTINGS_BGM_ENABLED = "settingsBGMEnabled";
   private static final String SETTINGS_BGM_VOLUME = "settingsBGMVolume";
+  private static final String SETTINGS_FIRST_START = "settingsFirstStart";
 
   @Inject PreferencesController preferencesController;
 
@@ -77,5 +78,13 @@ public class SettingsDatastoreImpl implements SettingsDatastore {
 
   @Override public Observable<Float> getVolume() {
     return preferencesController.readFloat(SETTINGS_BGM_VOLUME);
+  }
+
+  @Override public Observable<Boolean> isFirstStart() {
+    return preferencesController.readBoolean(SETTINGS_FIRST_START);
+  }
+
+  @Override public Observable<Void> setFirstStart(boolean firstStart) {
+    return preferencesController.writeBoolean(SETTINGS_FIRST_START, firstStart);
   }
 }

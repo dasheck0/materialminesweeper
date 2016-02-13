@@ -44,7 +44,7 @@ public class PreferencesControllerImpl implements PreferencesController {
   }
 
   @Override public Observable<Boolean> readBoolean(String key) {
-    return Observable.just(sharedPreferences.getBoolean(key, false));
+    return Observable.just(sharedPreferences.getBoolean(key, true));
   }
 
   @Override public Observable<Void> writeString(String key, String value) {

@@ -11,6 +11,7 @@ import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemCompo
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemFragment;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemModule;
 import com.dasheck.materialminesweeper.fragments.gamemenu_item.GameMenuItemPresenterImpl;
+import com.dasheck.materialminesweeper.fragments.help.HelpFragment;
 import com.dasheck.materialminesweeper.fragments.history.DaggerHistoryComponent;
 import com.dasheck.materialminesweeper.fragments.history.HistoryComponent;
 import com.dasheck.materialminesweeper.fragments.history.HistoryFragment;
@@ -126,5 +127,11 @@ public class Navigator {
         .replace(baseActivity.getFragmentContainerId(), fragment, fragment.getClass().getName())
         .addToBackStack(fragment.getClass().getName())
         .commit();
+  }
+
+  public void showHelp() {
+    HelpFragment fragment = new HelpFragment();
+    fragment.setNavigator(this);
+    transist(fragment);
   }
 }

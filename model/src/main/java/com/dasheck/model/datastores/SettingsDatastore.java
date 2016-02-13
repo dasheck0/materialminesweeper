@@ -26,4 +26,8 @@ public interface SettingsDatastore {
   Observable<Void> setVolume(float volume);
 
   Observable<Float> getVolume();
+
+  Observable<Boolean> isFirstStart();
+
+  Observable<Void> setFirstStart(boolean firstStart);
 }

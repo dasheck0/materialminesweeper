@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ImageView
+      android:layout_width="250dp"
+      android:layout_height="250dp"
+      android:id="@+id/hintImageView"
+      android:layout_gravity="center_horizontal"
+      android:src="@drawable/ic_help_2"
+      android:scaleType="centerCrop"
+      android:layout_marginTop="75dp"
+      />
+  <com.dasheck.materialminesweeper.views.BabushkaText
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:text="Tap anywhere to start"
+      android:id="@+id/hintTextView"
+      android:layout_gravity="center_horizontal"
+      android:gravity="center_horizontal|top"
+      style="@style/TextAppearance.AppCompat.Subhead"
+      android:textColor="@color/colorSecondaryText"
+      android:layout_margin="16dp"
+      />
+</LinearLayout>

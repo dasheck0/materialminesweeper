@@ -12,6 +12,7 @@ import butterknife.Bind;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.materialminesweeper.annotations.Layout;
 import com.dasheck.materialminesweeper.fragments.BaseFragment;
+import com.dasheck.materialminesweeper.fragments.help.HelpFragment;
 import com.dasheck.materialminesweeper.fragments.history.HistoryFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.settings.SettingsFragment;
@@ -27,9 +28,15 @@ import timber.log.Timber;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    getActivityComponent().navigator().showMenu();
-
     setupNavigationItemListener();
+    getActivityComponent().settingsDatastore().isFirstStart().subscribe(isFirstStart -> {
+      if (isFirstStart) {
+        getActivityComponent().navigator().showHelp();
+        getActivityComponent().settingsDatastore().setFirstStart(false).subscribe();
+      } else {
+        getActivityComponent().navigator().showMenu();
+      }
+    });
   }
 
   @Override protected void onResume() {
@@ -93,6 +100,12 @@ import timber.log.Timber;
             result = true;
           }
           break;
+
+        case R.id.ic_help:
+          if (!(getCurrentFragment() instanceof HelpFragment)) {
+            getNavigator().showHelp();
+            result = true;
+          }
       }
 
       if (result) {
@@ -107,12 +120,16 @@ import timber.log.Timber;
     if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
       drawerLayout.closeDrawers();
     } else {
-      if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+      if (getSupportFragmentManager().getBackStackEntryCount() == 1 || (getCurrentFragment() instanceof MenuFragment)) {
         finish();
       } else {
-        BaseFragment fragment = (BaseFragment) getCurrentFragment();
+        Fragment fragment = getCurrentFragment();
         if (fragment != null) {
-          if (!fragment.onBackPressed()) {
+          if (fragment instanceof BaseFragment) {
+            if (!((BaseFragment) fragment).onBackPressed()) {
+              super.onBackPressed();
+            }
+          } else {
             super.onBackPressed();
           }
         }

@@ -50,4 +50,5 @@ dependencies {
   }
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   compile 'com.diogobernardino:williamchart:2.2'
+  compile 'com.cleveroad:slidingtutorial:0.9.1'
 }
