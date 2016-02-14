@@ -18,7 +18,7 @@
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_smileay_won"
+        android:src="@drawable/ic_emoticon_cool_grey600_48dp"
         android:padding="16dp"
         />
     <TextView

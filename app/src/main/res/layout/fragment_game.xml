@@ -80,7 +80,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_smiley"
+            android:src="@drawable/ic_emoticon_white_48dp"
             android:padding="8dp"
             android:background="?android:selectableItemBackground"
             android:scaleType="centerInside"

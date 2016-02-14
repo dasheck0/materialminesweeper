@@ -39,10 +39,9 @@ import javax.inject.Inject;
   @Bind(R.id.timeTextView) TextView timeTextView;
   @Bind(R.id.smileyButton) ImageView smileyButton;
 
-  @BindDrawable(R.drawable.ic_smiley) Drawable icSmiley;
-  @BindDrawable(R.drawable.ic_smileay_won) Drawable icSmileayWon;
-  @BindDrawable(R.drawable.ic_smiley_checking) Drawable icSmileyChecking;
-  @BindDrawable(R.drawable.ic_smiley_dead) Drawable icSmileyDead;
+  @BindDrawable(R.drawable.ic_emoticon_white_48dp) Drawable icSmiley;
+  @BindDrawable(R.drawable.ic_emoticon_cool_white_48dp) Drawable icSmileayWon;
+  @BindDrawable(R.drawable.ic_emoticon_sad_white_48dp) Drawable icSmileyDead;
 
   @Inject GamePresenter presenter;
   @Inject TileListAdapter adapter;
@@ -133,7 +132,6 @@ import javax.inject.Inject;
   }
 
   @Override public void setSmileyChecking() {
-    smileyButton.setImageDrawable(icSmileyChecking);
   }
 
   @Override public void setSmileyDefault() {

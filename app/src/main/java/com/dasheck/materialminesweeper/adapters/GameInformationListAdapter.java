@@ -46,7 +46,7 @@ public class GameInformationListAdapter extends BaseAdapter<GameInformation, Gam
     }
 
     holder.wonImageView.setImageDrawable(context.getResources()
-        .getDrawable(gameInformation.isWon() ? R.drawable.ic_smileay_won : R.drawable.ic_smiley_dead));
+        .getDrawable(gameInformation.isWon() ? R.drawable.ic_emoticon_cool_grey600_48dp : R.drawable.ic_emoticon_sad_grey600_48dp));
     holder.elapsedTimeTextView.setText(
         Utilities.timespanToReadable(gameInformation.getElapsedTime()) + (gameInformation.isWon() ? (difference == 0
             ? " best time!" : String.format(" +%ds", difference)) : ""));
