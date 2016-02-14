@@ -42,13 +42,22 @@ Each game you play will be stored for you to analyse after the game. You gain su
 
 and many more. The game data as also aggregated, so that you can access average time, winning rate and many more. 
 
+### Settings
+
+Customize the game in every way you want. Currently you can choose, wether you want to devie to vibrate when placing flags and which backgroundmusic you want to hear while playing. There is more to come!
+
+### Tutorial
+
+For those who never played minesweeper there will be a tutorial, which you can swipe through when the game starts. After that you can revisit the tutorial when clicking on help in the main menu.
+
 ## Screenshot
 
-<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot1.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot6.png" width="240">
 <img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot12.png" width="240">
 <img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot2.png" width="240">
-<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot.png" width="240">
-<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot3.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot7.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot5.png" width="240">
+<img src="https://github.com/dasheck0/materialminesweeper/blob/develop/art/screenshot8.png" width="240">
 
 # License
 ```
