@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="178dp"
+    android:layout_height="202dp"
     >
 
     <ImageView
@@ -19,7 +19,7 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="132dp"
+        android:layout_height="154dp"
         android:id="@+id/topContainer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -30,10 +30,10 @@
             android:id="@+id/profileImageView"
             android:src="@drawable/ic_ic_abstract"
             android:scaleType="centerCrop"
-            android:layout_centerVertical="true"
             android:layout_margin="16dp"
             app:civ_border_color="@color/colorPrimary"
             app:civ_border_width="2dp"
+            android:layout_alignParentBottom="true"
             />
     </RelativeLayout>
     <LinearLayout

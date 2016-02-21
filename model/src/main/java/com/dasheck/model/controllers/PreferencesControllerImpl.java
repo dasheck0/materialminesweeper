@@ -3,6 +3,7 @@ package com.dasheck.model.controllers;
 import android.content.SharedPreferences;
 import com.dasheck.model.models.GameInformation;
 import com.dasheck.model.utilities.Constants;
+import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -61,6 +62,14 @@ public class PreferencesControllerImpl implements PreferencesController {
 
   @Override public Observable<Float> readFloat(String key) {
     return Observable.just(sharedPreferences.getFloat(key, 0.0f));
+  }
+
+  @Override public <T> Observable<Void> writeObject(String key, T object) {
+    return gsonController.toJson(object).map(json -> sharedPreferences.edit().putString(key, json).commit()).map(x -> null);
+  }
+
+  @Override public <T> Observable<T> readObject(String key, Class<T> type) {
+    return Observable.just(sharedPreferences.getString(key, "{}")).flatMap(json -> gsonController.fromJson(json, type));
   }
 
   private Observable<Void> saveGameInformationList(List<GameInformation> gameInformationList, int difficulty) {

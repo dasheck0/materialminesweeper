@@ -1,6 +1,7 @@
 package com.dasheck.model.datastores;
 
 import com.dasheck.model.models.BackgroundMusic;
+import com.dasheck.model.models.User;
 import java.util.List;
 import rx.Observable;
 
@@ -30,4 +31,8 @@ public interface SettingsDatastore {
   Observable<Boolean> isFirstStart();
 
   Observable<Void> setFirstStart(boolean firstStart);
+
+  Observable<User> getDeviceUser();
+
+  Observable<Void> updateDeviceUser(User user);
 }

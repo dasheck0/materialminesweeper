@@ -3,6 +3,7 @@ package com.dasheck.model.datastores;
 import com.dasheck.model.R;
 import com.dasheck.model.controllers.PreferencesController;
 import com.dasheck.model.models.BackgroundMusic;
+import com.dasheck.model.models.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ public class SettingsDatastoreImpl implements SettingsDatastore {
   private static final String SETTINGS_BGM_ENABLED = "settingsBGMEnabled";
   private static final String SETTINGS_BGM_VOLUME = "settingsBGMVolume";
   private static final String SETTINGS_FIRST_START = "settingsFirstStart";
+  private static final String SETTINGS_USER = "settingsUser";
 
   @Inject PreferencesController preferencesController;
 
@@ -86,5 +88,13 @@ public class SettingsDatastoreImpl implements SettingsDatastore {
 
   @Override public Observable<Void> setFirstStart(boolean firstStart) {
     return preferencesController.writeBoolean(SETTINGS_FIRST_START, firstStart);
+  }
+
+  @Override public Observable<User> getDeviceUser() {
+    return preferencesController.readObject(SETTINGS_USER, User.class);
+  }
+
+  @Override public Observable<Void> updateDeviceUser(User user) {
+    return preferencesController.writeObject(SETTINGS_USER, user);
   }
 }

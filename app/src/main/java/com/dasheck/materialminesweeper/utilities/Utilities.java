@@ -2,17 +2,28 @@ package com.dasheck.materialminesweeper.utilities;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
 import android.support.v4.util.Pair;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import com.dasheck.materialminesweeper.R;
 import com.dasheck.model.utilities.Constants;
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -116,5 +127,49 @@ public class Utilities {
       default:
         return "";
     }
+  }
+
+  public static Bitmap base64StringToBitmap(String base64String) {
+    byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+    return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+  }
+
+  public static String bitmapToBase64String(Bitmap bitmap) {
+    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+    byte[] byteArray = stream.toByteArray();
+    return Base64.encodeToString(byteArray, 0);
+  }
+
+  public static Bitmap resizeBitmap(int width, int height, Bitmap originalImage) {
+    Bitmap background = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config.ARGB_8888);
+    float originalWidth = originalImage.getWidth(), originalHeight = originalImage.getHeight();
+    Canvas canvas = new Canvas(background);
+    float scale = width / originalWidth;
+    float xTranslation = 0.0f, yTranslation = (height - originalHeight * scale) / 2.0f;
+    Matrix transformation = new Matrix();
+    transformation.postTranslate(xTranslation, yTranslation);
+    transformation.preScale(scale, scale);
+    Paint paint = new Paint();
+    paint.setFilterBitmap(true);
+    canvas.drawBitmap(originalImage, transformation, paint);
+    return background;
+  }
+
+  public static void setBase64Image(ImageView image, String base64String) {
+    if (image != null && base64String != null) {
+      byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+      Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+      image.setImageBitmap(decodedByte);
+    }
+  }
+
+  public static void hideSoftKeyboard(Context context, EditText callingEditText) {
+    InputMethodManager manager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    manager.hideSoftInputFromWindow(callingEditText.getWindowToken(), 0);
+  }
+
+  public static String getUniqueDeviceID(Context context) {
+    return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
   }
 }

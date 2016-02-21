@@ -22,6 +22,11 @@ import com.dasheck.materialminesweeper.fragments.menu.MenuComponent;
 import com.dasheck.materialminesweeper.fragments.menu.MenuFragment;
 import com.dasheck.materialminesweeper.fragments.menu.MenuModule;
 import com.dasheck.materialminesweeper.fragments.menu.MenuPresenterImpl;
+import com.dasheck.materialminesweeper.fragments.profile.DaggerProfileComponent;
+import com.dasheck.materialminesweeper.fragments.profile.ProfileComponent;
+import com.dasheck.materialminesweeper.fragments.profile.ProfileFragment;
+import com.dasheck.materialminesweeper.fragments.profile.ProfileModule;
+import com.dasheck.materialminesweeper.fragments.profile.ProfilePresenterImpl;
 import com.dasheck.materialminesweeper.fragments.settings.DaggerSettingsComponent;
 import com.dasheck.materialminesweeper.fragments.settings.SettingsComponent;
 import com.dasheck.materialminesweeper.fragments.settings.SettingsFragment;
@@ -111,6 +116,21 @@ public class Navigator {
     HistoryComponent component = DaggerHistoryComponent.builder()
         .activityComponent(baseActivity.getActivityComponent())
         .historyModule(new HistoryModule(fragment, presenter))
+        .build();
+
+    component.inject(fragment);
+    component.inject(presenter);
+
+    transist(fragment);
+  }
+
+  public void showProfile() {
+    ProfileFragment fragment = new ProfileFragment();
+    ProfilePresenterImpl presenter = new ProfilePresenterImpl();
+
+    ProfileComponent component = DaggerProfileComponent.builder()
+        .activityComponent(baseActivity.getActivityComponent())
+        .profileModule(new ProfileModule(fragment, presenter))
         .build();
 
     component.inject(fragment);

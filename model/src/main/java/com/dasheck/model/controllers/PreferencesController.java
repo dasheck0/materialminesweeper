@@ -26,4 +26,8 @@ public interface PreferencesController {
   Observable<Void> writeFloat(String key, float value);
 
   Observable<Float> readFloat(String key);
+
+  <T> Observable<Void> writeObject(String key, T Object);
+
+  <T> Observable<T> readObject(String key, Class<T> type);
 }

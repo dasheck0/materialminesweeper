@@ -4,6 +4,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.Bind;
@@ -93,7 +94,7 @@ import timber.log.Timber;
 
   @Override public void setGameModes(List<GameMode> gameModes) {
     menuPagerAdapter =
-        new MenuPagerAdapter<GameMode>(getBaseActivity().getSupportFragmentManager(), getBaseActivity().getNavigator(),
+        new MenuPagerAdapter<GameMode>(getChildFragmentManager(), getBaseActivity().getNavigator(),
             gameModes);
 
     viewPager.getViewPager().setAdapter(menuPagerAdapter);
